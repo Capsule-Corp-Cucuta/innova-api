@@ -20,7 +20,8 @@ public class UserService {
 
     public boolean update(String id, User user) {
         return findById(id).map(item -> {
-            repository.save(user, getPassword(id));
+            // TODO update fields
+            repository.save(item, getPassword(id));
             return true;
         }).orElse(false);
     }

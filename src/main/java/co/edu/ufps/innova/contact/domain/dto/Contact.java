@@ -1,8 +1,8 @@
 package co.edu.ufps.innova.contact.domain.dto;
 
 import lombok.Data;
+import java.time.LocalDate;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.security.domain.dto.User;
 
@@ -12,7 +12,7 @@ public class Contact extends User implements Serializable {
 
     private ContactType type;
     private boolean requestAccompaniment;
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
     private String nit;
     private String companyName;

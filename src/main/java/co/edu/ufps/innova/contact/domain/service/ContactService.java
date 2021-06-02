@@ -2,7 +2,7 @@ package co.edu.ufps.innova.contact.domain.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
@@ -27,7 +27,7 @@ public class ContactService {
         } else {
             userPassword = pwService.generatePassword();
         }
-        contact.setRegistrationDate(LocalDateTime.now());
+        contact.setRegistrationDate(LocalDate.now());
         return repository.save(contact, userPassword);
     }
 

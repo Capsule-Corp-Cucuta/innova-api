@@ -20,8 +20,8 @@ public class Client extends Contact implements Serializable {
     private Gender gender;
     private EthnicGroup ethnicGroup;
     private EducationalLevel educationalLevel;
-    private Boolean isDisplaced;
-    private Boolean isHandicapped;
+    private boolean isDisplaced;
+    private boolean isHandicapped;
     private String positionInCompany;
     private LocalDate dateOfEntryToCompany;
 
@@ -29,20 +29,20 @@ public class Client extends Contact implements Serializable {
     private LegalConstitution companyLegalConstitution;
     private String otherLegalConstitution;
     private LocalDate companyConstitutionDate;
-    private Short companyNumberOfEmployees;
-    private Short companyNumberOfFullTimeEmployees;
-    private Short companyNumberOfPartTimeEmployees;
-    private Short companyNumberOfDirectEmployees;
-    private Short companyNumberOfIndirectEmployees;
+    private short companyNumberOfEmployees;
+    private short companyNumberOfFullTimeEmployees;
+    private short companyNumberOfPartTimeEmployees;
+    private short companyNumberOfDirectEmployees;
+    private short companyNumberOfIndirectEmployees;
     private CompanySector companySector;
     private String otherCompanySector;
-    private Boolean hasCommercialRegister;
+    private boolean hasCommercialRegister;
     private String commercialRegisterNumber;
     private LocalDate lastYearOfRenovation;
     private String principalCodeCiiu;
     private InternationalActivity internationalActivity;
     private String internationalActivityCountries;
-    private Boolean isEcommerce;
+    private boolean isEcommerce;
     private String servicesProductsOffered;
     private DiscoveryChannel discoveryChannel;
     private String observations;

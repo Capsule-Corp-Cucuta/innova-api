@@ -12,8 +12,8 @@ public class Advisory implements Serializable {
     private LocalDate date;
     private AdvisoryType type;
     private String subject;
-    private Byte durationInHours;
-    private Byte preparationTypeInHours;
+    private byte durationInHours;
+    private byte preparationTypeInHours;
     private AdvisoryArea area;
     private String notes;
     private AdvisoryState state;

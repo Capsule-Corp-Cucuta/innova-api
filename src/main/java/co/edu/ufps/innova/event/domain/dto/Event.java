@@ -14,7 +14,7 @@ public class Event implements Serializable {
     private LocalDate closeDate;
     private LocalDate registrationDeadline;
     private String eventTime;
-    private Byte eventDurationInHours;
+    private byte eventDurationInHours;
     private EventType type;
     private EventState state;
     private String department;

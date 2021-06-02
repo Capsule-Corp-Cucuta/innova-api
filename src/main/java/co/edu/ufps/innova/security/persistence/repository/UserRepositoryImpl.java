@@ -52,7 +52,7 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public boolean changeState(String id) {
         return repository.findById(id).map(userEntity -> {
-            userEntity.setActive(!userEntity.isActive());
+            userEntity.setActive(!userEntity.getActive());
             repository.save(userEntity);
             return true;
         }).orElse(false);

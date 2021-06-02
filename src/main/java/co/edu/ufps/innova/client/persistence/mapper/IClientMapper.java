@@ -11,6 +11,11 @@ import co.edu.ufps.innova.consultant.persistence.mapper.IConsultantMapper;
 @Mapper(componentModel = "spring", uses = {IUserMapper.class, IContactMapper.class, IConsultantMapper.class})
 public interface IClientMapper {
 
+    @Mappings({
+            @Mapping(source = "isDisplaced", target = "displaced"),
+            @Mapping(source = "isHandicapped", target = "handicapped"),
+            @Mapping(source = "isEcommerce", target = "ecommerce"),
+    })
     Client toClient(ClientEntity clientEntity);
 
     @Mappings({

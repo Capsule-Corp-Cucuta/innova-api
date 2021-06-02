@@ -2,7 +2,7 @@ package co.edu.ufps.innova.advisory.persistence.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
@@ -17,7 +17,7 @@ public class AdvisoryEntity {
     @Id
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(nullable = false)
     private AdvisoryType type;

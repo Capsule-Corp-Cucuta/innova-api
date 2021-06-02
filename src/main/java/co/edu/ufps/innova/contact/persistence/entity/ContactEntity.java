@@ -1,9 +1,10 @@
 package co.edu.ufps.innova.contact.persistence.entity;
 
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.security.persistence.entity.UserEntity;
@@ -25,10 +26,10 @@ public class ContactEntity extends UserEntity {
     private ContactType type;
 
     @Column(name = "request_accompaniment", nullable = false)
-    private boolean requestAccompaniment;
+    private Boolean requestAccompaniment;
 
     @Column(nullable = false)
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
     private String nit;
 

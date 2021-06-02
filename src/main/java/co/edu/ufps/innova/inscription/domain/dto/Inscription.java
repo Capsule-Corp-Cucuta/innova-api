@@ -10,6 +10,6 @@ public class Inscription implements Serializable {
     private String eventId;
     private String userId;
     private LocalDateTime inscriptionDate;
-    private Boolean attended;
+    private boolean attended;
 
 }
