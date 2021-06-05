@@ -1,0 +1,26 @@
+info:
+  component: innova-api
+
+server:
+  port: 8080
+  servlet:
+    context-path: /innova/api
+
+spring:
+  aplication:
+    name: innova-api
+  profiles:
+    active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000

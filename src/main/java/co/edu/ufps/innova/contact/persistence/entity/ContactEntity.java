@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
-import co.edu.ufps.innova.security.persistence.entity.UserEntity;
+import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 
 @Data

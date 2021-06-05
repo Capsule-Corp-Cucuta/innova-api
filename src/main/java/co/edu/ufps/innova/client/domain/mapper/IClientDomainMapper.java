@@ -3,7 +3,7 @@ package co.edu.ufps.innova.client.domain.mapper;
 import org.mapstruct.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.security.persistence.mapper.IUserMapper;
+import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
 import co.edu.ufps.innova.consultant.persistence.mapper.IConsultantMapper;
 

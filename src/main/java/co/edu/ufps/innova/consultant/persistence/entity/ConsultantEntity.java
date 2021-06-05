@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
-import co.edu.ufps.innova.security.persistence.entity.UserEntity;
+import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 
 @Data

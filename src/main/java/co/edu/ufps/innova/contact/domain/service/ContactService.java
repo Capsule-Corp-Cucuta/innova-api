@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
-import co.edu.ufps.innova.security.domain.service.UserService;
-import co.edu.ufps.innova.security.domain.service.PasswordService;
+import co.edu.ufps.innova.user.domain.service.UserService;
+import co.edu.ufps.innova.authentication.domain.service.PasswordService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 
 @Service

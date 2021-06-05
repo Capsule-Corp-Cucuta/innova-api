@@ -1,0 +1,14 @@
+spring:
+  mail:
+    username: sergioandresrr@ufps.edu.co
+    password: ibpuzipuuzkcjzgk
+  datasource:
+    url: jdbc:mysql://localhost:3306/innova?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: secret
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create-drop

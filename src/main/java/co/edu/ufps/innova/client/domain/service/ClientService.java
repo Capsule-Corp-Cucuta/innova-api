@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
-import co.edu.ufps.innova.security.domain.service.UserService;
+import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.contact.domain.service.ContactService;
 import co.edu.ufps.innova.client.domain.mapper.IClientDomainMapper;
 import co.edu.ufps.innova.client.domain.repository.IClientRepository;

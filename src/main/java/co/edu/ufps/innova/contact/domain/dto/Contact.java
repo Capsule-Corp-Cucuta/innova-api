@@ -4,7 +4,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
-import co.edu.ufps.innova.security.domain.dto.User;
+import co.edu.ufps.innova.user.domain.dto.User;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

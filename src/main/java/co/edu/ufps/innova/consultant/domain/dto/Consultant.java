@@ -3,7 +3,7 @@ package co.edu.ufps.innova.consultant.domain.dto;
 import lombok.Data;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
-import co.edu.ufps.innova.security.domain.dto.User;
+import co.edu.ufps.innova.user.domain.dto.User;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

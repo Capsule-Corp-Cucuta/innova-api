@@ -1,0 +1,41 @@
+package co.edu.ufps.innova.authentication.web.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import co.edu.ufps.innova.authentication.web.security.JWTUtil;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import co.edu.ufps.innova.authentication.domain.dto.AuthenticationRequest;
+import co.edu.ufps.innova.authentication.domain.dto.AuthenticationResponse;
+import org.springframework.security.authentication.AuthenticationManager;
+import co.edu.ufps.innova.authentication.domain.service.InnovaUserDetailsService;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class AuthController {
+
+    private final JWTUtil jwtUtil;
+    private final InnovaUserDetailsService service;
+    private final AuthenticationManager authenticationManager;
+
+    @PostMapping
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            return new ResponseEntity<>(
+                    new AuthenticationResponse(
+                            jwtUtil.generateToken(service.loadUserByUsername(request.getUsername()))
+                    ), HttpStatus.OK
+            );
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+}
