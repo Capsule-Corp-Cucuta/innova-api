@@ -1,15 +1,15 @@
 server:
-  port:
+  port: ${PORT}
 
 spring:
   mail:
-    username:
-    password:
+    username: ${SPRING_MAIL_SENDER_USERNAME}
+    password: ${SPRING_MAIL_SENDER_PASSWORD}
   datasource:
-    url:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     show-sql: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

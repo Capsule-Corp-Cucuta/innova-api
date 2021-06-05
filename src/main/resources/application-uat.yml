@@ -3,13 +3,13 @@ server:
 
 spring:
   mail:
-    username: sergioandresrr@ufps.edu.co
-    password: ibpuzipuuzkcjzgk
+    username: ${SPRING_MAIL_SENDER_USERNAME}
+    password: ${SPRING_MAIL_SENDER_PASSWORD}
   datasource:
-    url: jdbc:mysql://www.madarme.co/madarme_innova
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: madarme_innova
-    password: cR4coa3uRr
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

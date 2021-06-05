@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.domain.service.UserService;
-import co.edu.ufps.innova.authentication.domain.service.PasswordService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
+import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ContactService {
 
     private final UserService userService;
-    private final PasswordService pwService;
     private final IContactRepository repository;
+    private final IPasswordRepository passwordRepository;
 
     public Contact save(Contact contact) {
         String userPassword;
@@ -25,7 +25,7 @@ public class ContactService {
             userPassword = userService.getPassword(contact.getId());
             userService.delete(contact.getId());
         } else {
-            userPassword = pwService.generatePassword();
+            userPassword = passwordRepository.encryptPassword(passwordRepository.generatePassword());
         }
         contact.setRegistrationDate(LocalDate.now());
         return repository.save(contact, userPassword);

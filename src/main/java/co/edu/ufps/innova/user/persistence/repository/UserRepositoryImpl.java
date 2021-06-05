@@ -45,6 +45,15 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
+    public boolean changeState(String id) {
+        return repository.findById(id).map(userEntity -> {
+            userEntity.setActive(!userEntity.getActive());
+            repository.save(userEntity);
+            return true;
+        }).orElse(false);
+    }
+
+    @Override
     public String getUserType(String id) {
         return repository.findById(id).map(UserEntity::getUserType).orElse(null);
     }
@@ -52,15 +61,6 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public String getPassword(String id) {
         return repository.findById(id).map(UserEntity::getPassword).orElse(null);
-    }
-
-    @Override
-    public boolean changeState(String id) {
-        return repository.findById(id).map(userEntity -> {
-            userEntity.setActive(!userEntity.getActive());
-            repository.save(userEntity);
-            return true;
-        }).orElse(false);
     }
 
 }

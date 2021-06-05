@@ -45,7 +45,7 @@ public class ClientController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/consultant/{consultantId}")
+    @GetMapping("/by-consultant/{consultantId}")
     public ResponseEntity<List<Client>> findByConsultant(@PathVariable String consultantId) {
         return service.findByConsultant(consultantId)
                 .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))

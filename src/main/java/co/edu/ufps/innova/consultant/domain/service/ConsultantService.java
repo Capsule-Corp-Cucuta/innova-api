@@ -4,18 +4,18 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 import co.edu.ufps.innova.user.domain.service.UserService;
-import co.edu.ufps.innova.authentication.domain.service.PasswordService;
+import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 import co.edu.ufps.innova.consultant.domain.repository.IConsultantRepository;
+import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ConsultantService {
 
     private final UserService userService;
-    private final PasswordService pwService;
     private final IConsultantRepository repository;
+    private final IPasswordRepository passwordRepository;
 
     public Consultant save(Consultant consultant) {
         String userPassword;
@@ -23,7 +23,7 @@ public class ConsultantService {
             userPassword = userService.getPassword(consultant.getId());
             userService.delete(consultant.getId());
         } else {
-            userPassword = pwService.generatePassword();
+            userPassword = passwordRepository.encryptPassword(passwordRepository.generatePassword());
         }
         return repository.save(consultant, userPassword);
     }
