@@ -52,6 +52,18 @@ public class UserController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/email/{email}")
+    @ApiOperation("Get an User by email")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public ResponseEntity<User> findByEmail(@PathVariable String email) {
+        return service.findByEmail(email)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @DeleteMapping("/{id}")
     @ApiOperation("Delete an exiting User")
     @ApiResponses({
