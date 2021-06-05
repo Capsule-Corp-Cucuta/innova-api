@@ -3,6 +3,7 @@ package co.edu.ufps.innova.authentication.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import co.edu.ufps.innova.authentication.web.security.JWTUtil;
@@ -27,11 +28,10 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-            return new ResponseEntity<>(
-                    new AuthenticationResponse(
-                            jwtUtil.generateToken(service.loadUserByUsername(request.getUsername()))
-                    ), HttpStatus.OK
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            UserDetails userDetails = service.loadUserByUsername(request.getEmail());
+            return new ResponseEntity<>(new AuthenticationResponse(
+                    jwtUtil.generateToken(userDetails), userDetails.getAuthorities()), HttpStatus.OK
             );
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
