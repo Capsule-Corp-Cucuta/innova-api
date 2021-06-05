@@ -1,9 +1,12 @@
+server:
+  port:
+
 spring:
   mail:
     username:
     password:
   datasource:
-    url: jdbc:mysql://
+    url:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username:
     password:

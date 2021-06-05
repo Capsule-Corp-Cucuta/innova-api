@@ -2,7 +2,6 @@ info:
   component: innova-api
 
 server:
-  port: 8080
   servlet:
     context-path: /innova/api
 
