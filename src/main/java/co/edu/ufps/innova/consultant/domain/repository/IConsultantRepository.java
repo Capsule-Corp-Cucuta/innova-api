@@ -14,6 +14,8 @@ public interface IConsultantRepository {
 
     List<Consultant> findAll();
 
+    Optional<List<Consultant>> findByActive();
+
     void delete(Consultant consultant);
 
 }

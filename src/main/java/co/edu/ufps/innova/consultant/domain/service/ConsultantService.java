@@ -49,6 +49,10 @@ public class ConsultantService {
         return repository.findAll();
     }
 
+    public Optional<List<Consultant>> findByActive() {
+        return repository.findByActive();
+    }
+
     public boolean delete(String id) {
         return findById(id).map(consultant -> {
             repository.delete(consultant);

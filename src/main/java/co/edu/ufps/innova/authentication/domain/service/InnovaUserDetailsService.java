@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.user.domain.dto.UserType;
-import co.edu.ufps.innova.user.domain.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import co.edu.ufps.innova.user.domain.repository.IUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,14 +18,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @RequiredArgsConstructor
 public class InnovaUserDetailsService implements UserDetailsService {
 
-    private final UserService service;
+    private final IUserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<co.edu.ufps.innova.user.domain.dto.User> user = service.findByEmail(username);
+        Optional<co.edu.ufps.innova.user.domain.dto.User> user = repository.findByEmail(username);
         if (user.isPresent()) {
             List<GrantedAuthority> authorities = new ArrayList<>();
-            switch (service.getUserType(user.get().getId())) {
+            switch (repository.getUserType(user.get().getId())) {
                 case "CONSULTANT":
                     authorities.add(new SimpleGrantedAuthority(UserType.CONSULTANT.name()));
                     break;
@@ -42,7 +42,7 @@ public class InnovaUserDetailsService implements UserDetailsService {
             }
             return new User(
                     user.get().getEmail(),
-                    service.getPassword(user.get().getId()),
+                    repository.getPassword(user.get().getId()),
                     user.get().isActive(),
                     user.get().isActive(),
                     user.get().isActive(),

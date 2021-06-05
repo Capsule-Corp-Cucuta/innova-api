@@ -12,6 +12,6 @@ public interface IContactCrudRepository extends CrudRepository<ContactEntity, St
 
     Optional<List<ContactEntity>> findByUserType(String userType);
 
-    Optional<List<ContactEntity>> findByRequestAccompaniment(boolean requestAccompaniment);
+    Optional<List<ContactEntity>> findByRequestAccompanimentAndUserType(boolean requestAccompaniment, String userType);
 
 }

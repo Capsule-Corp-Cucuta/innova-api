@@ -25,11 +25,6 @@ public class ConsultantController {
         return service.update(id, consultant) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Consultant>> findAll() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Consultant> findById(@PathVariable String id) {
         return service.findById(id)
@@ -41,6 +36,18 @@ public class ConsultantController {
     public ResponseEntity<Consultant> findByCode(@PathVariable String code) {
         return service.findByCode(code)
                 .map(consultant -> new ResponseEntity<>(consultant, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Consultant>> findAll() {
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<Consultant>> findByActive() {
+        return service.findByActive()
+                .map(consultants -> new ResponseEntity<>(consultants, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

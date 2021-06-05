@@ -79,8 +79,8 @@ public class UserService {
         }).orElse(false);
     }
 
-    public boolean recoverPassword(String id) {
-        return findById(id).map(user -> {
+    public boolean recoverPassword(String userEmail) {
+        return findByEmail(userEmail).map(user -> {
             String newPassword = pwRepository.generatePassword();
             User myUser = repository.save(user, pwRepository.encryptPassword(newPassword));
 

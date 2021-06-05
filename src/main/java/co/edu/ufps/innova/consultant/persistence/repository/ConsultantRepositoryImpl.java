@@ -40,6 +40,11 @@ public class ConsultantRepositoryImpl implements IConsultantRepository {
     }
 
     @Override
+    public Optional<List<Consultant>> findByActive() {
+        return repository.findByActive(true).map(mapper::toConsultantList);
+    }
+
+    @Override
     public void delete(Consultant consultant) {
         repository.delete(mapper.toConsultantEntity(consultant));
     }

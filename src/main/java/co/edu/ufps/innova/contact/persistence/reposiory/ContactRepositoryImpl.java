@@ -14,6 +14,7 @@ import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 @RequiredArgsConstructor
 public class ContactRepositoryImpl implements IContactRepository {
 
+    private final String USER_TYPE = "CONTACT";
     private final IContactMapper mapper;
     private final IContactCrudRepository repository;
 
@@ -37,14 +38,13 @@ public class ContactRepositoryImpl implements IContactRepository {
     }
 
     @Override
-    public Optional<List<Contact>> findByRequestAccompaniment(boolean requestAccompaniment) {
-        return repository.findByRequestAccompaniment(requestAccompaniment).map(mapper::toContactList);
+    public Optional<List<Contact>> findByRequestAccompaniment() {
+        return repository.findByRequestAccompanimentAndUserType(true, USER_TYPE).map(mapper::toContactList);
     }
 
     @Override
     public Optional<List<Contact>> findAll() {
-        return repository.findByUserType("CONTACT").map(mapper::toContactList);
-        //return mapper.toContactList((List<ContactEntity>) repository.findAll());
+        return repository.findByUserType(USER_TYPE).map(mapper::toContactList);
     }
 
     @Override

@@ -84,13 +84,13 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/{id}/recover-password")
+    @PutMapping("/{email}/recover-password")
     @ApiOperation("Change the password of the an existing User and send to him an email with the new password")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "User not found")
     })
-    public ResponseEntity<HttpStatus> recoverPassword(@PathVariable("id") String id) {
+    public ResponseEntity<HttpStatus> recoverPassword(@PathVariable("email") String id) {
         return service.recoverPassword(id)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

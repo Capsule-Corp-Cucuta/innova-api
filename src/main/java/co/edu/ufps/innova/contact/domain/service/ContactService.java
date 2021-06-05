@@ -39,6 +39,14 @@ public class ContactService {
         }).orElse(false);
     }
 
+    public boolean requestAccompaniment(String id) {
+        return findById(id).map(item -> {
+            item.setRequestAccompaniment(true);
+            repository.save(item, userService.getPassword(id));
+            return true;
+        }).orElse(false);
+    }
+
     public Optional<Contact> findById(String id) {
         return repository.findById(id);
     }
@@ -47,8 +55,8 @@ public class ContactService {
         return repository.findByType(type);
     }
 
-    public Optional<List<Contact>> findByRequestAccompaniment(boolean requestAccompaniment) {
-        return repository.findByRequestAccompaniment(requestAccompaniment);
+    public Optional<List<Contact>> findByRequestAccompaniment() {
+        return repository.findByRequestAccompaniment();
     }
 
     public Optional<List<Contact>> findAll() {

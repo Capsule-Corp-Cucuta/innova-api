@@ -13,7 +13,7 @@ public interface IContactRepository {
 
     Optional<List<Contact>> findByType(ContactType type);
 
-    Optional<List<Contact>> findByRequestAccompaniment(boolean requestAccompaniment);
+    Optional<List<Contact>> findByRequestAccompaniment();
 
     public Optional<List<Contact>> findAll();
 
