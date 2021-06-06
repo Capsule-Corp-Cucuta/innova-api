@@ -3,12 +3,12 @@ package co.edu.ufps.innova.authentication.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import co.edu.ufps.innova.authentication.web.security.JWTUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import co.edu.ufps.innova.authentication.web.security.JWTUtil;
+import org.springframework.security.core.userdetails.UserDetails;
 import co.edu.ufps.innova.authentication.domain.dto.AuthenticationRequest;
 import co.edu.ufps.innova.authentication.domain.dto.AuthenticationResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +34,7 @@ public class AuthController {
                     jwtUtil.generateToken(userDetails), userDetails.getAuthorities()), HttpStatus.OK
             );
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 

@@ -33,7 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             // other public endpoints
-            "/**/auth"
+            "/**/auth",
+            "/**/contact",
+            "/**/user/**/recover-password"
     };
 
     @Bean
