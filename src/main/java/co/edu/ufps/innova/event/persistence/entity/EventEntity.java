@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.event.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import java.util.List;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,10 +10,12 @@ import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "events")
 public class EventEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -25,7 +27,13 @@ public class EventEntity {
     @Column(nullable = false)
     private String description;
 
-    @Column(name = "start_date")
+    @Column(nullable = false)
+    private EventType type;
+
+    @Column(nullable = false)
+    private EventState state;
+
+    @Column(nullable = false, name = "start_date")
     private LocalDate startDate;
 
     @Column(name = "close_date")
@@ -40,26 +48,31 @@ public class EventEntity {
     @Column(name = "event_duration_in_hours")
     private Byte eventDurationInHours;
 
-    @Column(nullable = false)
-    private EventType type;
-
-    @Column(nullable = false)
-    private EventState state;
-
     private String department;
 
     private String city;
 
-    @Column(nullable = false)
     private String place;
 
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String link;
 
     @OneToMany(mappedBy = "event")
     private List<InscriptionEntity> inscriptions;
+
+    public EventEntity(String title, String theme, String description, EventType type, EventState state,
+                       LocalDate startDate, LocalDate registrationDeadline, String eventTime, String email) {
+        this.title = title;
+        this.theme = theme;
+        this.description = description;
+        this.type = type;
+        this.state = state;
+        this.startDate = startDate;
+        this.registrationDeadline = registrationDeadline;
+        this.eventTime = eventTime;
+        this.email = email;
+    }
 
 }

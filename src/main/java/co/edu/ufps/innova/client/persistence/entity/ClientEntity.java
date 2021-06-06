@@ -1,18 +1,20 @@
 package co.edu.ufps.innova.client.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import java.util.List;
 import javax.persistence.*;
 import java.time.LocalDate;
-import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.client.domain.dto.*;
+import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "clients")
+@ToString(callSuper = true)
 @DiscriminatorValue("CLIENT")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
@@ -124,6 +126,11 @@ public class ClientEntity extends ContactEntity {
 
     @OneToMany(mappedBy = "client")
     private List<AdvisoryEntity> advisories;
+
+    public ClientEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
+        super(id, name, lastname, email, type, requestAccompaniment);
+        this.consultantId = consultantId;
+    }
 
 }
 

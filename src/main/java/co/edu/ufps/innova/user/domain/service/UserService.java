@@ -34,16 +34,7 @@ public class UserService {
     }
 
     public boolean update(String id, User user) {
-        // TODO Fix
-        return findById(id).map(item -> {
-            item.setName(user.getName());
-            item.setLastname(user.getLastname());
-            item.setEmail(user.getEmail());
-            item.setCellphone(user.getCellphone());
-            item.setAddress(user.getAddress());
-            repository.save(item, getPassword(id));
-            return true;
-        }).orElse(false);
+        return repository.update(id, user);
     }
 
     public Optional<User> findById(String id) {
@@ -65,43 +56,34 @@ public class UserService {
         }).orElse(false);
     }
 
+    public String getPassword(String id) {
+        return repository.getPassword(id);
+    }
+
     public boolean changeState(String id) {
         return repository.changeState(id);
     }
 
     public boolean changePassword(String id, String oldPassword, String newPassword) {
-        return findById(id).map(user -> {
-            if (pwRepository.validatePassword(oldPassword, getPassword(id))) {
-                repository.save(user, pwRepository.encryptPassword(newPassword));
-                return true;
-            }
-            return false;
-        }).orElse(false);
+        return pwRepository.validatePassword(oldPassword, getPassword(id)) &&
+                repository.changePassword(id, pwRepository.encryptPassword(newPassword));
     }
 
     public boolean recoverPassword(String userEmail) {
         return findByEmail(userEmail).map(user -> {
             String newPassword = pwRepository.generatePassword();
-            User myUser = repository.save(user, pwRepository.encryptPassword(newPassword));
-
-            Email email = new Email();
-            email.setTo(myUser.getEmail());
-            email.setSubject("Innova - Cambio de contraseña");
-            email.setContent("Con esta nueva contraseña podrá ingresar a la plataforma: \n " +
-                    "\t " + newPassword +
-                    "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-            IEmailRepository.sendEmail(email);
-
-            return true;
+            boolean updated = repository.changePassword(user.getId(), pwRepository.encryptPassword(newPassword));
+            if (updated) {
+                Email email = new Email();
+                email.setTo(user.getEmail());
+                email.setSubject("Innova - Cambio de contraseña");
+                email.setContent("Con esta nueva contraseña podrá ingresar a la plataforma: \n " +
+                        "\t " + newPassword +
+                        "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
+                IEmailRepository.sendEmail(email);
+            }
+            return updated;
         }).orElse(false);
-    }
-
-    public String getUserType(String id) {
-        return repository.getUserType(id);
-    }
-
-    public String getPassword(String id) {
-        return repository.getPassword(id);
     }
 
 }

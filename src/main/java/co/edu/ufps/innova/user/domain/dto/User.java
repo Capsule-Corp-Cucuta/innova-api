@@ -2,8 +2,10 @@ package co.edu.ufps.innova.user.domain.dto;
 
 import lombok.Data;
 import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class User implements Serializable {
 
     private String id;
@@ -13,5 +15,13 @@ public class User implements Serializable {
     private String cellphone;
     private String address;
     private boolean active;
+
+    public User(String id, String name, String lastname, String email) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.active = true;
+    }
 
 }

@@ -1,18 +1,18 @@
 package co.edu.ufps.innova.contact.persistence.entity;
 
-import lombok.Data;
-
-import java.time.LocalDate;
+import lombok.*;
 import java.util.List;
+import java.time.LocalDate;
 import javax.persistence.*;
-import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "contacts")
+@ToString(callSuper = true)
 @DiscriminatorValue("CONTACT")
 @EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -59,5 +59,12 @@ public class ContactEntity extends UserEntity {
 
     @OneToMany(mappedBy = "contact")
     private List<InscriptionEntity> inscriptions;
+
+    public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {
+        super(id, name, lastname, email);
+        this.type = type;
+        this.requestAccompaniment = requestAccompaniment;
+        this.registrationDate = LocalDate.now();
+    }
 
 }

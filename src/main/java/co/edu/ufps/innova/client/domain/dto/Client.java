@@ -1,16 +1,16 @@
 package co.edu.ufps.innova.client.domain.dto;
 
-import lombok.Data;
+import lombok.*;
 import java.time.LocalDate;
 import java.io.Serializable;
-import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
+import co.edu.ufps.innova.contact.domain.dto.ContactType;
 
 @Data
+@NoArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Client extends Contact implements Serializable {
-
-    private String consultantId;
 
     private String contactDepartment;
     private String contactCity;
@@ -24,7 +24,6 @@ public class Client extends Contact implements Serializable {
     private boolean isHandicapped;
     private String positionInCompany;
     private LocalDate dateOfEntryToCompany;
-
     private String companyLegalRepresentative;
     private LegalConstitution companyLegalConstitution;
     private String otherLegalConstitution;
@@ -46,5 +45,11 @@ public class Client extends Contact implements Serializable {
     private String servicesProductsOffered;
     private DiscoveryChannel discoveryChannel;
     private String observations;
+    private String consultantId;
+
+    public Client(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
+        super(id, name, lastname, email, type, requestAccompaniment);
+        this.consultantId = consultantId;
+    }
 
 }

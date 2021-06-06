@@ -8,6 +8,8 @@ public interface IUserRepository {
 
     User save(User user, String password);
 
+    boolean update(String id, User user);
+
     Optional<User> findById(String id);
 
     Optional<User> findByEmail(String email);
@@ -16,10 +18,12 @@ public interface IUserRepository {
 
     void delete(User user);
 
-    boolean changeState(String id);
-
     String getUserType(String id);
 
     String getPassword(String id);
+
+    boolean changeState(String id);
+
+    boolean changePassword(String id, String password);
 
 }

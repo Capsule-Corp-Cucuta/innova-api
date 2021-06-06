@@ -1,11 +1,12 @@
 package co.edu.ufps.innova.user.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "users")
 @DiscriminatorValue("ADMIN")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,7 +24,7 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String cellphone;
 
     private String address;
@@ -34,6 +35,14 @@ public class UserEntity {
 
     @Column(name = "is_active", nullable = false)
     private Boolean active;
+
+    public UserEntity(String id, String name, String lastname, String email) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.active = true;
+    }
 
     @Transient
     public String getUserType() {

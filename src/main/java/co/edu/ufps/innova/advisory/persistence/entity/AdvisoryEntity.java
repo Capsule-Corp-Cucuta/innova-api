@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
@@ -11,18 +11,28 @@ import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "advisories")
 public class AdvisoryEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate date;
+    @Column(nullable = false)
+    private String subject;
 
     @Column(nullable = false)
     private AdvisoryType type;
 
-    private String subject;
+    @Column(nullable = false)
+    private AdvisoryArea area;
+
+    @Column(nullable = false)
+    private AdvisoryState state;
+
+    @Column(nullable = false)
+    private LocalDate date;
 
     @Column(name = "duration_in_hours")
     private Byte durationInHours;
@@ -30,14 +40,8 @@ public class AdvisoryEntity {
     @Column(name = "preparation_type_in_hours")
     private Byte preparationTypeInHours;
 
-    @Column(nullable = false)
-    private AdvisoryArea area;
-
     @Lob
     private String notes;
-
-    @Column(nullable = false)
-    private AdvisoryState state;
 
     @Column(name = "consultant_id", nullable = false)
     private String consultantId;
@@ -52,5 +56,15 @@ public class AdvisoryEntity {
     @ManyToOne
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private ClientEntity client;
+
+    public AdvisoryEntity(String clientId, String consultantId, String subject, AdvisoryType type, AdvisoryArea area, AdvisoryState state) {
+        this.clientId = clientId;
+        this.consultantId = consultantId;
+        this.subject = subject;
+        this.type = type;
+        this.area = area;
+        this.state = state;
+        this.date = LocalDate.now();
+    }
 
 }
