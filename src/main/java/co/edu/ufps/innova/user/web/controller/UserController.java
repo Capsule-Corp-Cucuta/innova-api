@@ -1,6 +1,8 @@
 package co.edu.ufps.innova.user.web.controller;
 
 import java.util.List;
+
+import co.edu.ufps.innova.user.domain.dto.PasswordChange;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -90,8 +92,8 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "User not found")
     })
-    public ResponseEntity<HttpStatus> changePassword(@PathVariable("id") String id, String oldPassword, String newPassword) {
-        return service.changePassword(id, oldPassword, newPassword)
+    public ResponseEntity<HttpStatus> changePassword(@PathVariable("id") String id, @RequestBody PasswordChange passwordChange) {
+        return service.changePassword(id, passwordChange.getOldPassword(), passwordChange.getNewPassword())
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
