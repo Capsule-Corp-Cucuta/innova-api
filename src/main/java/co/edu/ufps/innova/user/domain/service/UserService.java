@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.user.domain.dto.User;
 import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.MailSendException;
+import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.user.domain.repository.IUserRepository;
-import co.edu.ufps.innova.email.domain.repository.IEmailRepository;
 import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
 @Service
@@ -16,8 +16,8 @@ import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 public class UserService {
 
     private final IUserRepository repository;
+    private final IEmailService emailService;
     private final IPasswordRepository pwRepository;
-    private final IEmailRepository IEmailRepository;
 
     public User save(User user) {
         String newPassword = pwRepository.generatePassword();
@@ -27,10 +27,9 @@ public class UserService {
             Email email = new Email();
             email.setTo(myUser.getEmail());
             email.setSubject("Innova - Registro exitoso");
-            email.setContent("Con esta contraseña podrá ingresar a la plataforma: \n " +
-                    "\t " + newPassword +
-                    "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-            IEmailRepository.sendEmail(email);
+            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
+                    "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", newPassword));
+            emailService.sendEmail(email);
         } catch (MailSendException e) {
             e.printStackTrace();
         }
@@ -83,10 +82,10 @@ public class UserService {
                     Email email = new Email();
                     email.setTo(user.getEmail());
                     email.setSubject("Innova - Cambio de contraseña");
-                    email.setContent("Con esta nueva contraseña podrá ingresar a la plataforma: \n " +
-                            "\t " + newPassword +
-                            "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-                    IEmailRepository.sendEmail(email);
+                    email.setContent(String.format("Con esta nueva contraseña podrá ingresar a la plataforma: %s " +
+                                    "recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.",
+                            newPassword));
+                    emailService.sendEmail(email);
                 } catch (MailSendException e) {
                     e.printStackTrace();
                 }

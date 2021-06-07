@@ -1,30 +1,87 @@
 package co.edu.ufps.innova.advisory.domain.service;
 
 import java.util.List;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.Optional;
+import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.FormatStyle;
 import lombok.RequiredArgsConstructor;
+import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
+import co.edu.ufps.innova.user.domain.dto.User;
+import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
+import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
+import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 
 @Service
 @RequiredArgsConstructor
 public class AdvisoryService {
 
+    private final UserService userService;
+    private final IEmailService emailService;
     private final IAdvisoryRepository repository;
 
     public Advisory save(Advisory advisory) {
-        return repository.save(advisory);
+        Advisory myAdvisory = repository.save(advisory);
+
+        try {
+            User client = userService.findById(myAdvisory.getClientId()).get();
+            User consultant = userService.findById(myAdvisory.getConsultantId()).get();
+            String advisoryDate = ZonedDateTime.of(myAdvisory.getDate(), LocalTime.NOON, ZoneId.of("America/Bogota"))
+                    .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                            .withLocale(new Locale("es", "CO")));
+            Email email = new Email();
+            email.setTo(client.getEmail());
+            email.setSubject("Innova - Asesoría agendada");
+            email.setContent(String.format("Hola %s, fuiste agendado(a) para una asesoría con %s %s para el día %s. " +
+                            "Revisala desde la aplicación y en caso de cualquier inquietud puedes contactarte con tu " +
+                            "asesor en el siguiente correo:  %s.",
+                    client.getName(),
+                    consultant.getName(),
+                    consultant.getLastname(),
+                    advisoryDate,
+                    consultant.getEmail()));
+            emailService.sendEmail(email);
+        } catch (MailSendException e) {
+            e.printStackTrace();
+        }
+
+        return myAdvisory;
     }
 
     public boolean update(long id, Advisory advisory) {
         return findById(id).map(item -> {
             advisory.setId(item.getId());
             repository.save(advisory);
+            try {
+                User client = userService.findById(advisory.getClientId()).get();
+                User consultant = userService.findById(advisory.getConsultantId()).get();
+                String advisoryDate = ZonedDateTime.of(advisory.getDate(), LocalTime.NOON, ZoneId.of("America/Bogota"))
+                        .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                                .withLocale(new Locale("es", "CO")));
+
+
+                Email email = new Email();
+                email.setTo(client.getEmail());
+                email.setSubject("Innova - Asesoría modificada");
+                email.setContent(String.format("La asesoría en la que estás agendado(a) para el día %s fue modificada, " +
+                                "puedes validarla en la aplicación y en caso de cualquier inquietud puedes contactarte " +
+                                "con tu asesor en el siguiente correo: %s.",
+                        advisoryDate,
+                        consultant.getEmail()));
+                emailService.sendEmail(email);
+            } catch (MailSendException e) {
+                e.printStackTrace();
+            }
             return true;
         }).orElse(false);
     }

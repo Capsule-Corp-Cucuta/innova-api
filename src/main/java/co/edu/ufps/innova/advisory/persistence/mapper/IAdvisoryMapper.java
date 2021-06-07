@@ -19,7 +19,6 @@ public interface IAdvisoryMapper {
     Advisory toAdvisory(AdvisoryEntity advisoryEntity);
 
     @Mappings({
-            @Mapping(target = "id", ignore = true),
             @Mapping(target = "consultant", ignore = true),
             @Mapping(target = "client", ignore = true),
     })

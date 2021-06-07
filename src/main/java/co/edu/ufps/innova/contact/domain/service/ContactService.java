@@ -6,10 +6,11 @@ import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.domain.service.UserService;
-import co.edu.ufps.innova.email.domain.repository.IEmailRepository;
+import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
@@ -18,8 +19,8 @@ import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 public class ContactService {
 
     private final UserService userService;
+    private final IEmailService emailService;
     private final IContactRepository repository;
-    private final IEmailRepository IEmailRepository;
     private final IPasswordRepository passwordRepository;
 
     public Contact save(Contact contact) {
@@ -28,13 +29,16 @@ public class ContactService {
         String userPassword = passwordRepository.generatePassword();
         Contact myContact = repository.save(contact, passwordRepository.encryptPassword(userPassword));
 
-        Email email = new Email();
-        email.setTo(myContact.getEmail());
-        email.setSubject("Innova - Registro exitoso");
-        email.setContent("Con esta contraseña podrá ingresar a la plataforma: \n " +
-                "\t " + userPassword +
-                "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-        IEmailRepository.sendEmail(email);
+        try {
+            Email email = new Email();
+            email.setTo(myContact.getEmail());
+            email.setSubject("Innova - Registro exitoso");
+            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos "+
+                    "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
+            emailService.sendEmail(email);
+        } catch (MailSendException e) {
+            e.printStackTrace();
+        }
 
         return myContact;
     }

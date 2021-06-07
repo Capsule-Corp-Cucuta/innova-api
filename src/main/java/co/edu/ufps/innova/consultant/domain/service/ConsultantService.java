@@ -5,9 +5,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
-import co.edu.ufps.innova.email.domain.repository.IEmailRepository;
+import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.consultant.domain.repository.IConsultantRepository;
 import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
@@ -16,8 +17,8 @@ import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 public class ConsultantService {
 
     private final UserService userService;
+    private final IEmailService emailService;
     private final IConsultantRepository repository;
-    private final IEmailRepository IEmailRepository;
     private final IPasswordRepository passwordRepository;
 
     public Consultant save(Consultant consultant) {
@@ -25,13 +26,16 @@ public class ConsultantService {
         String userPassword = passwordRepository.generatePassword();
         Consultant myConsultant = repository.save(consultant, passwordRepository.encryptPassword(userPassword));
 
-        Email email = new Email();
-        email.setTo(myConsultant.getEmail());
-        email.setSubject("Innova - Registro exitoso");
-        email.setContent("Con esta contraseña podrá ingresar a la plataforma: \n " +
-                "\t " + userPassword +
-                "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-        IEmailRepository.sendEmail(email);
+        try {
+            Email email = new Email();
+            email.setTo(myConsultant.getEmail());
+            email.setSubject("Innova - Registro exitoso");
+            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos "+
+                    "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
+            emailService.sendEmail(email);
+        } catch (MailSendException e) {
+            e.printStackTrace();
+        }
 
         return myConsultant;
     }

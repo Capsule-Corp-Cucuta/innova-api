@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import co.edu.ufps.innova.email.domain.repository.IEmailRepository;
 
 @Service
 @RequiredArgsConstructor
-public class EmailService implements IEmailRepository {
+public class EmailService implements IEmailService {
 
     private final JavaMailSender sender;
 

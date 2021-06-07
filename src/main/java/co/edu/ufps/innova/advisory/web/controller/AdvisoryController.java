@@ -2,7 +2,6 @@ package co.edu.ufps.innova.advisory.web.controller;
 
 import java.util.List;
 import java.time.LocalDate;
-
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
