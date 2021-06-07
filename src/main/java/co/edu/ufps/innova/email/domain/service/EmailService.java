@@ -14,6 +14,9 @@ public class EmailService implements IEmailService {
 
     private final JavaMailSender sender;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean sendEmail(Email emailBody) {
         return sendEmailTool(emailBody.getContent(), emailBody.getTo(), emailBody.getSubject());

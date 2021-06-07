@@ -42,7 +42,7 @@ public class AdvisoryService {
             email.setTo(client.getEmail());
             email.setSubject("Innova - Asesoría agendada");
             email.setContent(String.format("Hola %s, fuiste agendado(a) para una asesoría con %s %s para el día %s. " +
-                            "Revisala desde la aplicación y en caso de cualquier inquietud puedes contactarte con tu " +
+                            "Revisala desde la aplicación; en caso de cualquier inquietud puedes contactarte con tu " +
                             "asesor en el siguiente correo:  %s.",
                     client.getName(),
                     consultant.getName(),
