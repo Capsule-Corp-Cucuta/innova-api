@@ -4,7 +4,7 @@ server:
 spring:
   mail:
     username: sergioandresrr@ufps.edu.co
-    password: ibpuzipuuzkcjzgk
+    password: hcnrhfusxwvhgzjt
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/innova?serverTimezone=UTC

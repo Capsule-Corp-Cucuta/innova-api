@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.user.domain.dto.User;
 import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.user.domain.repository.IUserRepository;
 import co.edu.ufps.innova.email.domain.repository.IEmailRepository;
 import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
@@ -22,13 +23,17 @@ public class UserService {
         String newPassword = pwRepository.generatePassword();
         User myUser = repository.save(user, pwRepository.encryptPassword(newPassword));
 
-        Email email = new Email();
-        email.setTo(myUser.getEmail());
-        email.setSubject("Innova - Registro exitoso");
-        email.setContent("Con esta contraseña podrá ingresar a la plataforma: \n " +
-                "\t " + newPassword +
-                "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-        IEmailRepository.sendEmail(email);
+        try {
+            Email email = new Email();
+            email.setTo(myUser.getEmail());
+            email.setSubject("Innova - Registro exitoso");
+            email.setContent("Con esta contraseña podrá ingresar a la plataforma: \n " +
+                    "\t " + newPassword +
+                    "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
+            IEmailRepository.sendEmail(email);
+        } catch (MailSendException e) {
+            e.printStackTrace();
+        }
 
         return myUser;
     }
@@ -74,13 +79,17 @@ public class UserService {
             String newPassword = pwRepository.generatePassword();
             boolean updated = repository.changePassword(user.getId(), pwRepository.encryptPassword(newPassword));
             if (updated) {
-                Email email = new Email();
-                email.setTo(user.getEmail());
-                email.setSubject("Innova - Cambio de contraseña");
-                email.setContent("Con esta nueva contraseña podrá ingresar a la plataforma: \n " +
-                        "\t " + newPassword +
-                        "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
-                IEmailRepository.sendEmail(email);
+                try {
+                    Email email = new Email();
+                    email.setTo(user.getEmail());
+                    email.setSubject("Innova - Cambio de contraseña");
+                    email.setContent("Con esta nueva contraseña podrá ingresar a la plataforma: \n " +
+                            "\t " + newPassword +
+                            "\n recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.");
+                    IEmailRepository.sendEmail(email);
+                } catch (MailSendException e) {
+                    e.printStackTrace();
+                }
             }
             return updated;
         }).orElse(false);

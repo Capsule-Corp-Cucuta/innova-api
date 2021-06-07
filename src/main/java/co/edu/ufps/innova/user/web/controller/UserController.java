@@ -2,6 +2,8 @@ package co.edu.ufps.innova.user.web.controller;
 
 import java.util.List;
 import io.swagger.annotations.*;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -97,14 +99,15 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/{email}/recover-password")
+    @PutMapping("/recover-password")
     @ApiOperation("Change the password of the an existing User and send to him an email with the new password")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "User not found")
     })
-    public ResponseEntity<HttpStatus> recoverPassword(@PathVariable("email") String id) {
-        return service.recoverPassword(id)
+    public ResponseEntity<HttpStatus> recoverPassword(@RequestBody String email) {
+        JsonObject jsonObject = JsonParser.parseString(email).getAsJsonObject();
+        return service.recoverPassword(jsonObject.get("email").getAsString())
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
