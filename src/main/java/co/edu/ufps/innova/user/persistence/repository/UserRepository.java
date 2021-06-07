@@ -11,7 +11,7 @@ import co.edu.ufps.innova.user.domain.repository.IUserRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements IUserRepository {
+public class UserRepository implements IUserRepository {
 
     private final IUserMapper mapper;
     private final IUserCrudRepository repository;

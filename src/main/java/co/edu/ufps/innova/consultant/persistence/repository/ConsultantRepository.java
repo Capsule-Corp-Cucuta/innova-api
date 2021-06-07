@@ -11,7 +11,7 @@ import co.edu.ufps.innova.consultant.domain.repository.IConsultantRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class ConsultantRepositoryImpl implements IConsultantRepository {
+public class ConsultantRepository implements IConsultantRepository {
 
     private final IConsultantMapper mapper;
     private final IConsultantCrudRepository repository;

@@ -2,7 +2,7 @@ package co.edu.ufps.innova.event.persistence.repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import co.edu.ufps.innova.event.domain.dto.EventType;
 import co.edu.ufps.innova.event.domain.dto.EventState;
 import org.springframework.data.repository.CrudRepository;
@@ -33,6 +33,6 @@ public interface IEventCrudRepository extends CrudRepository<EventEntity, Long> 
      * @param endDate   second date
      * @return all Events between the given dates
      */
-    Optional<List<EventEntity>> findByStartDateBetween(LocalDate startDate, LocalDate endDate);
+    Optional<List<EventEntity>> findByStartDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
 }

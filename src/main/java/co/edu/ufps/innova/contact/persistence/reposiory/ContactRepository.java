@@ -12,7 +12,7 @@ import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class ContactRepositoryImpl implements IContactRepository {
+public class ContactRepository implements IContactRepository {
 
     private final String USER_TYPE = "CONTACT";
     private final IContactMapper mapper;

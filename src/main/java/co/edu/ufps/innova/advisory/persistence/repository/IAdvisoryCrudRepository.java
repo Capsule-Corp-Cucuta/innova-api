@@ -2,7 +2,7 @@ package co.edu.ufps.innova.advisory.persistence.repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
@@ -52,21 +52,13 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
     Optional<List<AdvisoryEntity>> findByState(AdvisoryState state);
 
     /**
-     * Method for get all Advisories by date
-     *
-     * @param date of Advisory
-     * @return all Advisories with the given date
-     */
-    Optional<List<AdvisoryEntity>> findByDate(LocalDate date);
-
-    /**
      * Method for get all Advisories between two dates
      *
      * @param startDate first date
      * @param endDate   second date
      * @return all Advisories between two dates
      */
-    Optional<List<AdvisoryEntity>> findByDateBetween(LocalDate startDate, LocalDate endDate);
+    Optional<List<AdvisoryEntity>> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for get all Advisories by consultant id and client id
@@ -105,15 +97,6 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
     Optional<List<AdvisoryEntity>> findByConsultantIdAndState(String consultantId, AdvisoryState state);
 
     /**
-     * Method for get all Advisories by consultant id and date
-     *
-     * @param consultantId consultant id
-     * @param date         of Advisory
-     * @return all Advisories with the given consultant id and date
-     */
-    Optional<List<AdvisoryEntity>> findByConsultantIdAndDate(String consultantId, LocalDate date);
-
-    /**
      * Method for get all Advisories by consultant id and between two dates
      *
      * @param consultantId consultant id
@@ -121,19 +104,8 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param endDate      second date
      * @return all Advisories with the given consultant id and two dates
      */
-    Optional<List<AdvisoryEntity>> findByConsultantIdAndDateBetween(String consultantId, LocalDate startDate,
-                                                                    LocalDate endDate);
-
-    /**
-     * Method for get all Advisories by consultant id and client id and a date
-     *
-     * @param consultantId consultant id
-     * @param clientId     client id
-     * @param date         of Advisory
-     * @return all Advisories with the given consultant id and client id and date
-     */
-    Optional<List<AdvisoryEntity>> findByConsultantIdAndClientIdAndDate(String consultantId, String clientId,
-                                                                        LocalDate date);
+    Optional<List<AdvisoryEntity>> findByConsultantIdAndDateBetween(String consultantId, LocalDateTime startDate,
+                                                                    LocalDateTime endDate);
 
     /**
      * Method for get all Advisories by consultant id and client id and between two dates
@@ -145,7 +117,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @return all Advisories with the given consultant id and client id and two dates
      */
     Optional<List<AdvisoryEntity>> findByConsultantIdAndClientIdAndDateBetween(String consultantId, String clientId,
-                                                                               LocalDate startDate, LocalDate endDate);
+                                                                               LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for count all Advisories by consultant id
@@ -163,6 +135,6 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param endDate      second date
      * @return number of all Advisories with the given consultant id and two dates
      */
-    Long countByConsultantIdAndDateBetween(String consultantId, LocalDate startDate, LocalDate endDate);
+    Long countByConsultantIdAndDateBetween(String consultantId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

@@ -2,7 +2,7 @@ package co.edu.ufps.innova.advisory.persistence.repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
@@ -15,7 +15,7 @@ import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class AdvisoryRepositoryImpl implements IAdvisoryRepository {
+public class AdvisoryRepository implements IAdvisoryRepository {
 
     private final IAdvisoryMapper mapper;
     private final IAdvisoryCrudRepository repository;
@@ -88,15 +88,7 @@ public class AdvisoryRepositoryImpl implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Advisory>> findByDate(LocalDate date) {
-        return repository.findByDate(date).map(mapper::toAdvisories);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<List<Advisory>> findBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByDateBetween(startDate, endDate).map(mapper::toAdvisories);
     }
 
@@ -136,16 +128,8 @@ public class AdvisoryRepositoryImpl implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Advisory>> findByConsultantAndDate(String consultantId, LocalDate date) {
-        return repository.findByConsultantIdAndDate(consultantId, date).map(mapper::toAdvisories);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId, LocalDate startDate,
-                                                                    LocalDate endDate) {
+    public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId, LocalDateTime startDate,
+                                                                    LocalDateTime endDate) {
         return repository.findByConsultantIdAndDateBetween(consultantId, startDate, endDate).map(mapper::toAdvisories);
     }
 
@@ -153,17 +137,8 @@ public class AdvisoryRepositoryImpl implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Advisory>> findByConsultantAndClientAndDate(String consultantId, String clientId,
-                                                                     LocalDate date) {
-        return repository.findByConsultantIdAndClientIdAndDate(consultantId, clientId, date).map(mapper::toAdvisories);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId, String clientId,
-                                                                          LocalDate startDate, LocalDate endDate) {
+                                                                          LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByConsultantIdAndClientIdAndDateBetween(consultantId, clientId, startDate, endDate)
                 .map(mapper::toAdvisories);
     }
@@ -188,7 +163,7 @@ public class AdvisoryRepositoryImpl implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public long countByConsultantBetweenDates(String consultantId, LocalDate startDate, LocalDate endDate) {
+    public long countByConsultantBetweenDates(String consultantId, LocalDateTime startDate, LocalDateTime endDate) {
         return repository.countByConsultantIdAndDateBetween(consultantId, startDate, endDate);
     }
 

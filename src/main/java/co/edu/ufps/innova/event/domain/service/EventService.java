@@ -2,7 +2,7 @@ package co.edu.ufps.innova.event.domain.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.Event;
@@ -44,7 +44,7 @@ public class EventService {
         return repository.findByState(state);
     }
 
-    public Optional<List<Event>> findBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findBetweenDates(startDate, endDate);
     }
 

@@ -2,6 +2,8 @@ package co.edu.ufps.innova.event.web.controller;
 
 import java.util.List;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
@@ -93,9 +95,9 @@ public class EventController {
     })
     public ResponseEntity<List<Event>> findBetweenDates(String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
-        return service.findBetweenDates(
-                LocalDate.parse(jsonObject.get("startDate").getAsString()),
-                LocalDate.parse(jsonObject.get("endDate").getAsString()))
+        LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
+        LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
+        return service.findBetweenDates(startDate, endDate)
                 .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

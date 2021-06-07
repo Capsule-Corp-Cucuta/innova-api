@@ -12,7 +12,7 @@ import co.edu.ufps.innova.client.domain.repository.IClientRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class ClientRepositoryImpl implements IClientRepository {
+public class ClientRepository implements IClientRepository {
 
     private final IClientMapper mapper;
     private final IClientCrudRepository repository;

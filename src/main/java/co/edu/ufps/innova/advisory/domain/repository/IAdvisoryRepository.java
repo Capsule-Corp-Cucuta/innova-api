@@ -2,7 +2,7 @@ package co.edu.ufps.innova.advisory.domain.repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
@@ -73,21 +73,13 @@ public interface IAdvisoryRepository {
     Optional<List<Advisory>> findByState(AdvisoryState state);
 
     /**
-     * Method for get all Advisories by date
-     *
-     * @param date of Advisory
-     * @return all Advisories with the given date
-     */
-    Optional<List<Advisory>> findByDate(LocalDate date);
-
-    /**
      * Method for get all Advisories between two dates
      *
      * @param startDate first date
      * @param endDate   second date
      * @return all Advisories between two dates
      */
-    Optional<List<Advisory>> findBetweenDates(LocalDate startDate, LocalDate endDate);
+    Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for get all Advisories by consultant id and client id
@@ -126,15 +118,6 @@ public interface IAdvisoryRepository {
     Optional<List<Advisory>> findByConsultantAndState(String consultantId, AdvisoryState state);
 
     /**
-     * Method for get all Advisories by consultant id and date
-     *
-     * @param consultantId consultant id
-     * @param date         of Advisory
-     * @return all Advisories with the given consultant id and date
-     */
-    Optional<List<Advisory>> findByConsultantAndDate(String consultantId, LocalDate date);
-
-    /**
      * Method for get all Advisories by consultant id and between two dates
      *
      * @param consultantId consultant id
@@ -142,17 +125,8 @@ public interface IAdvisoryRepository {
      * @param endDate      second date
      * @return all Advisories with the given consultant id and two dates
      */
-    Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId, LocalDate startDate, LocalDate endDate);
-
-    /**
-     * Method for get all Advisories by consultant id and client id and a date
-     *
-     * @param consultantId consultant id
-     * @param clientId     client id
-     * @param date         of Advisory
-     * @return all Advisories with the given consultant id and client id and date
-     */
-    Optional<List<Advisory>> findByConsultantAndClientAndDate(String consultantId, String clientId, LocalDate date);
+    Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId, LocalDateTime startDate,
+                                                             LocalDateTime endDate);
 
     /**
      * Method for get all Advisories by consultant id and client id and between two dates
@@ -164,7 +138,7 @@ public interface IAdvisoryRepository {
      * @return all Advisories with the given consultant id and client id and two dates
      */
     Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId, String clientId,
-                                                                   LocalDate startDate, LocalDate endDate);
+                                                                   LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for count all Advisories
@@ -189,7 +163,7 @@ public interface IAdvisoryRepository {
      * @param endDate      second date
      * @return number of all Advisories with the given consultant id and two dates
      */
-    long countByConsultantBetweenDates(String consultantId, LocalDate startDate, LocalDate endDate);
+    long countByConsultantBetweenDates(String consultantId, LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for delete an Advisory
