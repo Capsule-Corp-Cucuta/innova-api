@@ -4,7 +4,6 @@ import java.util.List;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Optional;
-import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.FormatStyle;
@@ -36,7 +35,7 @@ public class AdvisoryService {
         try {
             User client = userService.findById(myAdvisory.getClientId()).get();
             User consultant = userService.findById(myAdvisory.getConsultantId()).get();
-            String advisoryDate = ZonedDateTime.of(myAdvisory.getDate(), LocalTime.NOON, ZoneId.of("America/Bogota"))
+            String advisoryDate = ZonedDateTime.of(myAdvisory.getDate(), ZoneId.of("America/Bogota"))
                     .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                             .withLocale(new Locale("es", "CO")));
             Email email = new Email();
@@ -65,11 +64,9 @@ public class AdvisoryService {
             try {
                 User client = userService.findById(advisory.getClientId()).get();
                 User consultant = userService.findById(advisory.getConsultantId()).get();
-                String advisoryDate = ZonedDateTime.of(advisory.getDate(), LocalTime.NOON, ZoneId.of("America/Bogota"))
+                String advisoryDate = ZonedDateTime.of(item.getDate(), ZoneId.of("America/Bogota"))
                         .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                                 .withLocale(new Locale("es", "CO")));
-
-
                 Email email = new Email();
                 email.setTo(client.getEmail());
                 email.setSubject("Innova - Asesoría modificada");
@@ -180,7 +177,7 @@ public class AdvisoryService {
     public long countHoursByConsultantWithoutPreparation(String consultantId) {
         return findByConsultant(consultantId)
                 .map(advisories -> advisories.stream()
-                        .mapToLong(advisory -> advisory.getDurationInHours()).sum()
+                        .mapToLong(Advisory::getDurationInHours).sum()
                 ).orElse(0L);
     }
 
@@ -188,7 +185,7 @@ public class AdvisoryService {
                                                                      LocalDate endDate) {
         return findByConsultantAndBetweenDates(consultantId, startDate, endDate)
                 .map(advisories -> advisories.stream()
-                        .mapToLong(advisory -> advisory.getDurationInHours()).sum()
+                        .mapToLong(Advisory::getDurationInHours).sum()
                 ).orElse(0L);
     }
 

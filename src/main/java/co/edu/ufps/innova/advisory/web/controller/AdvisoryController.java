@@ -2,6 +2,8 @@ package co.edu.ufps.innova.advisory.web.controller;
 
 import java.util.List;
 import java.time.LocalDate;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,7 +15,6 @@ import co.edu.ufps.innova.advisory.domain.dto.Advisory;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
-import co.edu.ufps.innova.authentication.domain.dto.BetweenDates;
 import co.edu.ufps.innova.advisory.domain.service.AdvisoryService;
 
 @RestController
@@ -127,8 +128,9 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findByDate(@RequestBody LocalDate date) {
-        return service.findByDate(date)
+    public ResponseEntity<List<Advisory>> findByDate(String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return service.findByDate(LocalDate.parse(jsonObject.get("date").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -139,8 +141,11 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findBetweenDates(@RequestBody BetweenDates dates) {
-        return service.findBetweenDates(dates.getStartDate(), dates.getEndDate())
+    public ResponseEntity<List<Advisory>> findBetweenDates(String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return service.findBetweenDates(
+                LocalDate.parse(jsonObject.get("startDate").getAsString()),
+                LocalDate.parse(jsonObject.get("endDate").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -204,8 +209,9 @@ public class AdvisoryController {
             @ApiResponse(code = 404, message = "Advisories not found")
     })
     public ResponseEntity<List<Advisory>> findByConsultantAndDate(@PathVariable("consultantId") String consultantId,
-                                                                  @RequestBody LocalDate date) {
-        return service.findByConsultantAndDate(consultantId, date)
+                                                                  String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return service.findByConsultantAndDate(consultantId, LocalDate.parse(jsonObject.get("date").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -216,9 +222,13 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findByConsultantAndBetweenDates(@PathVariable("consultantId") String consultantId,
-                                                                          @RequestBody BetweenDates dates) {
-        return service.findByConsultantAndBetweenDates(consultantId, dates.getStartDate(), dates.getEndDate())
+    public ResponseEntity<List<Advisory>> findByConsultantAndBetweenDates(
+            @PathVariable("consultantId") String consultantId, String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return service.findByConsultantAndBetweenDates(
+                consultantId,
+                LocalDate.parse(jsonObject.get("startDate").getAsString()),
+                LocalDate.parse(jsonObject.get("endDate").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -232,8 +242,10 @@ public class AdvisoryController {
     public ResponseEntity<List<Advisory>> findByConsultantAndClientAndDate(
             @PathVariable("consultantId") String consultantId,
             @PathVariable("clientId") String clientId,
-            @RequestBody LocalDate date) {
-        return service.findByConsultantAndClientAndDate(consultantId, clientId, date)
+            String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return service.findByConsultantAndClientAndDate(consultantId, clientId,
+                LocalDate.parse(jsonObject.get("date").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -247,12 +259,13 @@ public class AdvisoryController {
     public ResponseEntity<List<Advisory>> findByConsultantAndClientBetweenDates(
             @PathVariable("consultantId") String consultantId,
             @PathVariable("clientId") String clientId,
-            @RequestBody BetweenDates dates) {
+            String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         return service.findByConsultantAndClientBetweenDates(
                 consultantId,
                 clientId,
-                dates.getStartDate(),
-                dates.getEndDate())
+                LocalDate.parse(jsonObject.get("startDate").getAsString()),
+                LocalDate.parse(jsonObject.get("endDate").getAsString()))
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -275,11 +288,16 @@ public class AdvisoryController {
     @ApiOperation("Count all Advisories by consultant between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countByConsultantBetweenDates(@PathVariable("consultantId") String consultantId,
-                                                              @RequestBody BetweenDates dates) {
+                                                              String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         return new ResponseEntity<>(
-                service.countByConsultantBetweenDates(consultantId, dates.getStartDate(), dates.getEndDate()),
-                HttpStatus.OK
+                service.countByConsultantBetweenDates(
+                        consultantId,
+                        LocalDate.parse(jsonObject.get("startDate").getAsString()),
+                        LocalDate.parse(jsonObject.get("endDate").getAsString())
+                ), HttpStatus.OK
         );
+
     }
 
     @GetMapping("/consultant/{consultantId}/count-all-hours")
@@ -308,13 +326,13 @@ public class AdvisoryController {
     @ApiOperation("Count all hours of Advisories by consultant without preparation time between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countHoursByConsultantWithoutPreparationBetweenDates(
-            @PathVariable("consultantId") String consultantId,
-            @RequestBody BetweenDates dates) {
+            @PathVariable("consultantId") String consultantId, String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         return new ResponseEntity<>(
                 service.countHoursByConsultantWithoutPreparationBetweenDates(
                         consultantId,
-                        dates.getStartDate(),
-                        dates.getEndDate()
+                        LocalDate.parse(jsonObject.get("startDate").getAsString()),
+                        LocalDate.parse(jsonObject.get("endDate").getAsString())
                 ),
                 HttpStatus.OK
         );

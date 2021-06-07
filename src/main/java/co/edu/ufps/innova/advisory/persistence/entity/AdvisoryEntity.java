@@ -2,7 +2,7 @@ package co.edu.ufps.innova.advisory.persistence.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
@@ -32,7 +32,7 @@ public class AdvisoryEntity {
     private AdvisoryState state;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(name = "duration_in_hours")
     private Byte durationInHours;
@@ -57,14 +57,15 @@ public class AdvisoryEntity {
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private ClientEntity client;
 
-    public AdvisoryEntity(String clientId, String consultantId, String subject, AdvisoryType type, AdvisoryArea area, AdvisoryState state) {
+    public AdvisoryEntity(String clientId, String consultantId, String subject, AdvisoryType type, AdvisoryArea area,
+                          AdvisoryState state, LocalDateTime date) {
         this.clientId = clientId;
         this.consultantId = consultantId;
         this.subject = subject;
         this.type = type;
         this.area = area;
         this.state = state;
-        this.date = LocalDate.now();
+        this.date = date;
     }
 
 }

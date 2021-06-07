@@ -1,8 +1,8 @@
 package co.edu.ufps.innova.advisory.domain.dto;
 
 import lombok.*;
-import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,19 +15,20 @@ public class Advisory implements Serializable {
     private AdvisoryType type;
     private AdvisoryArea area;
     private AdvisoryState state;
-    private LocalDate date;
+    private LocalDateTime date;
     private byte durationInHours;
     private byte preparationTypeInHours;
     private String notes;
 
-    public Advisory(String clientId, String consultantId, String subject, AdvisoryType type, AdvisoryArea area, AdvisoryState state) {
+    public Advisory(String clientId, String consultantId, String subject, AdvisoryType type, AdvisoryArea area,
+                    AdvisoryState state, LocalDateTime date) {
         this.clientId = clientId;
         this.consultantId = consultantId;
         this.subject = subject;
         this.type = type;
         this.area = area;
         this.state = state;
-        this.date = LocalDate.now();
+        this.date = date;
     }
 
 }

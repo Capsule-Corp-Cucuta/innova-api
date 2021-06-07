@@ -3,6 +3,7 @@ package co.edu.ufps.innova.event.domain.dto;
 import lombok.*;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,10 +15,9 @@ public class Event implements Serializable {
     private String description;
     private EventType type;
     private EventState state;
-    private LocalDate startDate;
-    private LocalDate closeDate;
-    private LocalDate registrationDeadline;
-    private String eventTime;
+    private LocalDateTime startDate;
+    private LocalDateTime closeDate;
+    private LocalDate registrationDeadlineDate;
     private byte eventDurationInHours;
     private String department;
     private String city;
@@ -26,15 +26,15 @@ public class Event implements Serializable {
     private String link;
 
     public Event(String title, String theme, String description, EventType type, EventState state,
-                 LocalDate startDate, LocalDate registrationDeadline, String eventTime, String email) {
+                 LocalDateTime startDate, LocalDateTime closeDate, LocalDate registrationDeadlineDate, String email) {
         this.title = title;
         this.theme = theme;
         this.description = description;
         this.type = type;
         this.state = state;
         this.startDate = startDate;
-        this.registrationDeadline = registrationDeadline;
-        this.eventTime = eventTime;
+        this.closeDate = closeDate;
+        this.registrationDeadlineDate = registrationDeadlineDate;
         this.email = email;
     }
 
