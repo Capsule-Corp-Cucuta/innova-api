@@ -4,6 +4,7 @@ import java.util.List;
 import java.time.LocalDate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +18,7 @@ import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.domain.service.EventService;
 
 @RestController
+@Api(tags = "event")
 @RequiredArgsConstructor
 @RequestMapping("/event")
 public class EventController {

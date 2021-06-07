@@ -13,6 +13,7 @@ import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.authentication.domain.dto.PasswordChange;
 
 @RestController
+@Api(tags = "user")
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {

@@ -1,6 +1,7 @@
 package co.edu.ufps.innova.contact.web.controller;
 
 import java.util.List;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +14,7 @@ import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.contact.domain.service.ContactService;
 
 @RestController
+@Api(tags = "contact")
 @RequiredArgsConstructor
 @RequestMapping("/contact")
 public class ContactController {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.time.LocalDate;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,6 +19,7 @@ import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
 import co.edu.ufps.innova.advisory.domain.service.AdvisoryService;
 
 @RestController
+@Api(tags = "advisory")
 @RequiredArgsConstructor
 @RequestMapping("/advisory")
 public class AdvisoryController {
