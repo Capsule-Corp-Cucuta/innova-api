@@ -8,6 +8,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Event implements Serializable {
 
+    private long id;
     private String title;
     private String theme;
     private String description;
