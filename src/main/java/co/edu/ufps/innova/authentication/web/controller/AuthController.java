@@ -1,5 +1,6 @@
 package co.edu.ufps.innova.authentication.web.controller;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @RestController
+@Api(tags = "auth")
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
