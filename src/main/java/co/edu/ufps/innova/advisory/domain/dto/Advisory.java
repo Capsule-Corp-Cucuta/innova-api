@@ -8,8 +8,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Advisory implements Serializable {
 
-    private String clientId;
+    private long id;
     private String consultantId;
+    private String clientId;
     private String subject;
     private AdvisoryType type;
     private AdvisoryArea area;
