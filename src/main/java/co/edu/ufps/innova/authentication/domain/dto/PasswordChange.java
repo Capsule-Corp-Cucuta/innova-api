@@ -1,4 +1,4 @@
-package co.edu.ufps.innova.user.domain.dto;
+package co.edu.ufps.innova.authentication.domain.dto;
 
 import lombok.Data;
 

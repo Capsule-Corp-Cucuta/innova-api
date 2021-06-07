@@ -38,12 +38,14 @@ public class ClientService {
     }
 
     public boolean update(String id, Client client) {
-        return findById(id)
-                .map(item -> {
-                    repository.save(client, userService.getPassword(id));
-                    return true;
-                })
-                .orElse(false);
+        return findById(id).map(item -> {
+            repository.save(client, userService.getPassword(id));
+            return true;
+        }).orElse(false);
+    }
+
+    public List<Client> findAll() {
+        return repository.findAll();
     }
 
     public Optional<Client> findById(String id) {
@@ -55,11 +57,7 @@ public class ClientService {
     }
 
     public Optional<List<Client>> findByConsultant(String consultantId) {
-        return repository.findByConsultant(consultantService.findById(consultantId).get());
-    }
-
-    public List<Client> findAll() {
-        return repository.findAll();
+        return repository.findByConsultant(consultantId);
     }
 
     public boolean delete(String id) {

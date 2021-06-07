@@ -13,6 +13,9 @@ public class PasswordService implements IPasswordRepository {
 
     private final BCryptPasswordEncoder bCrypt;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String generatePassword() {
         RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder()
@@ -20,11 +23,17 @@ public class PasswordService implements IPasswordRepository {
         return pwdGenerator.generate(12);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encryptPassword(String password) {
         return bCrypt.encode(password);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean validatePassword(String actualPassword, String userPassword) {
         return BCrypt.checkpw(actualPassword, userPassword);

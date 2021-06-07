@@ -16,6 +16,9 @@ public class UserRepositoryImpl implements IUserRepository {
     private final IUserMapper mapper;
     private final IUserCrudRepository repository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User save(User user, String password) {
         UserEntity entity = mapper.toUserEntity(user);
@@ -24,6 +27,9 @@ public class UserRepositoryImpl implements IUserRepository {
         return mapper.toUser(repository.save(entity));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(String id, User user) {
         return repository.findById(id).map(userEntity -> {
@@ -39,36 +45,57 @@ public class UserRepositoryImpl implements IUserRepository {
         }).orElse(false);
     }
 
-    @Override
-    public Optional<User> findById(String id) {
-        return repository.findById(id).map(mapper::toUser);
-    }
-
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email).map(mapper::toUser);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> findAll() {
         return mapper.toUsers((List<UserEntity>) repository.findAll());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<User> findById(String id) {
+        return repository.findById(id).map(mapper::toUser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email).map(mapper::toUser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(User user) {
         repository.delete(mapper.toUserEntity(user));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getUserType(String id) {
         return repository.findById(id).map(UserEntity::getUserType).orElse(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPassword(String id) {
         return repository.findById(id).map(UserEntity::getPassword).orElse(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean changeState(String id) {
         return repository.findById(id).map(userEntity -> {
@@ -78,6 +105,9 @@ public class UserRepositoryImpl implements IUserRepository {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean changePassword(String id, String password) {
         return repository.findById(id).map(userEntity -> {

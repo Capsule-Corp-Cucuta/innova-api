@@ -41,12 +41,12 @@ public class UserService {
         return repository.findById(id);
     }
 
-    public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email);
-    }
-
     public List<User> findAll() {
         return repository.findAll();
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     public boolean delete(String id) {

@@ -3,7 +3,6 @@ package co.edu.ufps.innova.contact.domain.service;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
@@ -48,12 +47,8 @@ public class ContactService {
         }).orElse(false);
     }
 
-    public boolean requestAccompaniment(String id) {
-        return findById(id).map(item -> {
-            item.setRequestAccompaniment(true);
-            repository.save(item, userService.getPassword(id));
-            return true;
-        }).orElse(false);
+    public Optional<List<Contact>> findAll() {
+        return repository.findAll();
     }
 
     public Optional<Contact> findById(String id) {
@@ -68,13 +63,17 @@ public class ContactService {
         return repository.findByRequestAccompaniment();
     }
 
-    public Optional<List<Contact>> findAll() {
-        return repository.findAll();
-    }
-
     public boolean delete(String id) {
         return findById(id).map(contact -> {
             repository.delete(contact);
+            return true;
+        }).orElse(false);
+    }
+
+    public boolean requestAccompaniment(String id) {
+        return findById(id).map(item -> {
+            item.setRequestAccompaniment(true);
+            repository.save(item, userService.getPassword(id));
             return true;
         }).orElse(false);
     }

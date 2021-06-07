@@ -18,6 +18,9 @@ public class ContactRepositoryImpl implements IContactRepository {
     private final IContactMapper mapper;
     private final IContactCrudRepository repository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Contact save(Contact contact, String password) {
         ContactEntity entity = mapper.toContactEntity(contact);
@@ -27,26 +30,42 @@ public class ContactRepositoryImpl implements IContactRepository {
         return mapper.toContact(repository.save(entity));
     }
 
-    @Override
-    public Optional<Contact> findById(String id) {
-        return repository.findById(id).map(mapper::toContact);
-    }
-
-    @Override
-    public Optional<List<Contact>> findByType(ContactType type) {
-        return repository.findByType(type).map(mapper::toContactList);
-    }
-
-    @Override
-    public Optional<List<Contact>> findByRequestAccompaniment() {
-        return repository.findByRequestAccompanimentAndUserType(true, USER_TYPE).map(mapper::toContactList);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<List<Contact>> findAll() {
         return repository.findByUserType(USER_TYPE).map(mapper::toContactList);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Contact> findById(String id) {
+        return repository.findById(id).map(mapper::toContact);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<List<Contact>> findByType(ContactType type) {
+        return repository.findByType(type).map(mapper::toContactList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<List<Contact>> findByRequestAccompaniment() {
+        return repository.findByRequestAccompanimentAndUserType(true, USER_TYPE)
+                .map(mapper::toContactList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Contact consultant) {
         repository.delete(mapper.toContactEntity(consultant));

@@ -6,16 +6,50 @@ import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 
 public interface IConsultantRepository {
 
+    /**
+     * Method for persist a Consultant
+     *
+     * @param consultant to save
+     * @param password   of User
+     * @return the saved Consultant
+     */
     Consultant save(Consultant consultant, String password);
 
-    Optional<Consultant> findById(String id);
-
-    Optional<Consultant> findByCode(String code);
-
+    /**
+     * Method for list all Consultants
+     *
+     * @return all Consultants
+     */
     List<Consultant> findAll();
 
+    /**
+     * Method for find a Consultant by Id
+     *
+     * @param id of the User
+     * @return Consultant with the given id or Optional
+     */
+    Optional<Consultant> findById(String id);
+
+    /**
+     * Method for find a Consultant by Code
+     *
+     * @param code of the Consultant
+     * @return Consultant with the given code or Optional
+     */
+    Optional<Consultant> findByCode(String code);
+
+    /**
+     * Method for get a list of active Consultants
+     *
+     * @return all active Consultants
+     */
     Optional<List<Consultant>> findByActive();
 
+    /**
+     * Method for delete a Consultant
+     *
+     * @param consultant to delete
+     */
     void delete(Consultant consultant);
 
 }

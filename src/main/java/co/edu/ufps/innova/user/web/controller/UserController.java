@@ -1,15 +1,14 @@
 package co.edu.ufps.innova.user.web.controller;
 
 import java.util.List;
-
-import co.edu.ufps.innova.user.domain.dto.PasswordChange;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.user.domain.dto.User;
+import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.user.domain.service.UserService;
+import co.edu.ufps.innova.authentication.domain.dto.PasswordChange;
 
 @RestController
 @RequestMapping("/user")
