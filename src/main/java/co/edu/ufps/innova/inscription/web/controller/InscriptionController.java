@@ -19,7 +19,10 @@ public class InscriptionController {
 
     @PostMapping
     public ResponseEntity<Inscription> save(@RequestBody Inscription inscription) {
-        return new ResponseEntity<>(service.save(inscription), HttpStatus.CREATED);
+        Inscription newInscription = service.save(inscription);
+        return newInscription != null
+                ? new ResponseEntity<>(newInscription, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/event/{eventId}/user/{userId}")

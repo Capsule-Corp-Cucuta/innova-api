@@ -38,18 +38,18 @@ public class AdvisoryService {
             String advisoryDate = ZonedDateTime.of(myAdvisory.getDate(), ZoneId.of("America/Bogota"))
                     .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                             .withLocale(new Locale("es", "CO")));
+            String advisoryHour = advisory.getDate().format(DateTimeFormatter.ofPattern("KK:mm a", Locale.US));
             Email email = new Email();
             email.setTo(client.getEmail());
             email.setSubject("Innova - Asesoría agendada");
             email.setContent(String.format("Hola %s, fuiste agendado(a) para una asesoría con %s %s para el día %s " +
-                            "a la(s) %s:%s. Revisala desde la aplicación; en caso de cualquier inquietud puedes " +
+                            "a la(s) %s. Revisala desde la aplicación; en caso de cualquier inquietud puedes " +
                             "contactarte con tu asesor en el siguiente correo:  %s.",
                     client.getName(),
                     consultant.getName(),
                     consultant.getLastname(),
                     advisoryDate,
-                    myAdvisory.getDate().getHour(),
-                    myAdvisory.getDate().getMinute(),
+                    advisoryHour,
                     consultant.getEmail()));
             emailService.sendEmail(email);
         } catch (MailSendException e) {
