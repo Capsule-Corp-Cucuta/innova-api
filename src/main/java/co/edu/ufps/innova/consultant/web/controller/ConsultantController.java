@@ -1,6 +1,7 @@
 package co.edu.ufps.innova.consultant.web.controller;
 
 import java.util.List;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = "consultant")
 @RequestMapping("/consultant")
 public class ConsultantController {
 

@@ -1,4 +1,4 @@
-package co.edu.ufps.innova.authentication.web.config;
+package co.edu.ufps.innova.util.web.config;
 
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.spi.DocumentationType;
