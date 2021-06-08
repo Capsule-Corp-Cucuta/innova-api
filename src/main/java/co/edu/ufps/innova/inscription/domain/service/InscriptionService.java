@@ -38,6 +38,10 @@ public class InscriptionService {
         return repository.findById(eventId, userId);
     }
 
+    public Optional<List<Inscription>> findByEventId(long eventId) {
+        return repository.findByEventId(eventId);
+    }
+
     public boolean delete(long eventId, String userId) {
         return findById(eventId, userId)
                 .map(item -> {

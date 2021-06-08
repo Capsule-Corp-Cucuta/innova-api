@@ -45,6 +45,13 @@ public class InscriptionController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<List<Inscription>> findByEventId(long eventId) {
+        return service.findByEventId(eventId)
+                .map(inscriptions -> new ResponseEntity<>(inscriptions, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @DeleteMapping("/event/{eventId}/user/{userId}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("eventId") long eventId,
                                              @PathVariable("userId") String userId) {

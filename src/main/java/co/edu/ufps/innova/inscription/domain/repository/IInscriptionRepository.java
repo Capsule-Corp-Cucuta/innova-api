@@ -12,6 +12,8 @@ public interface IInscriptionRepository {
 
     Optional<Inscription> findById(long eventId, String contactId);
 
+    Optional<List<Inscription>> findByEventId(long eventId);
+
     void delete(Inscription inscription);
 
 }

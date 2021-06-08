@@ -32,6 +32,11 @@ public class InscriptionRepository implements IInscriptionRepository {
     }
 
     @Override
+    public Optional<List<Inscription>> findByEventId(long eventId) {
+        return repository.findByEventId(eventId).map(mapper::toInscriptions);
+    }
+
+    @Override
     public void delete(Inscription inscription) {
         repository.delete(mapper.toInscriptionEntity(inscription));
     }
