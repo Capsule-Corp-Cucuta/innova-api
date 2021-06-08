@@ -1,9 +1,11 @@
 package co.edu.ufps.innova.event.domain.dto;
 
 import lombok.*;
+import java.util.List;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +26,7 @@ public class Event implements Serializable {
     private String place;
     private String email;
     private String link;
+    private List<Inscription> inscriptions;
 
     public Event(String title, String theme, String description, EventType type, EventState state,
                  LocalDateTime startDate, LocalDateTime closeDate, LocalDate registrationDeadlineDate, String email) {

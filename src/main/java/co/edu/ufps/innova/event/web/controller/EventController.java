@@ -28,7 +28,7 @@ public class EventController {
     @PostMapping
     @ApiOperation("Save a new Event")
     @ApiResponse(code = 201, message = "Created")
-    public ResponseEntity<Event> save(Event event) {
+    public ResponseEntity<Event> save(@RequestBody Event event) {
         return new ResponseEntity<>(service.save(event), HttpStatus.CREATED);
     }
 
@@ -69,7 +69,7 @@ public class EventController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
     })
-    public ResponseEntity<List<Event>> findByType(EventType type) {
+    public ResponseEntity<List<Event>> findByType(@PathVariable("type") EventType type) {
         return service.findByType(type)
                 .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -81,7 +81,7 @@ public class EventController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
     })
-    public ResponseEntity<List<Event>> findByState(EventState state) {
+    public ResponseEntity<List<Event>> findByState(@PathVariable("state") EventState state) {
         return service.findByState(state)
                 .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -108,7 +108,7 @@ public class EventController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Event not found")
     })
-    public ResponseEntity<HttpStatus> delete(long id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
         return service.delete(id)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

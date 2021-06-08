@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
+@NoArgsConstructor
 @AllArgsConstructor
 public class InscriptionEntityPK implements Serializable {
 
