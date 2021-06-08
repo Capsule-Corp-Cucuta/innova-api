@@ -33,7 +33,7 @@ public class InscriptionRepository implements IInscriptionRepository {
 
     @Override
     public Optional<List<Inscription>> findByEventId(long eventId) {
-        return repository.findByEventId(eventId).map(mapper::toInscriptions);
+        return repository.findByIdEventId(eventId).map(mapper::toInscriptions);
     }
 
     @Override

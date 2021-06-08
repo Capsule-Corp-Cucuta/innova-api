@@ -8,6 +8,6 @@ import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntityPK;
 
 public interface IInscriptionCrudRepository extends CrudRepository<InscriptionEntity, InscriptionEntityPK> {
 
-    Optional<List<InscriptionEntity>> findByEventId(long eventId);
+    Optional<List<InscriptionEntity>> findByIdEventId(long eventId);
 
 }
