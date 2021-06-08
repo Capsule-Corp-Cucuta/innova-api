@@ -46,7 +46,7 @@ public class InscriptionController {
     }
 
     @GetMapping("/event/{eventId}")
-    public ResponseEntity<List<Inscription>> findByEventId(long eventId) {
+    public ResponseEntity<List<Inscription>> findByEventId(@PathVariable("eventId") long eventId) {
         return service.findByEventId(eventId)
                 .map(inscriptions -> new ResponseEntity<>(inscriptions, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
