@@ -57,7 +57,7 @@ public class EventEntity {
 
     private String link;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<InscriptionEntity> inscriptions;
 
     public EventEntity(String title, String theme, String description, EventType type, EventState state,

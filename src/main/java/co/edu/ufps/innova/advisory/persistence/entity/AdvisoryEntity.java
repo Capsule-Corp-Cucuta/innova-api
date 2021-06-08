@@ -49,11 +49,11 @@ public class AdvisoryEntity {
     @Column(name = "client_id", nullable = false)
     private String clientId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consultant_id", insertable = false, updatable = false)
     private ConsultantEntity consultant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private ClientEntity client;
 

@@ -2,6 +2,7 @@ package co.edu.ufps.innova.event.domain.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,16 @@ public class EventService {
     private final IEventRepository repository;
 
     public Event save(Event event) {
+        event.setEventDurationInHours((byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours());
         return repository.save(event);
     }
 
     public boolean update(long id, Event event) {
         return findById(id).map(item -> {
             event.setId(item.getId());
+            event.setEventDurationInHours((byte) Duration.between(
+                    event.getStartDate(), event.getCloseDate()).toHours()
+            );
             repository.save(event);
             return true;
         }).orElse(false);
