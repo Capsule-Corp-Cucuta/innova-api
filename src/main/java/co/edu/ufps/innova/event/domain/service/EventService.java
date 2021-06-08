@@ -3,6 +3,7 @@ package co.edu.ufps.innova.event.domain.service;
 import java.util.List;
 import java.util.Optional;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class EventService {
 
     public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findBetweenDates(startDate, endDate);
+    }
+
+    public Optional<List<Event>> findByRegistrationDeadlineDateAfterNow() {
+        return repository.findByRegistrationDeadlineDateAfter(LocalDate.now());
     }
 
     public boolean delete(long id) {

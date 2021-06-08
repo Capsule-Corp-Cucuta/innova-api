@@ -2,6 +2,7 @@ package co.edu.ufps.innova.event.persistence.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import co.edu.ufps.innova.event.domain.dto.EventType;
 import co.edu.ufps.innova.event.domain.dto.EventState;
@@ -34,5 +35,13 @@ public interface IEventCrudRepository extends CrudRepository<EventEntity, Long> 
      * @return all Events between the given dates
      */
     Optional<List<EventEntity>> findByStartDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+
+    /**
+     * Method for list all Events with registration dead line date after a date
+     *
+     * @param registrationDeadlineDate date to find
+     * @return all Events after the given date
+     */
+    Optional<List<EventEntity>> findByRegistrationDeadlineDateAfter(LocalDate registrationDeadlineDate);
 
 }

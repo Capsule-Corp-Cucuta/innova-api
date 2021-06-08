@@ -2,6 +2,7 @@ package co.edu.ufps.innova.event.persistence.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -65,6 +66,14 @@ public class EventRepository implements IEventRepository {
     @Override
     public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByStartDateBetween(startDate, endDate).map(mapper::toEvents);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<List<Event>> findByRegistrationDeadlineDateAfter(LocalDate date) {
+        return repository.findByRegistrationDeadlineDateAfter(date).map(mapper::toEvents);
     }
 
     /**

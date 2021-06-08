@@ -2,6 +2,7 @@ package co.edu.ufps.innova.event.domain.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import co.edu.ufps.innova.event.domain.dto.Event;
 import co.edu.ufps.innova.event.domain.dto.EventType;
@@ -56,6 +57,13 @@ public interface IEventRepository {
      * @return all Events between the given dates
      */
     Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+
+    /**
+     * Method for list all Events with registration dead line date after a date
+     *
+     * @return all Events with registration dead line date after a date
+     */
+    Optional<List<Event>> findByRegistrationDeadlineDateAfter(LocalDate date);
 
     /**
      * Method for delete an Event

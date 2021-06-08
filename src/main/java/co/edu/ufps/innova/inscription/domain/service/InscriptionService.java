@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.domain.service.EventService;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 import co.edu.ufps.innova.inscription.domain.repository.IInscriptionRepository;
@@ -18,12 +19,16 @@ public class InscriptionService {
 
     public Inscription save(Inscription inscription) {
         LocalDate now = LocalDate.now();
-        if (now.isBefore(eventService.findById(inscription.getEventId()).get()
-                .getRegistrationDeadlineDate())) {
-            inscription.setInscriptionDate(now);
-            return repository.save(inscription);
-        }
-        return null;
+        return eventService.findById(inscription.getEventId()).map(event -> {
+            if (now.isBefore(event.getRegistrationDeadlineDate()) &&
+                    (event.getState() == EventState.OPEN || event.getState() == EventState.POSTPONED)
+            ) {
+                inscription.setInscriptionDate(now);
+                return repository.save(inscription);
+            }
+            return null;
+        }).orElse(null);
+
     }
 
     public boolean update(long eventId, String contactId, Inscription inscription) {

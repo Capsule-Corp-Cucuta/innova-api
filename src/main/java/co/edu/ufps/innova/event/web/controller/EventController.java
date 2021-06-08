@@ -66,7 +66,7 @@ public class EventController {
     }
 
     @GetMapping("/type/{type}")
-    @ApiOperation("Get an Event by type")
+    @ApiOperation("Get all Events by type")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
@@ -78,7 +78,7 @@ public class EventController {
     }
 
     @GetMapping("/state/{state}")
-    @ApiOperation("Get an Event by state")
+    @ApiOperation("Get all Events by state")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
@@ -90,7 +90,7 @@ public class EventController {
     }
 
     @GetMapping("/between-dates")
-    @ApiOperation("Get an Event between dates")
+    @ApiOperation("Get all Events between dates")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
@@ -100,6 +100,18 @@ public class EventController {
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
         return service.findBetweenDates(startDate, endDate)
+                .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/after-now")
+    @ApiOperation("Get all Events with registration dead line date after now")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Events not found")
+    })
+    public ResponseEntity<List<Event>> findByRegistrationDeadlineDateAfterNow() {
+        return service.findByRegistrationDeadlineDateAfterNow()
                 .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
