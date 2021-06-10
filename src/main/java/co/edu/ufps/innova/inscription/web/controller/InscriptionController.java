@@ -34,12 +34,6 @@ public class InscriptionController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping
-    public ResponseEntity<HttpStatus> update(@RequestBody List<Inscription> inscriptions) {
-        service.update(inscriptions);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/event/{eventId}/user/{userId}")
     public ResponseEntity<Inscription> findById(@PathVariable("eventId") long eventId,
                                                 @PathVariable("userId") String userId) {

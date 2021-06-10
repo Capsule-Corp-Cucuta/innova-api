@@ -43,6 +43,7 @@ public class ConsultantService {
     public boolean update(String id, Consultant consultant) {
         return findById(id)
                 .map(item -> {
+                    consultant.setId(id);
                     repository.save(consultant, userService.getPassword(id));
                     return true;
                 })
@@ -55,10 +56,6 @@ public class ConsultantService {
 
     public Optional<Consultant> findById(String id) {
         return repository.findById(id);
-    }
-
-    public Optional<Consultant> findByCode(String code) {
-        return repository.findByCode(code);
     }
 
     public Optional<List<Consultant>> findByActive() {

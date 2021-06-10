@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.client.domain.dto.Client;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
 import co.edu.ufps.innova.client.persistence.mapper.IClientMapper;
 import co.edu.ufps.innova.client.domain.repository.IClientRepository;
@@ -49,16 +48,16 @@ public class ClientRepository implements IClientRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Client>> findByType(ContactType type) {
-        return repository.findByType(type).map(mapper::toClientList);
+    public Optional<List<Client>> findByConsultant(String consultantId) {
+        return repository.findByConsultantId(consultantId).map(mapper::toClientList);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Client>> findByConsultant(String consultantId) {
-        return repository.findByConsultantId(consultantId).map(mapper::toClientList);
+    public Optional<List<Client>> findByConsultantIdAndActive(String consultantId, boolean active) {
+        return repository.findByConsultantIdAndActive(consultantId, active).map(mapper::toClientList);
     }
 
     /**

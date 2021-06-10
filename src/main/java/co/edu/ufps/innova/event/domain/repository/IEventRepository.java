@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import co.edu.ufps.innova.event.domain.dto.Event;
-import co.edu.ufps.innova.event.domain.dto.EventType;
-import co.edu.ufps.innova.event.domain.dto.EventState;
 
 public interface IEventRepository {
 
@@ -32,22 +30,6 @@ public interface IEventRepository {
      * @return Event with the given id
      */
     Optional<Event> findById(long id);
-
-    /**
-     * Method for list all Events by type
-     *
-     * @param type of Event
-     * @return all Events with the given type
-     */
-    Optional<List<Event>> findByType(EventType type);
-
-    /**
-     * Method for list all Events by state
-     *
-     * @param state of Event
-     * @return all Events with the given state
-     */
-    Optional<List<Event>> findByState(EventState state);
 
     /**
      * Method for list all Events between two dates

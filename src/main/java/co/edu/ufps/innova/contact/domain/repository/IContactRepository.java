@@ -3,7 +3,6 @@ package co.edu.ufps.innova.contact.domain.repository;
 import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 
 public interface IContactRepository {
 
@@ -21,7 +20,7 @@ public interface IContactRepository {
      *
      * @return all Contacts
      */
-    public Optional<List<Contact>> findAll();
+    Optional<List<Contact>> findAll();
 
     /**
      * Method for find a Contact by id
@@ -32,14 +31,6 @@ public interface IContactRepository {
     Optional<Contact> findById(String id);
 
     /**
-     * Method for find a Contact by type
-     *
-     * @param type of Contact
-     * @return Contact with the given type or Optional
-     */
-    Optional<List<Contact>> findByType(ContactType type);
-
-    /**
      * Method for get all Contacts with request accompaniment and user type
      *
      * @return all Contacts who request accompaniment
@@ -47,10 +38,10 @@ public interface IContactRepository {
     Optional<List<Contact>> findByRequestAccompaniment();
 
     /**
-     * Method for delete a Consultan
+     * Method for delete a Contact
      *
-     * @param consultant to delete
+     * @param contact to delete
      */
-    void delete(Contact consultant);
+    void delete(Contact contact);
 
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.client.domain.dto.Client;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.contact.domain.service.ContactService;
 import co.edu.ufps.innova.client.domain.mapper.IClientDomainMapper;
@@ -39,6 +38,7 @@ public class ClientService {
 
     public boolean update(String id, Client client) {
         return findById(id).map(item -> {
+            client.setId(id);
             repository.save(client, userService.getPassword(id));
             return true;
         }).orElse(false);
@@ -52,12 +52,12 @@ public class ClientService {
         return repository.findById(id);
     }
 
-    public Optional<List<Client>> findByType(ContactType type) {
-        return repository.findByType(type);
-    }
-
     public Optional<List<Client>> findByConsultant(String consultantId) {
         return repository.findByConsultant(consultantId);
+    }
+
+    public Optional<List<Client>> findByConsultantIdAndActive(String consultantId) {
+        return repository.findByConsultantIdAndActive(consultantId, true);
     }
 
     public boolean delete(String id) {

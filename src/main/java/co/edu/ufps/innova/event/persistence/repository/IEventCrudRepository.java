@@ -4,28 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import co.edu.ufps.innova.event.domain.dto.EventType;
-import co.edu.ufps.innova.event.domain.dto.EventState;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 
 public interface IEventCrudRepository extends CrudRepository<EventEntity, Long> {
-
-    /**
-     * Method for list all Events by type
-     *
-     * @param type of Event
-     * @return all Events with the given type
-     */
-    Optional<List<EventEntity>> findByType(EventType type);
-
-    /**
-     * Method for list all Events by state
-     *
-     * @param state of Event
-     * @return all Events with the given state
-     */
-    Optional<List<EventEntity>> findByState(EventState state);
 
     /**
      * Method for list all Events between two dates
@@ -42,6 +24,6 @@ public interface IEventCrudRepository extends CrudRepository<EventEntity, Long> 
      * @param registrationDeadlineDate date to find
      * @return all Events after the given date
      */
-    Optional<List<EventEntity>> findByRegistrationDeadlineDateAfter(LocalDate registrationDeadlineDate);
+    Optional<List<EventEntity>> findByRegistrationDeadlineDateGreaterThanEqual(LocalDate registrationDeadlineDate);
 
 }

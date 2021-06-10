@@ -15,9 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
 import co.edu.ufps.innova.advisory.domain.service.AdvisoryService;
 
 @RestController
@@ -30,21 +27,27 @@ public class AdvisoryController {
 
     @PostMapping
     @ApiOperation("Save a new Advisory")
-    @ApiResponse(code = 201, message = "Created")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
     public ResponseEntity<Advisory> save(@RequestBody Advisory advisory) {
-        return new ResponseEntity<>(service.save(advisory), HttpStatus.CREATED);
+        Advisory newAdvisory = service.save(advisory);
+        return newAdvisory != null
+                ? new ResponseEntity<>(newAdvisory, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Update an existing Advisory")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisory not found")
+            @ApiResponse(code = 400, message = "Bad request")
     })
     public ResponseEntity<HttpStatus> update(@PathVariable("id") long id, @RequestBody Advisory advisory) {
         return service.update(id, advisory)
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
@@ -90,49 +93,13 @@ public class AdvisoryController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/type/{type}")
-    @ApiOperation("List all Advisories by type")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByType(@PathVariable("type") AdvisoryType type) {
-        return service.findByType(type)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/area/{area}")
-    @ApiOperation("List all Advisories by area")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByArea(@PathVariable("area") AdvisoryArea area) {
-        return service.findByArea(area)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/state/{state}")
-    @ApiOperation("List all Advisories by state")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByState(@PathVariable("state") AdvisoryState state) {
-        return service.findByState(state)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/between-dates")
     @ApiOperation("List all Advisories between two dates")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findBetweenDates(String criteria) {
+    public ResponseEntity<List<Advisory>> findBetweenDates(@RequestBody String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -147,51 +114,13 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findByConsultantAndClient(@PathVariable("consultantID") String consultantId,
+    public ResponseEntity<List<Advisory>> findByConsultantAndClient(@PathVariable("consultantId") String consultantId,
                                                                     @PathVariable("clientId") String clientId) {
         return service.findByConsultantAndClient(consultantId, clientId)
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/consultant/{consultantId}/type/{type}")
-    @ApiOperation("List all Advisories by consultant and type")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByConsultantAndType(@PathVariable("consultantId") String consultantId,
-                                                                  @PathVariable("type") AdvisoryType type) {
-        return service.findByConsultantAndType(consultantId, type)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/consultant/{consultantId}/area/{area}")
-    @ApiOperation("List all Advisories by consultant and area")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByConsultantAndArea(@PathVariable("consultantId") String consultantId,
-                                                                  @PathVariable("area") AdvisoryArea area) {
-        return service.findByConsultantAndArea(consultantId, area)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/consultant/{consultantId}/state/{state}")
-    @ApiOperation("List all Advisories by consultant and state")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Advisories not found")
-    })
-    public ResponseEntity<List<Advisory>> findByConsultantAndState(@PathVariable("consultantId") String consultantId,
-                                                                   @PathVariable("state") AdvisoryState state) {
-        return service.findByConsultantAndState(consultantId, state)
-                .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
 
     @GetMapping("/consultant/{consultantId}/between-dates")
     @ApiOperation("List all Advisories by consultant between two dates")
@@ -200,7 +129,8 @@ public class AdvisoryController {
             @ApiResponse(code = 404, message = "Advisories not found")
     })
     public ResponseEntity<List<Advisory>> findByConsultantAndBetweenDates(
-            @PathVariable("consultantId") String consultantId, String criteria) {
+            @PathVariable("consultantId") String consultantId, @RequestBody String criteria
+    ) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -218,7 +148,7 @@ public class AdvisoryController {
     public ResponseEntity<List<Advisory>> findByConsultantAndClientBetweenDates(
             @PathVariable("consultantId") String consultantId,
             @PathVariable("clientId") String clientId,
-            String criteria) {
+            @RequestBody String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -227,42 +157,16 @@ public class AdvisoryController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/count")
-    @ApiOperation("Count all Advisories")
-    @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Long> count() {
-        return new ResponseEntity<>(service.count(), HttpStatus.OK);
-    }
-
-    @GetMapping("/consultant/{consultantId}/count")
-    @ApiOperation("Count all Advisories by consultant")
-    @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Long> countByConsultant(@PathVariable("consultantId") String consultantId) {
-        return new ResponseEntity<>(service.countByConsultant(consultantId), HttpStatus.OK);
-    }
-
     @GetMapping("/consultant/{consultantId}/between-dates/count")
     @ApiOperation("Count all Advisories by consultant between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countByConsultantBetweenDates(@PathVariable("consultantId") String consultantId,
-                                                              String criteria) {
+                                                              @RequestBody String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
         return new ResponseEntity<>(
                 service.countByConsultantBetweenDates(consultantId, startDate, endDate), HttpStatus.OK
-        );
-
-    }
-
-    @GetMapping("/consultant/{consultantId}/count-all-hours")
-    @ApiOperation("Count all hours of Advisories by consultant with preparation time")
-    @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Long> countHoursByConsultantWithPreparation(
-            @PathVariable("consultantId") String consultantId) {
-        return new ResponseEntity<>(
-                service.countHoursByConsultantWithPreparation(consultantId),
-                HttpStatus.OK
         );
     }
 
@@ -272,7 +176,7 @@ public class AdvisoryController {
     public ResponseEntity<Long> countHoursByConsultantWithoutPreparation(
             @PathVariable("consultantId") String consultantId) {
         return new ResponseEntity<>(
-                service.countHoursByConsultantWithoutPreparation(consultantId),
+                service.countHoursByConsultant(consultantId),
                 HttpStatus.OK
         );
     }
@@ -281,12 +185,13 @@ public class AdvisoryController {
     @ApiOperation("Count all hours of Advisories by consultant without preparation time between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countHoursByConsultantWithoutPreparationBetweenDates(
-            @PathVariable("consultantId") String consultantId, String criteria) {
+            @PathVariable("consultantId") String consultantId, @RequestBody String criteria
+    ) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
         return new ResponseEntity<>(
-                service.countHoursByConsultantWithoutPreparationBetweenDates(consultantId, startDate, endDate),
+                service.countHoursByConsultantBetweenDates(consultantId, startDate, endDate),
                 HttpStatus.OK
         );
     }
@@ -297,7 +202,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisory not found")
     })
-    public ResponseEntity<HttpStatus> delete(long id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
         return service.delete(id)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

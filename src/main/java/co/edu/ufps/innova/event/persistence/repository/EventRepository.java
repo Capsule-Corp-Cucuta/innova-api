@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.event.domain.dto.Event;
-import co.edu.ufps.innova.event.domain.dto.EventType;
-import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 import co.edu.ufps.innova.event.persistence.mapper.IEventMapper;
 import co.edu.ufps.innova.event.domain.repository.IEventRepository;
@@ -48,22 +46,6 @@ public class EventRepository implements IEventRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Event>> findByType(EventType type) {
-        return repository.findByType(type).map(mapper::toEvents);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<List<Event>> findByState(EventState state) {
-        return repository.findByState(state).map(mapper::toEvents);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByStartDateBetween(startDate, endDate).map(mapper::toEvents);
     }
@@ -73,7 +55,7 @@ public class EventRepository implements IEventRepository {
      */
     @Override
     public Optional<List<Event>> findByRegistrationDeadlineDateAfter(LocalDate date) {
-        return repository.findByRegistrationDeadlineDateAfter(date).map(mapper::toEvents);
+        return repository.findByRegistrationDeadlineDateGreaterThanEqual(date).map(mapper::toEvents);
     }
 
     /**

@@ -58,18 +58,6 @@ public class ConsultantController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/code/{code}")
-    @ApiOperation("Get an Consultant by code")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Consultant not found")
-    })
-    public ResponseEntity<Consultant> findByCode(@PathVariable String code) {
-        return service.findByCode(code)
-                .map(consultant -> new ResponseEntity<>(consultant, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/active")
     @ApiOperation("List all active Consultants")
     @ApiResponses({

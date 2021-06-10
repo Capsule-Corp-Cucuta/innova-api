@@ -15,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.event.domain.dto.Event;
-import co.edu.ufps.innova.event.domain.dto.EventType;
-import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.domain.service.EventService;
 
 @RestController
@@ -29,21 +27,27 @@ public class EventController {
 
     @PostMapping
     @ApiOperation("Save a new Event")
-    @ApiResponse(code = 201, message = "Created")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
     public ResponseEntity<Event> save(@RequestBody Event event) {
-        return new ResponseEntity<>(service.save(event), HttpStatus.CREATED);
+        Event newEvent = service.save(event);
+        return newEvent != null
+                ? new ResponseEntity<>(newEvent, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Update an existing Event")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Event not found")
+            @ApiResponse(code = 400, message = "Bad request")
     })
     public ResponseEntity<HttpStatus> update(@PathVariable("id") long id, @RequestBody Event event) {
         return service.update(id, event)
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
@@ -65,37 +69,13 @@ public class EventController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/type/{type}")
-    @ApiOperation("Get all Events by type")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Events not found")
-    })
-    public ResponseEntity<List<Event>> findByType(@PathVariable("type") EventType type) {
-        return service.findByType(type)
-                .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/state/{state}")
-    @ApiOperation("Get all Events by state")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Events not found")
-    })
-    public ResponseEntity<List<Event>> findByState(@PathVariable("state") EventState state) {
-        return service.findByState(state)
-                .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/between-dates")
     @ApiOperation("Get all Events between dates")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
     })
-    public ResponseEntity<List<Event>> findBetweenDates(String criteria) {
+    public ResponseEntity<List<Event>> findBetweenDates(@RequestBody String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -105,7 +85,7 @@ public class EventController {
     }
 
     @GetMapping("/after-now")
-    @ApiOperation("Get all Events with registration dead line date after now")
+    @ApiOperation("Get all Events with registration dead line date after the consult date time")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")

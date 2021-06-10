@@ -2,19 +2,10 @@ package co.edu.ufps.innova.contact.persistence.reposiory;
 
 import java.util.List;
 import java.util.Optional;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 
 public interface IContactCrudRepository extends CrudRepository<ContactEntity, String> {
-
-    /**
-     * Method for find a Contact by type
-     *
-     * @param type of Contact
-     * @return Contact with the given type or Optional
-     */
-    Optional<List<ContactEntity>> findByType(ContactType type);
 
     /**
      * Method for get all Contacts with user type

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
@@ -33,7 +32,7 @@ public class ContactService {
             Email email = new Email();
             email.setTo(myContact.getEmail());
             email.setSubject("Innova - Registro exitoso");
-            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos "+
+            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
                     "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
             emailService.sendEmail(email);
         } catch (MailSendException e) {
@@ -45,6 +44,7 @@ public class ContactService {
 
     public boolean update(String id, Contact contact) {
         return findById(id).map(item -> {
+            contact.setId(id);
             contact.setRegistrationDate(item.getRegistrationDate());
             repository.save(contact, userService.getPassword(id));
             return true;
@@ -57,10 +57,6 @@ public class ContactService {
 
     public Optional<Contact> findById(String id) {
         return repository.findById(id);
-    }
-
-    public Optional<List<Contact>> findByType(ContactType type) {
-        return repository.findByType(type);
     }
 
     public Optional<List<Contact>> findByRequestAccompaniment() {

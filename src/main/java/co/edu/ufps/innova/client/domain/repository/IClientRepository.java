@@ -3,7 +3,6 @@ package co.edu.ufps.innova.client.domain.repository;
 import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.client.domain.dto.Client;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 
 public interface IClientRepository {
 
@@ -32,20 +31,21 @@ public interface IClientRepository {
     Optional<Client> findById(String id);
 
     /**
-     * Method for get all Clients by contact type
-     *
-     * @param type contact type
-     * @return all Clients with the given contact type
-     */
-    Optional<List<Client>> findByType(ContactType type);
-
-    /**
      * Method for get all Clients by Consultant
      *
      * @param consultantId consultant id
      * @return all Clients with the given consultant id
      */
     Optional<List<Client>> findByConsultant(String consultantId);
+
+    /**
+     * Method for get all Clients by Consultant and active
+     *
+     * @param consultantId id of the Consultant
+     * @param active       of User
+     * @return all Clients with the given consultant id
+     */
+    Optional<List<Client>> findByConsultantIdAndActive(String consultantId, boolean active);
 
     /**
      * Method for delete a Client

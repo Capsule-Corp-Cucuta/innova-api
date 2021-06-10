@@ -10,12 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.client.domain.service.ClientService;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "consultant")
+@Api(tags = "client")
 @RequestMapping("/client")
 public class ClientController {
 
@@ -57,18 +56,6 @@ public class ClientController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/type/{type}")
-    @ApiOperation("List all Clients by contact type")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Clients not found")
-    })
-    public ResponseEntity<List<Client>> findByType(@PathVariable ContactType type) {
-        return service.findByType(type)
-                .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/consultant/{consultantId}")
     @ApiOperation("List all Clients by consultant id")
     @ApiResponses({
@@ -77,6 +64,18 @@ public class ClientController {
     })
     public ResponseEntity<List<Client>> findByConsultant(@PathVariable String consultantId) {
         return service.findByConsultant(consultantId)
+                .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/consultant/{consultantId}/active")
+    @ApiOperation("List all active Clients by consultant id")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Clients not found")
+    })
+    public ResponseEntity<List<Client>> findByConsultantIdAndActive(@PathVariable String consultantId) {
+        return service.findByConsultantIdAndActive(consultantId)
                 .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -31,14 +31,6 @@ public interface IConsultantRepository {
     Optional<Consultant> findById(String id);
 
     /**
-     * Method for find a Consultant by Code
-     *
-     * @param code of the Consultant
-     * @return Consultant with the given code or Optional
-     */
-    Optional<Consultant> findByCode(String code);
-
-    /**
      * Method for get a list of active Consultants
      *
      * @return all active Consultants

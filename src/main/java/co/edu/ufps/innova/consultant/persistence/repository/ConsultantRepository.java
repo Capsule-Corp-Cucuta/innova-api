@@ -47,14 +47,6 @@ public class ConsultantRepository implements IConsultantRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Consultant> findByCode(String code) {
-        return repository.findByCode(code).map(mapper::toConsultant);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Optional<List<Consultant>> findByActive() {
         return repository.findByActive(true).map(mapper::toConsultantList);
     }

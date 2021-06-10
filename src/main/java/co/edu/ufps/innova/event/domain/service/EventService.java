@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.Event;
-import co.edu.ufps.innova.event.domain.dto.EventType;
 import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.domain.repository.IEventRepository;
 
@@ -19,18 +19,32 @@ public class EventService {
     private final IEventRepository repository;
 
     public Event save(Event event) {
-        event.setEventDurationInHours((byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours());
-        return repository.save(event);
+        LocalDateTime registrationDeadLineDateTime = LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MAX);
+        byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
+        boolean canCreate = LocalDateTime.now().isBefore(registrationDeadLineDateTime) &&
+                event.getStartDate().isAfter(registrationDeadLineDateTime) &&
+                duration > 0 && duration <= 8;
+        if (canCreate) {
+            event.setEventDurationInHours(duration);
+            event.setState(EventState.OPEN);
+            return repository.save(event);
+        } else {
+            return null;
+        }
     }
 
     public boolean update(long id, Event event) {
-        return findById(id).map(item -> {
-            event.setId(item.getId());
-            event.setEventDurationInHours((byte) Duration.between(
-                    event.getStartDate(), event.getCloseDate()).toHours()
-            );
-            repository.save(event);
-            return true;
+        byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
+        boolean canUpdate = duration > 0 && duration <= 8 &&
+                event.getStartDate().isAfter(LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MAX));
+        return canUpdate && findById(id).map(item -> {
+            if (!item.getState().equals(EventState.COMPLETE)) {
+                event.setId(item.getId());
+                event.setEventDurationInHours(duration);
+                repository.save(event);
+                return true;
+            }
+            return false;
         }).orElse(false);
     }
 
@@ -40,14 +54,6 @@ public class EventService {
 
     public Optional<Event> findById(long id) {
         return repository.findById(id);
-    }
-
-    public Optional<List<Event>> findByType(EventType type) {
-        return repository.findByType(type);
-    }
-
-    public Optional<List<Event>> findByState(EventState state) {
-        return repository.findByState(state);
     }
 
     public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {

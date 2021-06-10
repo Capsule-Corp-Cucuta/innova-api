@@ -13,8 +13,8 @@ repositories {
 }
 
 ext {
-    gsonVersion = '2.8.7'
     jjwtVersion = '0.9.1'
+    gsonVersion = '2.8.7'
     swaggerVersion = '2.9.2'
     lombokVersion = '1.18.12'
     commonsTextVersion = '1.9'

@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryArea;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryType;
-import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
 
 public interface IAdvisoryRepository {
 
@@ -49,30 +46,6 @@ public interface IAdvisoryRepository {
     Optional<List<Advisory>> findByClient(String clientId);
 
     /**
-     * Method for get all Advisories by type
-     *
-     * @param type of Advisory
-     * @return all Advisories with the given type
-     */
-    Optional<List<Advisory>> findByType(AdvisoryType type);
-
-    /**
-     * Method for get all advisories by area
-     *
-     * @param area of Advisory
-     * @return all advisories with the given area
-     */
-    Optional<List<Advisory>> findByArea(AdvisoryArea area);
-
-    /**
-     * Method for get all Advisories by state
-     *
-     * @param state of Advisory
-     * @return all Advisories with the given state
-     */
-    Optional<List<Advisory>> findByState(AdvisoryState state);
-
-    /**
      * Method for get all Advisories between two dates
      *
      * @param startDate first date
@@ -89,33 +62,6 @@ public interface IAdvisoryRepository {
      * @return all Advisories with the given consultant id and client id
      */
     Optional<List<Advisory>> findByConsultantAndClient(String consultantId, String clientId);
-
-    /**
-     * Method for get all Advisories by consultant id and advisory type
-     *
-     * @param consultantId consultant id
-     * @param type         of Advisory
-     * @return all Advisories with the given consultant id and advisory type
-     */
-    Optional<List<Advisory>> findByConsultantAndType(String consultantId, AdvisoryType type);
-
-    /**
-     * Method for get all Advisories by consultant id and advisory area
-     *
-     * @param consultantId consultant id
-     * @param area         of Advisory
-     * @return all Advisories with the given consultant id and advisory area
-     */
-    Optional<List<Advisory>> findByConsultantAndArea(String consultantId, AdvisoryArea area);
-
-    /**
-     * Method for get all Advisories by consultant id and advisory state
-     *
-     * @param consultantId consultant id
-     * @param state        of Advisory
-     * @return all Advisories with the given consultant id and advisory state
-     */
-    Optional<List<Advisory>> findByConsultantAndState(String consultantId, AdvisoryState state);
 
     /**
      * Method for get all Advisories by consultant id and between two dates
@@ -139,21 +85,6 @@ public interface IAdvisoryRepository {
      */
     Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId, String clientId,
                                                                    LocalDateTime startDate, LocalDateTime endDate);
-
-    /**
-     * Method for count all Advisories
-     *
-     * @return number of all Advisories
-     */
-    long count();
-
-    /**
-     * Method for count all Advisories by consultant id
-     *
-     * @param consultantId consultant id
-     * @return number of all Advisories with the given consultant id
-     */
-    long countByConsultant(String consultantId);
 
     /**
      * Method for count all Advisories by consultant and two dates

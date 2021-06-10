@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
@@ -44,14 +43,6 @@ public class ContactRepository implements IContactRepository {
     @Override
     public Optional<Contact> findById(String id) {
         return repository.findById(id).map(mapper::toContact);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<List<Contact>> findByType(ContactType type) {
-        return repository.findByType(type).map(mapper::toContactList);
     }
 
     /**

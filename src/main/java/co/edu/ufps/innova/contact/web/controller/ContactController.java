@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.contact.domain.service.ContactService;
 
 @RestController
@@ -58,18 +57,6 @@ public class ContactController {
     public ResponseEntity<Contact> findById(@PathVariable String id) {
         return service.findById(id)
                 .map(contact -> new ResponseEntity<>(contact, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/type/{type}")
-    @ApiOperation("List all Contacts by type")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Contacts not found")
-    })
-    public ResponseEntity<List<Contact>> findByType(@PathVariable ContactType type) {
-        return service.findByType(type)
-                .map(contacts -> new ResponseEntity<>(contacts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
