@@ -99,7 +99,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<List<Advisory>> findBetweenDates(@RequestBody String criteria) {
+    public ResponseEntity<List<Advisory>> findBetweenDates(String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -129,7 +129,7 @@ public class AdvisoryController {
             @ApiResponse(code = 404, message = "Advisories not found")
     })
     public ResponseEntity<List<Advisory>> findByConsultantAndBetweenDates(
-            @PathVariable("consultantId") String consultantId, @RequestBody String criteria
+            @PathVariable("consultantId") String consultantId, String criteria
     ) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
@@ -161,7 +161,7 @@ public class AdvisoryController {
     @ApiOperation("Count all Advisories by consultant between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countByConsultantBetweenDates(@PathVariable("consultantId") String consultantId,
-                                                              @RequestBody String criteria) {
+                                                              String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -185,7 +185,7 @@ public class AdvisoryController {
     @ApiOperation("Count all hours of Advisories by consultant without preparation time between two dates")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<Long> countHoursByConsultantWithoutPreparationBetweenDates(
-            @PathVariable("consultantId") String consultantId, @RequestBody String criteria
+            @PathVariable("consultantId") String consultantId, String criteria
     ) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
