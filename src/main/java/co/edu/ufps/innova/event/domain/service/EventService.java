@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.event.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -48,7 +48,7 @@ public class EventService {
         }).orElse(false);
     }
 
-    public List<Event> findAll() {
+    public Set<Event> findAll() {
         return repository.findAll();
     }
 
@@ -56,19 +56,19 @@ public class EventService {
         return repository.findById(id);
     }
 
-    public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.findBetweenDates(startDate, endDate);
-    }
-
-    public Optional<List<Event>> findByRegistrationDeadlineDateAfterNow() {
-        return repository.findByRegistrationDeadlineDateAfter(LocalDate.now());
-    }
-
     public boolean delete(long id) {
         return findById(id).map(event -> {
             repository.delete(event);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<Set<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findBetweenDates(startDate, endDate);
+    }
+
+    public Optional<Set<Event>> findByRegistrationDeadlineDateAfterNow() {
+        return repository.findByRegistrationDeadlineDateAfter(LocalDate.now());
     }
 
 }

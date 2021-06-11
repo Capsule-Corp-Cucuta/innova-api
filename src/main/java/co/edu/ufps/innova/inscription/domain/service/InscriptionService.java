@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
@@ -31,27 +31,12 @@ public class InscriptionService {
 
     }
 
-    public boolean update(long eventId, String contactId, Inscription inscription) {
-        return findById(eventId, contactId)
-                .map(item -> {
-                    inscription.setEventId(item.getEventId());
-                    inscription.setUserId(item.getUserId());
-                    save(inscription);
-                    return true;
-                })
-                .orElse(false);
-    }
-
-    public void update(List<Inscription> inscriptions) {
+    public void takeAttendance(Set<Inscription> inscriptions) {
         repository.update(inscriptions);
     }
 
     public Optional<Inscription> findById(long eventId, String userId) {
         return repository.findById(eventId, userId);
-    }
-
-    public Optional<List<Inscription>> findByEventId(long eventId) {
-        return repository.findByEventId(eventId);
     }
 
     public boolean delete(long eventId, String userId) {
@@ -61,6 +46,10 @@ public class InscriptionService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    public Optional<Set<Inscription>> findByEventId(long eventId) {
+        return repository.findByEventId(eventId);
     }
 
 }

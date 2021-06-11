@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.client.domain.repository;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import co.edu.ufps.innova.client.domain.dto.Client;
 
@@ -20,7 +20,7 @@ public interface IClientRepository {
      *
      * @return all Clients
      */
-    List<Client> findAll();
+    Set<Client> findAll();
 
     /**
      * Method for find a Client by id
@@ -31,12 +31,19 @@ public interface IClientRepository {
     Optional<Client> findById(String id);
 
     /**
+     * Method for delete a Client
+     *
+     * @param client to delete
+     */
+    void delete(Client client);
+
+    /**
      * Method for get all Clients by Consultant
      *
      * @param consultantId consultant id
      * @return all Clients with the given consultant id
      */
-    Optional<List<Client>> findByConsultant(String consultantId);
+    Optional<Set<Client>> findByConsultant(String consultantId);
 
     /**
      * Method for get all Clients by Consultant and active
@@ -45,13 +52,6 @@ public interface IClientRepository {
      * @param active       of User
      * @return all Clients with the given consultant id
      */
-    Optional<List<Client>> findByConsultantIdAndActive(String consultantId, boolean active);
-
-    /**
-     * Method for delete a Client
-     *
-     * @param client to delete
-     */
-    void delete(Client client);
+    Optional<Set<Client>> findByConsultantIdAndActive(String consultantId, boolean active);
 
 }

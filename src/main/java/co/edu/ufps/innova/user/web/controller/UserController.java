@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.web.controller;
 
-import java.util.List;
+import java.util.Set;
 import io.swagger.annotations.*;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
@@ -37,10 +37,45 @@ public class UserController {
         return service.update(id, user) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/{id}/change-state")
+    @ApiOperation("Change the state of the an existing User")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public ResponseEntity<HttpStatus> changeState(@PathVariable String id) {
+        return service.changeState(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/{id}/change-password")
+    @ApiOperation("Change the password of the an existing User")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public ResponseEntity<HttpStatus> changePassword(@PathVariable("id") String id, @RequestBody PasswordChange passwordChange) {
+        return service.changePassword(id, passwordChange.getOldPassword(), passwordChange.getNewPassword())
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/recover-password")
+    @ApiOperation("Change the password of the an existing User and send to him an email with the new password")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public ResponseEntity<HttpStatus> recoverPassword(@RequestBody String email) {
+        JsonObject jsonObject = JsonParser.parseString(email).getAsJsonObject();
+        return service.recoverPassword(jsonObject.get("email").getAsString())
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping
     @ApiOperation("List all Users")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<Set<User>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -76,41 +111,6 @@ public class UserController {
     })
     public ResponseEntity<HttpStatus> delete(@PathVariable String id) {
         return service.delete(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/{id}/change-state")
-    @ApiOperation("Change the state of the an existing User")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "User not found")
-    })
-    public ResponseEntity<HttpStatus> changeState(@PathVariable String id) {
-        return service.changeState(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/{id}/change-password")
-    @ApiOperation("Change the password of the an existing User")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "User not found")
-    })
-    public ResponseEntity<HttpStatus> changePassword(@PathVariable("id") String id, @RequestBody PasswordChange passwordChange) {
-        return service.changePassword(id, passwordChange.getOldPassword(), passwordChange.getNewPassword())
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/recover-password")
-    @ApiOperation("Change the password of the an existing User and send to him an email with the new password")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "User not found")
-    })
-    public ResponseEntity<HttpStatus> recoverPassword(@RequestBody String email) {
-        JsonObject jsonObject = JsonParser.parseString(email).getAsJsonObject();
-        return service.recoverPassword(jsonObject.get("email").getAsString())
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

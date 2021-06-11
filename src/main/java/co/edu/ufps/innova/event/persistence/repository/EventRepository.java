@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.event.persistence.repository;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,8 +30,8 @@ public class EventRepository implements IEventRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<Event> findAll() {
-        return mapper.toEvents((List<EventEntity>) repository.findAll());
+    public Set<Event> findAll() {
+        return mapper.toEvents((Set<EventEntity>) repository.findAll());
     }
 
     /**
@@ -46,7 +46,15 @@ public class EventRepository implements IEventRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public void delete(Event event) {
+        repository.delete(mapper.toEventEntity(event));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Set<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByStartDateBetween(startDate, endDate).map(mapper::toEvents);
     }
 
@@ -54,15 +62,9 @@ public class EventRepository implements IEventRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Event>> findByRegistrationDeadlineDateAfter(LocalDate date) {
+    public Optional<Set<Event>> findByRegistrationDeadlineDateAfter(LocalDate date) {
         return repository.findByRegistrationDeadlineDateGreaterThanEqual(date).map(mapper::toEvents);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void delete(Event event) {
-        repository.delete(mapper.toEventEntity(event));
-    }
+
 }

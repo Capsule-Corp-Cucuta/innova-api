@@ -1,7 +1,8 @@
 package co.edu.ufps.innova.contact.persistence.reposiory;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
@@ -33,7 +34,7 @@ public class ContactRepository implements IContactRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Contact>> findAll() {
+    public Optional<Set<Contact>> findAll() {
         return repository.findByUserType(USER_TYPE).map(mapper::toContactList);
     }
 
@@ -49,16 +50,17 @@ public class ContactRepository implements IContactRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Contact>> findByRequestAccompaniment() {
-        return repository.findByRequestAccompanimentAndUserType(true, USER_TYPE)
-                .map(mapper::toContactList);
+    public void delete(Contact consultant) {
+        repository.delete(mapper.toContactEntity(consultant));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(Contact consultant) {
-        repository.delete(mapper.toContactEntity(consultant));
+    public Optional<Set<Contact>> findByRequestAccompaniment() {
+        return repository.findByRequestAccompanimentAndUserType(true, USER_TYPE)
+                .map(mapper::toContactList);
     }
+
 }

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.persistence.reposiory;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
@@ -13,7 +13,7 @@ public interface IContactCrudRepository extends CrudRepository<ContactEntity, St
      * @param userType of User (CONTACT by default)
      * @return all Contacts
      */
-    Optional<List<ContactEntity>> findByUserType(String userType);
+    Optional<Set<ContactEntity>> findByUserType(String userType);
 
     /**
      * Method for get all Contacts with request accompaniment and user type
@@ -22,6 +22,6 @@ public interface IContactCrudRepository extends CrudRepository<ContactEntity, St
      * @param userType             of User (CONTACT by default)
      * @return all Contacts who request accompaniment and are Contacts
      */
-    Optional<List<ContactEntity>> findByRequestAccompanimentAndUserType(boolean requestAccompaniment, String userType);
+    Optional<Set<ContactEntity>> findByRequestAccompanimentAndUserType(boolean requestAccompaniment, String userType);
 
 }

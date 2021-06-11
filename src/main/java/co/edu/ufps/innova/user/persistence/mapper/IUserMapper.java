@@ -1,9 +1,10 @@
 package co.edu.ufps.innova.user.persistence.mapper;
 
-import java.util.List;
 import org.mapstruct.*;
 import co.edu.ufps.innova.user.domain.dto.User;
 import co.edu.ufps.innova.user.persistence.entity.UserEntity;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface IUserMapper {
@@ -16,6 +17,6 @@ public interface IUserMapper {
     @InheritInverseConfiguration
     UserEntity toUserEntity(User user);
 
-    List<User> toUsers(List<UserEntity> userEntities);
+    Set<User> toUsers(Set<UserEntity> userEntities);
 
 }

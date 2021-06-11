@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,6 @@ public class ContactService {
         contact.setRegistrationDate(LocalDate.now());
         String userPassword = passwordRepository.generatePassword();
         Contact myContact = repository.save(contact, passwordRepository.encryptPassword(userPassword));
-
         try {
             Email email = new Email();
             email.setTo(myContact.getEmail());
@@ -38,7 +37,6 @@ public class ContactService {
         } catch (MailSendException e) {
             e.printStackTrace();
         }
-
         return myContact;
     }
 
@@ -51,7 +49,7 @@ public class ContactService {
         }).orElse(false);
     }
 
-    public Optional<List<Contact>> findAll() {
+    public Optional<Set<Contact>> findAll() {
         return repository.findAll();
     }
 
@@ -59,15 +57,15 @@ public class ContactService {
         return repository.findById(id);
     }
 
-    public Optional<List<Contact>> findByRequestAccompaniment() {
-        return repository.findByRequestAccompaniment();
-    }
-
     public boolean delete(String id) {
         return findById(id).map(contact -> {
             repository.delete(contact);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<Set<Contact>> findByRequestAccompaniment() {
+        return repository.findByRequestAccompaniment();
     }
 
     public boolean requestAccompaniment(String id) {

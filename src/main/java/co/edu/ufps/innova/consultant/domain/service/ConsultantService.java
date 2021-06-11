@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class ConsultantService {
             Email email = new Email();
             email.setTo(myConsultant.getEmail());
             email.setSubject("Innova - Registro exitoso");
-            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos "+
+            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
                     "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
             emailService.sendEmail(email);
         } catch (MailSendException e) {
@@ -50,7 +50,7 @@ public class ConsultantService {
                 .orElse(false);
     }
 
-    public List<Consultant> findAll() {
+    public Set<Consultant> findAll() {
         return repository.findAll();
     }
 
@@ -58,15 +58,15 @@ public class ConsultantService {
         return repository.findById(id);
     }
 
-    public Optional<List<Consultant>> findByActive() {
-        return repository.findByActive();
-    }
-
     public boolean delete(String id) {
         return findById(id).map(consultant -> {
             repository.delete(consultant);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<Set<Consultant>> findByActive() {
+        return repository.findByActive();
     }
 
 }

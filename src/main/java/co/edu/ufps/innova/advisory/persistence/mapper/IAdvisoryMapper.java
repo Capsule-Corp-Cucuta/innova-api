@@ -1,7 +1,6 @@
 package co.edu.ufps.innova.advisory.persistence.mapper;
 
-import java.util.List;
-
+import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -25,6 +24,6 @@ public interface IAdvisoryMapper {
     @InheritInverseConfiguration
     AdvisoryEntity toAdvisoryEntity(Advisory advisory);
 
-    List<Advisory> toAdvisories(List<AdvisoryEntity> advisoryEntities);
+    Set<Advisory> toAdvisories(Set<AdvisoryEntity> advisoryEntities);
 
 }

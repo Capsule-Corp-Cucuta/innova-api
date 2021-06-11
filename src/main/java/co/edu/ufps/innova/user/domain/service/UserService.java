@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,12 +45,8 @@ public class UserService {
         return repository.findById(id);
     }
 
-    public List<User> findAll() {
+    public Set<User> findAll() {
         return repository.findAll();
-    }
-
-    public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email);
     }
 
     public boolean delete(String id) {
@@ -66,6 +62,10 @@ public class UserService {
 
     public boolean changeState(String id) {
         return repository.changeState(id);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     public boolean changePassword(String id, String oldPassword, String newPassword) {

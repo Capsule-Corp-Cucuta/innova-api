@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.client.persistence.reposiroty;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -32,8 +32,8 @@ public class ClientRepository implements IClientRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<Client> findAll() {
-        return mapper.toClientList((List<ClientEntity>) repository.findAll());
+    public Set<Client> findAll() {
+        return mapper.toClientList((Set<ClientEntity>) repository.findAll());
     }
 
     /**
@@ -48,7 +48,15 @@ public class ClientRepository implements IClientRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Client>> findByConsultant(String consultantId) {
+    public void delete(Client client) {
+        repository.delete(mapper.toClientEntity(client));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Set<Client>> findByConsultant(String consultantId) {
         return repository.findByConsultantId(consultantId).map(mapper::toClientList);
     }
 
@@ -56,15 +64,8 @@ public class ClientRepository implements IClientRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<List<Client>> findByConsultantIdAndActive(String consultantId, boolean active) {
+    public Optional<Set<Client>> findByConsultantIdAndActive(String consultantId, boolean active) {
         return repository.findByConsultantIdAndActive(consultantId, active).map(mapper::toClientList);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void delete(Client client) {
-        repository.delete(mapper.toClientEntity(client));
-    }
 }

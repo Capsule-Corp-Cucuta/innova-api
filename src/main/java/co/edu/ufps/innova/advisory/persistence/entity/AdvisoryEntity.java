@@ -38,7 +38,7 @@ public class AdvisoryEntity {
     private Byte durationInHours;
 
     @Column(name = "preparation_type_in_hours")
-    private Byte preparationTypeInHours;
+    private Byte preparationTimeInHours;
 
     @Lob
     private String notes;

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.domain.repository;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import co.edu.ufps.innova.user.domain.dto.User;
 
@@ -29,7 +29,7 @@ public interface IUserRepository {
      *
      * @return all Users
      */
-    List<User> findAll();
+    Set<User> findAll();
 
     /**
      * Method for find an User by id
@@ -38,14 +38,6 @@ public interface IUserRepository {
      * @return User with the given id or Optional
      */
     Optional<User> findById(String id);
-
-    /**
-     * Method for find an User by email
-     *
-     * @param email of the User
-     * @return User with the given email or Optional
-     */
-    Optional<User> findByEmail(String email);
 
     /**
      * Method for delete an User
@@ -69,6 +61,14 @@ public interface IUserRepository {
      * @return password of the User with the given id
      */
     String getPassword(String id);
+
+    /**
+     * Method for find an User by email
+     *
+     * @param email of the User
+     * @return User with the given email or Optional
+     */
+    Optional<User> findByEmail(String email);
 
     /**
      * Method for change the state of an User

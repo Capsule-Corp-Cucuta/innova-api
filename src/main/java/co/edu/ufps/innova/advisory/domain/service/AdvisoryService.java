@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.domain.service;
 
-import java.util.List;
+import java.util.Set;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Optional;
@@ -88,7 +88,7 @@ public class AdvisoryService {
         }).orElse(false);
     }
 
-    public List<Advisory> findAll() {
+    public Set<Advisory> findAll() {
         return repository.findAll();
     }
 
@@ -96,56 +96,40 @@ public class AdvisoryService {
         return repository.findById(id);
     }
 
-    public Optional<List<Advisory>> findByConsultant(String consultantId) {
-        return repository.findByConsultant(consultantId);
-    }
-
-    public Optional<List<Advisory>> findByClient(String clientId) {
-        return repository.findByClient(clientId);
-    }
-
-    public Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.findBetweenDates(startDate, endDate);
-    }
-
-    public Optional<List<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
-        return repository.findByConsultantAndClient(consultantId, clientId);
-    }
-
-    public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId, LocalDateTime startDate,
-                                                                    LocalDateTime endDate) {
-        return repository.findByConsultantAndBetweenDates(consultantId, startDate, endDate);
-    }
-
-    public Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId, String clientId,
-                                                                          LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.findByConsultantAndClientBetweenDates(consultantId, clientId, startDate, endDate);
-    }
-
-    public long countByConsultantBetweenDates(String consultantId, LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.countByConsultantBetweenDates(consultantId, startDate, endDate);
-    }
-
-    public long countHoursByConsultant(String consultantId) {
-        return findByConsultant(consultantId)
-                .map(advisories -> advisories.stream()
-                        .mapToLong(Advisory::getDurationInHours).sum()
-                ).orElse(0L);
-    }
-
-    public long countHoursByConsultantBetweenDates(String consultantId, LocalDateTime startDate,
-                                                   LocalDateTime endDate) {
-        return findByConsultantAndBetweenDates(consultantId, startDate, endDate)
-                .map(advisories -> advisories.stream()
-                        .mapToLong(Advisory::getDurationInHours).sum()
-                ).orElse(0L);
-    }
-
     public boolean delete(long id) {
         return findById(id).map(advisory -> {
             repository.delete(advisory);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<Set<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findBetweenDates(startDate, endDate);
+    }
+
+    public Optional<Set<Advisory>> findByConsultant(String consultantId) {
+        return repository.findByConsultant(consultantId);
+    }
+
+    public Optional<Set<Advisory>> findByConsultantAndBetweenDates(String consultantId,
+                                                                   LocalDateTime startDate,
+                                                                   LocalDateTime endDate) {
+        return repository.findByConsultantAndBetweenDates(consultantId, startDate, endDate);
+    }
+
+    public Optional<Set<Advisory>> findByClient(String clientId) {
+        return repository.findByClient(clientId);
+    }
+
+    public Optional<Set<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
+        return repository.findByConsultantAndClient(consultantId, clientId);
+    }
+
+    public Optional<Set<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
+                                                                         String clientId,
+                                                                         LocalDateTime startDate,
+                                                                         LocalDateTime endDate) {
+        return repository.findByConsultantAndClientBetweenDates(consultantId, clientId, startDate, endDate);
     }
 
 }

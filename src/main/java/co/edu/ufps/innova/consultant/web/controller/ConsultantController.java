@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.web.controller;
 
-import java.util.List;
+import java.util.Set;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -42,7 +42,7 @@ public class ConsultantController {
     @GetMapping
     @ApiOperation("List all Consultants")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<List<Consultant>> findAll() {
+    public ResponseEntity<Set<Consultant>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -64,7 +64,7 @@ public class ConsultantController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Consultants not found")
     })
-    public ResponseEntity<List<Consultant>> findByActive() {
+    public ResponseEntity<Set<Consultant>> findByActive() {
         return service.findByActive()
                 .map(consultants -> new ResponseEntity<>(consultants, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

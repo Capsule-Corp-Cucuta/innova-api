@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.web.controller;
 
-import java.util.List;
+import java.util.Set;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -39,10 +39,22 @@ public class ContactController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/{id}/request-accompaniment")
+    @ApiOperation("Request accompaniment to a existing Contact")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Contact not found")
+    })
+    public ResponseEntity<HttpStatus> requestAccompaniment(@PathVariable String id) {
+        return service.requestAccompaniment(id)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping
     @ApiOperation("List all Contacts")
     @ApiResponse(code = 200, message = "OK")
-    private ResponseEntity<List<Contact>> findAll() {
+    private ResponseEntity<Set<Contact>> findAll() {
         return service.findAll()
                 .map(contacts -> new ResponseEntity<>(contacts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
@@ -66,7 +78,7 @@ public class ContactController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Contacts not found")
     })
-    public ResponseEntity<List<Contact>> findByRequestAccompaniment() {
+    public ResponseEntity<Set<Contact>> findByRequestAccompaniment() {
         return service.findByRequestAccompaniment()
                 .map(contacts -> new ResponseEntity<>(contacts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -80,18 +92,6 @@ public class ContactController {
     })
     private ResponseEntity<HttpStatus> delete(@PathVariable String id) {
         return service.delete(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/{id}/request-accompaniment")
-    @ApiOperation("Request accompaniment to a existing Contact")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Contact not found")
-    })
-    public ResponseEntity<HttpStatus> requestAccompaniment(@PathVariable String id) {
-        return service.requestAccompaniment(id)
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

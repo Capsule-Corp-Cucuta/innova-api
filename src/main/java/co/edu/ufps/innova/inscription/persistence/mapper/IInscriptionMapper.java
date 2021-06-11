@@ -1,14 +1,14 @@
 package co.edu.ufps.innova.inscription.persistence.mapper;
 
-import java.util.List;
+import java.util.Set;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.InheritInverseConfiguration;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 import co.edu.ufps.innova.event.persistence.mapper.IEventMapper;
 import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring", uses = {IEventMapper.class, IContactMapper.class})
 public interface IInscriptionMapper {
@@ -26,8 +26,8 @@ public interface IInscriptionMapper {
     })
     InscriptionEntity toInscriptionEntity(Inscription inscription);
 
-    List<Inscription> toInscriptions(List<InscriptionEntity> inscriptionEntities);
+    Set<Inscription> toInscriptions(Set<InscriptionEntity> inscriptionEntities);
 
-    List<InscriptionEntity> toInscriptionEntities(List<Inscription> inscriptions);
+    Set<InscriptionEntity> toInscriptionEntities(Set<Inscription> inscriptions);
 
 }

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.persistence.reposiroty;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,28 +16,44 @@ public class InscriptionRepository implements IInscriptionRepository {
     private final IInscriptionMapper mapper;
     private final IInscriptionCrudRepository repository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Inscription save(Inscription inscription) {
         return mapper.toInscription(repository.save(mapper.toInscriptionEntity(inscription)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(List<Inscription> inscriptions) {
+    public void update(Set<Inscription> inscriptions) {
         repository.saveAll(mapper.toInscriptionEntities(inscriptions));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Inscription> findById(long eventId, String userId) {
         return repository.findById(new InscriptionEntityPK(eventId, userId)).map(mapper::toInscription);
     }
 
-    @Override
-    public Optional<List<Inscription>> findByEventId(long eventId) {
-        return repository.findByIdEventId(eventId).map(mapper::toInscriptions);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Inscription inscription) {
         repository.delete(mapper.toInscriptionEntity(inscription));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Set<Inscription>> findByEventId(long eventId) {
+        return repository.findByIdEventId(eventId).map(mapper::toInscriptions);
+    }
+
 }

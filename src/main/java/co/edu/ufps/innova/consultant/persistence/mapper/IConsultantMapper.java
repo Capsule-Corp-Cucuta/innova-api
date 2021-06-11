@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.persistence.mapper;
 
-import java.util.List;
+import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -23,6 +23,6 @@ public interface IConsultantMapper {
     @InheritInverseConfiguration
     ConsultantEntity toConsultantEntity(Consultant consultant);
 
-    List<Consultant> toConsultantList(List<ConsultantEntity> consultantEntities);
+    Set<Consultant> toConsultantList(Set<ConsultantEntity> consultantEntities);
 
 }

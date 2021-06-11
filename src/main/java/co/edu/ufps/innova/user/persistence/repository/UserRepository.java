@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.persistence.repository;
 
-import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import co.edu.ufps.innova.user.domain.dto.User;
@@ -49,8 +49,8 @@ public class UserRepository implements IUserRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<User> findAll() {
-        return mapper.toUsers((List<UserEntity>) repository.findAll());
+    public Set<User> findAll() {
+        return mapper.toUsers((Set<UserEntity>) repository.findAll());
     }
 
     /**
@@ -59,14 +59,6 @@ public class UserRepository implements IUserRepository {
     @Override
     public Optional<User> findById(String id) {
         return repository.findById(id).map(mapper::toUser);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email).map(mapper::toUser);
     }
 
     /**
@@ -91,6 +83,14 @@ public class UserRepository implements IUserRepository {
     @Override
     public String getPassword(String id) {
         return repository.findById(id).map(UserEntity::getPassword).orElse(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email).map(mapper::toUser);
     }
 
     /**
