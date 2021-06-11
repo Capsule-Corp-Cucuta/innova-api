@@ -16,15 +16,15 @@ public class UserService implements IUserService {
 
     private final IUserRepository repository;
     private final IEmailService emailService;
-    private final IPasswordService pwRepository;
+    private final IPasswordService passwordService;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public User save(User user) {
-        String newPassword = pwRepository.generatePassword();
-        User newUser = repository.save(user, pwRepository.encryptPassword(newPassword));
+        String newPassword = passwordService.generatePassword();
+        User newUser = repository.save(user, passwordService.encryptPassword(newPassword));
         try {
             emailService.sendNewUserEmail(newUser.getEmail(), newPassword);
         } catch (MailSendException e) {
@@ -97,8 +97,8 @@ public class UserService implements IUserService {
      */
     @Override
     public boolean changePassword(String id, String oldPassword, String newPassword) {
-        return pwRepository.validatePassword(oldPassword, getPassword(id)) &&
-                repository.changePassword(id, pwRepository.encryptPassword(newPassword));
+        return passwordService.validatePassword(oldPassword, getPassword(id)) &&
+                repository.changePassword(id, passwordService.encryptPassword(newPassword));
     }
 
     /**
@@ -107,8 +107,8 @@ public class UserService implements IUserService {
     @Override
     public boolean recoverPassword(String userEmail) {
         return findByEmail(userEmail).map(user -> {
-            String newPassword = pwRepository.generatePassword();
-            boolean updated = repository.changePassword(user.getId(), pwRepository.encryptPassword(newPassword));
+            String newPassword = passwordService.generatePassword();
+            boolean updated = repository.changePassword(user.getId(), passwordService.encryptPassword(newPassword));
             if (updated) {
                 try {
                     emailService.sendRecoverPasswordEmail(userEmail, newPassword);

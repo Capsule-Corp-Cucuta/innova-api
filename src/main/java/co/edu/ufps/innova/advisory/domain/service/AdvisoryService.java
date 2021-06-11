@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.user.domain.dto.User;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
-import co.edu.ufps.innova.user.domain.service.UserService;
+import co.edu.ufps.innova.user.domain.service.IUserService;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
@@ -22,7 +22,7 @@ import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 @RequiredArgsConstructor
 public class AdvisoryService {
 
-    private final UserService userService;
+    private final IUserService userService;
     private final IEmailService emailService;
     private final IAdvisoryRepository repository;
 

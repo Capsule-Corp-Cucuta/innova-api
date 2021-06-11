@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.user.domain.service.UserService;
+import co.edu.ufps.innova.user.domain.service.IUserService;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
@@ -16,16 +16,16 @@ import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 @RequiredArgsConstructor
 public class ContactService {
 
-    private final UserService userService;
+    private final IUserService userService;
     private final IEmailService emailService;
     private final IContactRepository repository;
-    private final IPasswordService passwordRepository;
+    private final IPasswordService passwordService;
 
     public Contact save(Contact contact) {
         if (userService.findById(contact.getId()).isPresent()) userService.delete(contact.getId());
         contact.setRegistrationDate(LocalDate.now());
-        String userPassword = passwordRepository.generatePassword();
-        Contact newContact = repository.save(contact, passwordRepository.encryptPassword(userPassword));
+        String userPassword = passwordService.generatePassword();
+        Contact newContact = repository.save(contact, passwordService.encryptPassword(userPassword));
         try {
             emailService.sendNewUserEmail(newContact.getEmail(), userPassword);
         } catch (MailSendException e) {
