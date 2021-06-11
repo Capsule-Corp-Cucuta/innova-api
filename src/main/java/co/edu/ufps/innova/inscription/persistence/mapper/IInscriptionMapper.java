@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.persistence.mapper;
 
-import java.util.Set;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -26,8 +26,8 @@ public interface IInscriptionMapper {
     })
     InscriptionEntity toInscriptionEntity(Inscription inscription);
 
-    Set<Inscription> toInscriptions(Set<InscriptionEntity> inscriptionEntities);
+    List<Inscription> toInscriptions(List<InscriptionEntity> inscriptionEntities);
 
-    Set<InscriptionEntity> toInscriptionEntities(Set<Inscription> inscriptions);
+    List<InscriptionEntity> toInscriptionEntities(List<Inscription> inscriptions);
 
 }

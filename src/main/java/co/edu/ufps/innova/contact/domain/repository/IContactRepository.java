@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.domain.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 
@@ -20,7 +20,7 @@ public interface IContactRepository {
      *
      * @return all Contacts
      */
-    Optional<Set<Contact>> findAll();
+    Optional<List<Contact>> findAll();
 
     /**
      * Method for find a Contact by id
@@ -42,6 +42,6 @@ public interface IContactRepository {
      *
      * @return all Contacts who request accompaniment
      */
-    Optional<Set<Contact>> findByRequestAccompaniment();
+    Optional<List<Contact>> findByRequestAccompaniment();
 
 }

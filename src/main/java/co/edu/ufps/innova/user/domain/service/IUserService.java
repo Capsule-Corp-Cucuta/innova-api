@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.user.domain.dto.User;
 
@@ -28,7 +28,7 @@ public interface IUserService {
      *
      * @return all Users
      */
-    Set<User> findAll();
+    List<User> findAll();
 
     /**
      * Method for get an User by id

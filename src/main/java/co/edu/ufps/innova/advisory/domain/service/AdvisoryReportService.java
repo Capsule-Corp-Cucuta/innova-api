@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.advisory.domain.service;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,16 +18,16 @@ public class AdvisoryReportService {
     private final AdvisoryService advisoryService;
     private final ConsultantService consultantService;
 
-    public Set<AdvisoryReport> getGeneralReport() {
-        Set<AdvisoryReport> advisoryReports = new HashSet<>();
+    public List<AdvisoryReport> getGeneralReport() {
+        List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
                 .forEach(consultant -> advisoryReports
                         .add(new AdvisoryReport(consultant, countHoursByConsultant(consultant.getId()))));
         return advisoryReports;
     }
 
-    public Set<AdvisoryReport> getGeneralReportBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        Set<AdvisoryReport> advisoryReports = new HashSet<>();
+    public List<AdvisoryReport> getGeneralReportBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
                 .forEach(consultant -> advisoryReports
                         .add(new AdvisoryReport(
@@ -53,8 +53,8 @@ public class AdvisoryReportService {
                 ).orElse(0L);
     }
 
-    public Set<AdvisoryReport> getGeneralReportWithPreparationTime() {
-        Set<AdvisoryReport> advisoryReports = new HashSet<>();
+    public List<AdvisoryReport> getGeneralReportWithPreparationTime() {
+        List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
                 .forEach(consultant -> advisoryReports
                         .add(new AdvisoryReport(
@@ -65,8 +65,8 @@ public class AdvisoryReportService {
         return advisoryReports;
     }
 
-    public Set<AdvisoryReport> getGeneralReportWithPreparationTimeBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        Set<AdvisoryReport> advisoryReports = new HashSet<>();
+    public List<AdvisoryReport> getGeneralReportWithPreparationTimeBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
                 .forEach(consultant -> advisoryReports
                         .add(new AdvisoryReport(

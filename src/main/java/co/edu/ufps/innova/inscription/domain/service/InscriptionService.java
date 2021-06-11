@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class InscriptionService {
 
     }
 
-    public void takeAttendance(Set<Inscription> inscriptions) {
+    public void takeAttendance(List<Inscription> inscriptions) {
         repository.update(inscriptions);
     }
 
@@ -48,7 +48,7 @@ public class InscriptionService {
                 .orElse(false);
     }
 
-    public Optional<Set<Inscription>> findByEventId(long eventId) {
+    public Optional<List<Inscription>> findByEventId(long eventId) {
         return repository.findByEventId(eventId);
     }
 

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import co.edu.ufps.innova.user.domain.dto.User;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.user.domain.repository.IUserRepository;
-import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
+import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class UserService implements IUserService {
 
     private final IUserRepository repository;
     private final IEmailService emailService;
-    private final IPasswordRepository pwRepository;
+    private final IPasswordService pwRepository;
 
     /**
      * {@inheritDoc}
@@ -45,7 +45,7 @@ public class UserService implements IUserService {
      * {@inheritDoc}
      */
     @Override
-    public Set<User> findAll() {
+    public List<User> findAll() {
         return repository.findAll();
     }
 

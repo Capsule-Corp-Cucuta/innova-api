@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -54,7 +54,7 @@ public class ContactController {
     @GetMapping
     @ApiOperation("List all Contacts")
     @ApiResponse(code = 200, message = "OK")
-    private ResponseEntity<Set<Contact>> findAll() {
+    private ResponseEntity<List<Contact>> findAll() {
         return service.findAll()
                 .map(contacts -> new ResponseEntity<>(contacts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
@@ -78,7 +78,7 @@ public class ContactController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Contacts not found")
     })
-    public ResponseEntity<Set<Contact>> findByRequestAccompaniment() {
+    public ResponseEntity<List<Contact>> findByRequestAccompaniment() {
         return service.findByRequestAccompaniment()
                 .map(contacts -> new ResponseEntity<>(contacts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

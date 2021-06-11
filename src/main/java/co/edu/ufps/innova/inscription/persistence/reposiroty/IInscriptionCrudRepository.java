@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.persistence.reposiroty;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
@@ -14,6 +14,6 @@ public interface IInscriptionCrudRepository extends CrudRepository<InscriptionEn
      * @param eventId of Event
      * @return the Event with the given id
      */
-    Optional<Set<InscriptionEntity>> findByIdEventId(long eventId);
+    Optional<List<InscriptionEntity>> findByIdEventId(long eventId);
 
 }

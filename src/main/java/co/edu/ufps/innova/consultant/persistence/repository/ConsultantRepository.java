@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.persistence.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,8 +31,8 @@ public class ConsultantRepository implements IConsultantRepository {
      * {@inheritDoc}
      */
     @Override
-    public Set<Consultant> findAll() {
-        return mapper.toConsultantList((Set<ConsultantEntity>) repository.findAll());
+    public List<Consultant> findAll() {
+        return mapper.toConsultantList((List<ConsultantEntity>) repository.findAll());
     }
 
     /**
@@ -55,7 +55,7 @@ public class ConsultantRepository implements IConsultantRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Consultant>> findByActive() {
+    public Optional<List<Consultant>> findByActive() {
         return repository.findByActive(true).map(mapper::toConsultantList);
     }
 

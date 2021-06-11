@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
-import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
+import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class ContactService {
     private final UserService userService;
     private final IEmailService emailService;
     private final IContactRepository repository;
-    private final IPasswordRepository passwordRepository;
+    private final IPasswordService passwordRepository;
 
     public Contact save(Contact contact) {
         if (userService.findById(contact.getId()).isPresent()) userService.delete(contact.getId());
@@ -43,7 +43,7 @@ public class ContactService {
         }).orElse(false);
     }
 
-    public Optional<Set<Contact>> findAll() {
+    public Optional<List<Contact>> findAll() {
         return repository.findAll();
     }
 
@@ -58,7 +58,7 @@ public class ContactService {
         }).orElse(false);
     }
 
-    public Optional<Set<Contact>> findByRequestAccompaniment() {
+    public Optional<List<Contact>> findByRequestAccompaniment() {
         return repository.findByRequestAccompaniment();
     }
 

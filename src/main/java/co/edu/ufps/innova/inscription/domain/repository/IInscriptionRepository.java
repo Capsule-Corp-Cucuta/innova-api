@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.domain.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 
@@ -19,7 +19,7 @@ public interface IInscriptionRepository {
      *
      * @param inscriptions to update
      */
-    void update(Set<Inscription> inscriptions);
+    void update(List<Inscription> inscriptions);
 
     /**
      * Method for find an Inscription by id
@@ -43,6 +43,6 @@ public interface IInscriptionRepository {
      * @param eventId of event
      * @return all Inscriptions with the given event id
      */
-    Optional<Set<Inscription>> findByEventId(long eventId);
+    Optional<List<Inscription>> findByEventId(long eventId);
 
 }

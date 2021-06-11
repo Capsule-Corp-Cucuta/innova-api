@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -36,7 +36,7 @@ public class InscriptionController {
     @PutMapping
     @ApiOperation("Take attendance")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<HttpStatus> takeAttendance(@RequestBody Set<Inscription> inscriptions) {
+    public ResponseEntity<HttpStatus> takeAttendance(@RequestBody List<Inscription> inscriptions) {
         service.takeAttendance(inscriptions);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,7 +60,7 @@ public class InscriptionController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Inscription not found")
     })
-    public ResponseEntity<Set<Inscription>> findByEventId(@PathVariable("eventId") long eventId) {
+    public ResponseEntity<List<Inscription>> findByEventId(@PathVariable("eventId") long eventId) {
         return service.findByEventId(eventId)
                 .map(inscriptions -> new ResponseEntity<>(inscriptions, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

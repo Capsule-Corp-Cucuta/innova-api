@@ -1,6 +1,6 @@
-package co.edu.ufps.innova.authentication.domain.repository;
+package co.edu.ufps.innova.authentication.domain.service;
 
-public interface IPasswordRepository {
+public interface IPasswordService {
 
     /**
      * Method for generate a new password without encryption

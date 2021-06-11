@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import io.swagger.annotations.*;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
@@ -75,7 +75,7 @@ public class UserController {
     @GetMapping
     @ApiOperation("List all Users")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Set<User>> findAll() {
+    public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 

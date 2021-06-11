@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.contact.persistence.mapper;
 
-import java.util.Set;
+import java.util.List;
 import org.mapstruct.*;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
@@ -20,6 +20,6 @@ public interface IContactMapper {
     @InheritInverseConfiguration
     ContactEntity toContactEntity(Contact contact);
 
-    Set<Contact> toContactList(Set<ContactEntity> contactEntities);
+    List<Contact> toContactList(List<ContactEntity> contactEntities);
 
 }

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.domain.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 
@@ -20,7 +20,7 @@ public interface IConsultantRepository {
      *
      * @return all Consultants
      */
-    Set<Consultant> findAll();
+    List<Consultant> findAll();
 
     /**
      * Method for find a Consultant by Id
@@ -42,6 +42,6 @@ public interface IConsultantRepository {
      *
      * @return all active Consultants
      */
-    Optional<Set<Consultant>> findByActive();
+    Optional<List<Consultant>> findByActive();
 
 }

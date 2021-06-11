@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -53,7 +53,7 @@ public class AdvisoryController {
     @GetMapping
     @ApiOperation("List all Advisories")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Set<Advisory>> findAll() {
+    public ResponseEntity<List<Advisory>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -75,7 +75,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findBetweenDates(String criteria) {
+    public ResponseEntity<List<Advisory>> findBetweenDates(String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -90,7 +90,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findByConsultant(@PathVariable("consultantId") String consultantId) {
+    public ResponseEntity<List<Advisory>> findByConsultant(@PathVariable("consultantId") String consultantId) {
         return service.findByConsultant(consultantId)
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -102,7 +102,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findByConsultantAndBetweenDates(
+    public ResponseEntity<List<Advisory>> findByConsultantAndBetweenDates(
             @PathVariable("consultantId") String consultantId, String criteria
     ) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
@@ -119,7 +119,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findByClient(@PathVariable("clientId") String clientId) {
+    public ResponseEntity<List<Advisory>> findByClient(@PathVariable("clientId") String clientId) {
         return service.findByClient(clientId)
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -131,7 +131,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findByConsultantAndClient(@PathVariable("consultantId") String consultantId,
+    public ResponseEntity<List<Advisory>> findByConsultantAndClient(@PathVariable("consultantId") String consultantId,
                                                                    @PathVariable("clientId") String clientId) {
         return service.findByConsultantAndClient(consultantId, clientId)
                 .map(advisories -> new ResponseEntity<>(advisories, HttpStatus.OK))
@@ -144,7 +144,7 @@ public class AdvisoryController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Advisories not found")
     })
-    public ResponseEntity<Set<Advisory>> findByConsultantAndClientBetweenDates(
+    public ResponseEntity<List<Advisory>> findByConsultantAndClientBetweenDates(
             @PathVariable("consultantId") String consultantId,
             @PathVariable("clientId") String clientId,
             @RequestBody String criteria) {

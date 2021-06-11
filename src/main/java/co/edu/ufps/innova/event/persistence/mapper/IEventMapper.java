@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.event.persistence.mapper;
 
-import java.util.Set;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.InheritInverseConfiguration;
 import co.edu.ufps.innova.event.domain.dto.Event;
@@ -15,8 +15,8 @@ public interface IEventMapper {
     @InheritInverseConfiguration
     EventEntity toEventEntity(Event event);
 
-    Set<Event> toEvents(Set<EventEntity> eventEntities);
+    List<Event> toEvents(List<EventEntity> eventEntities);
 
-    Set<EventEntity> toEventEntities(Set<Event> events);
+    List<EventEntity> toEventEntities(List<Event> events);
 
 }

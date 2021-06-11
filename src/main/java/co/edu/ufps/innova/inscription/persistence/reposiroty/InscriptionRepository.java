@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.inscription.persistence.reposiroty;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,7 +28,7 @@ public class InscriptionRepository implements IInscriptionRepository {
      * {@inheritDoc}
      */
     @Override
-    public void update(Set<Inscription> inscriptions) {
+    public void update(List<Inscription> inscriptions) {
         repository.saveAll(mapper.toInscriptionEntities(inscriptions));
     }
 
@@ -52,7 +52,7 @@ public class InscriptionRepository implements IInscriptionRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Inscription>> findByEventId(long eventId) {
+    public Optional<List<Inscription>> findByEventId(long eventId) {
         return repository.findByIdEventId(eventId).map(mapper::toInscriptions);
     }
 

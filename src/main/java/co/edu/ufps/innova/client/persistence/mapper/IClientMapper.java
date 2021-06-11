@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.client.persistence.mapper;
 
-import java.util.Set;
+import java.util.List;
 import org.mapstruct.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
@@ -29,6 +29,6 @@ public interface IClientMapper {
     @InheritInverseConfiguration
     ClientEntity toClientEntity(Client client);
 
-    Set<Client> toClientList(Set<ClientEntity> clientEntities);
+    List<Client> toClientList(List<ClientEntity> clientEntities);
 
 }

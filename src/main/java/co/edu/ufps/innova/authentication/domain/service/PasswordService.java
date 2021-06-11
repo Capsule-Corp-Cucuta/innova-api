@@ -5,11 +5,10 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
 
 @Service
 @RequiredArgsConstructor
-public class PasswordService implements IPasswordRepository {
+public class PasswordService implements IPasswordService {
 
     private final BCryptPasswordEncoder bCrypt;
 

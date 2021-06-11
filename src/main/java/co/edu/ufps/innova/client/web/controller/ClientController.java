@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.client.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -40,7 +40,7 @@ public class ClientController {
     @GetMapping
     @ApiOperation("List all Clients")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Set<Client>> findAll() {
+    public ResponseEntity<List<Client>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -62,7 +62,7 @@ public class ClientController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Clients not found")
     })
-    public ResponseEntity<Set<Client>> findByConsultant(@PathVariable String consultantId) {
+    public ResponseEntity<List<Client>> findByConsultant(@PathVariable String consultantId) {
         return service.findByConsultant(consultantId)
                 .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -74,7 +74,7 @@ public class ClientController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Clients not found")
     })
-    public ResponseEntity<Set<Client>> findByConsultantIdAndActive(@PathVariable String consultantId) {
+    public ResponseEntity<List<Client>> findByConsultantIdAndActive(@PathVariable String consultantId) {
         return service.findByConsultantIdAndActive(consultantId)
                 .map(clients -> new ResponseEntity<>(clients, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

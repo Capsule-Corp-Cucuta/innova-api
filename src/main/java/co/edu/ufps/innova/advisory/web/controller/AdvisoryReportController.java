@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -34,8 +34,8 @@ public class AdvisoryReportController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    public ResponseEntity<Set<AdvisoryReport>> getGeneralReport() {
-        Set<AdvisoryReport> advisoryReports = service.getGeneralReport();
+    public ResponseEntity<List<AdvisoryReport>> getGeneralReport() {
+        List<AdvisoryReport> advisoryReports = service.getGeneralReport();
         return !advisoryReports.isEmpty()
                 ? new ResponseEntity<>(advisoryReports, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,11 +47,11 @@ public class AdvisoryReportController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    public ResponseEntity<Set<AdvisoryReport>> getGeneralReportBetweenDates(String criteria) {
+    public ResponseEntity<List<AdvisoryReport>> getGeneralReportBetweenDates(String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
-        Set<AdvisoryReport> advisoryReports = service.getGeneralReportBetweenDates(startDate, endDate);
+        List<AdvisoryReport> advisoryReports = service.getGeneralReportBetweenDates(startDate, endDate);
         return !advisoryReports.isEmpty()
                 ? new ResponseEntity<>(advisoryReports, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,8 +89,8 @@ public class AdvisoryReportController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    public ResponseEntity<Set<AdvisoryReport>> getGeneralReportWithPreparationTime() {
-        Set<AdvisoryReport> advisoryReports = service.getGeneralReportWithPreparationTime();
+    public ResponseEntity<List<AdvisoryReport>> getGeneralReportWithPreparationTime() {
+        List<AdvisoryReport> advisoryReports = service.getGeneralReportWithPreparationTime();
         return !advisoryReports.isEmpty()
                 ? new ResponseEntity<>(advisoryReports, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -102,11 +102,11 @@ public class AdvisoryReportController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    public ResponseEntity<Set<AdvisoryReport>> getGeneralReportWithPreparationTimeBetweenDates(String criteria) {
+    public ResponseEntity<List<AdvisoryReport>> getGeneralReportWithPreparationTimeBetweenDates(String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
-        Set<AdvisoryReport> advisoryReports = service.getGeneralReportWithPreparationTimeBetweenDates(startDate, endDate);
+        List<AdvisoryReport> advisoryReports = service.getGeneralReportWithPreparationTimeBetweenDates(startDate, endDate);
         return !advisoryReports.isEmpty()
                 ? new ResponseEntity<>(advisoryReports, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

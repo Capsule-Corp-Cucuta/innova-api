@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.persistence.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 import org.springframework.data.repository.CrudRepository;
@@ -15,7 +15,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param endDate   second date
      * @return all Advisories between two dates
      */
-    Optional<Set<AdvisoryEntity>> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    Optional<List<AdvisoryEntity>> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Method for get all Advisories by consultant id
@@ -23,7 +23,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param consultantId consultant id
      * @return all Advisories with the given consultant id
      */
-    Optional<Set<AdvisoryEntity>> findByConsultantId(String consultantId);
+    Optional<List<AdvisoryEntity>> findByConsultantId(String consultantId);
 
     /**
      * Method for get all Advisories by consultant id and between two dates
@@ -33,7 +33,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param endDate      second date
      * @return all Advisories with the given consultant id and two dates
      */
-    Optional<Set<AdvisoryEntity>> findByConsultantIdAndDateBetween(String consultantId,
+    Optional<List<AdvisoryEntity>> findByConsultantIdAndDateBetween(String consultantId,
                                                                    LocalDateTime startDate,
                                                                    LocalDateTime endDate);
 
@@ -43,7 +43,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param clientId client id
      * @return all Advisories with the given client id
      */
-    Optional<Set<AdvisoryEntity>> findByClientId(String clientId);
+    Optional<List<AdvisoryEntity>> findByClientId(String clientId);
 
     /**
      * Method for get all Advisories by consultant id and client id
@@ -52,7 +52,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param clientId     client id
      * @return all Advisories with the given consultant id and client id
      */
-    Optional<Set<AdvisoryEntity>> findByConsultantIdAndClientId(String consultantId, String clientId);
+    Optional<List<AdvisoryEntity>> findByConsultantIdAndClientId(String consultantId, String clientId);
 
     /**
      * Method for get all Advisories by consultant id and client id and between two dates
@@ -63,7 +63,7 @@ public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, 
      * @param endDate      second date
      * @return all Advisories with the given consultant id and client id and two dates
      */
-    Optional<Set<AdvisoryEntity>> findByConsultantIdAndClientIdAndDateBetween(String consultantId, String clientId,
+    Optional<List<AdvisoryEntity>> findByConsultantIdAndClientIdAndDateBetween(String consultantId, String clientId,
                                                                               LocalDateTime startDate,
                                                                               LocalDateTime endDate);
 

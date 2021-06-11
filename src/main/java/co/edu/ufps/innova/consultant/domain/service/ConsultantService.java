@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.consultant.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.consultant.domain.repository.IConsultantRepository;
-import co.edu.ufps.innova.authentication.domain.repository.IPasswordRepository;
+import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class ConsultantService {
     private final UserService userService;
     private final IEmailService emailService;
     private final IConsultantRepository repository;
-    private final IPasswordRepository passwordRepository;
+    private final IPasswordService passwordRepository;
 
     public Consultant save(Consultant consultant) {
         if (userService.findById(consultant.getId()).isPresent()) userService.delete(consultant.getId());
@@ -42,7 +42,7 @@ public class ConsultantService {
                 .orElse(false);
     }
 
-    public Set<Consultant> findAll() {
+    public List<Consultant> findAll() {
         return repository.findAll();
     }
 
@@ -57,7 +57,7 @@ public class ConsultantService {
         }).orElse(false);
     }
 
-    public Optional<Set<Consultant>> findByActive() {
+    public Optional<List<Consultant>> findByActive() {
         return repository.findByActive();
     }
 

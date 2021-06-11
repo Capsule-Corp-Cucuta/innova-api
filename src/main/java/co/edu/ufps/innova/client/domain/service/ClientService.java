@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.client.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class ClientService {
         }).orElse(false);
     }
 
-    public Set<Client> findAll() {
+    public List<Client> findAll() {
         return repository.findAll();
     }
 
@@ -59,11 +59,11 @@ public class ClientService {
         }).orElse(false);
     }
 
-    public Optional<Set<Client>> findByConsultant(String consultantId) {
+    public Optional<List<Client>> findByConsultant(String consultantId) {
         return repository.findByConsultant(consultantId);
     }
 
-    public Optional<Set<Client>> findByConsultantIdAndActive(String consultantId) {
+    public Optional<List<Client>> findByConsultantIdAndActive(String consultantId) {
         return repository.findByConsultantIdAndActive(consultantId, true);
     }
 

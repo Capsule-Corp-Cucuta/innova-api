@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.domain.service;
 
-import java.util.Set;
+import java.util.List;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class AdvisoryService {
         }).orElse(false);
     }
 
-    public Set<Advisory> findAll() {
+    public List<Advisory> findAll() {
         return repository.findAll();
     }
 
@@ -88,29 +88,29 @@ public class AdvisoryService {
         }).orElse(false);
     }
 
-    public Optional<Set<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findBetweenDates(startDate, endDate);
     }
 
-    public Optional<Set<Advisory>> findByConsultant(String consultantId) {
+    public Optional<List<Advisory>> findByConsultant(String consultantId) {
         return repository.findByConsultant(consultantId);
     }
 
-    public Optional<Set<Advisory>> findByConsultantAndBetweenDates(String consultantId,
+    public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId,
                                                                    LocalDateTime startDate,
                                                                    LocalDateTime endDate) {
         return repository.findByConsultantAndBetweenDates(consultantId, startDate, endDate);
     }
 
-    public Optional<Set<Advisory>> findByClient(String clientId) {
+    public Optional<List<Advisory>> findByClient(String clientId) {
         return repository.findByClient(clientId);
     }
 
-    public Optional<Set<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
+    public Optional<List<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
         return repository.findByConsultantAndClient(consultantId, clientId);
     }
 
-    public Optional<Set<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
+    public Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
                                                                          String clientId,
                                                                          LocalDateTime startDate,
                                                                          LocalDateTime endDate) {

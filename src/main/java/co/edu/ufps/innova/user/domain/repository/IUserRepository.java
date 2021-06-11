@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.user.domain.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.user.domain.dto.User;
 
@@ -29,7 +29,7 @@ public interface IUserRepository {
      *
      * @return all Users
      */
-    Set<User> findAll();
+    List<User> findAll();
 
     /**
      * Method for find an User by id

@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.event.web.controller;
 
-import java.util.Set;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -53,7 +53,7 @@ public class EventController {
     @GetMapping
     @ApiOperation("List all Events")
     @ApiResponse(code = 200, message = "OK")
-    public ResponseEntity<Set<Event>> findAll() {
+    public ResponseEntity<List<Event>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -75,7 +75,7 @@ public class EventController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
     })
-    public ResponseEntity<Set<Event>> findBetweenDates(@RequestBody String criteria) {
+    public ResponseEntity<List<Event>> findBetweenDates(@RequestBody String criteria) {
         JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
         LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("startDate").getAsString()), LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(jsonObject.get("endDate").getAsString()), LocalTime.MAX);
@@ -90,7 +90,7 @@ public class EventController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Events not found")
     })
-    public ResponseEntity<Set<Event>> findByRegistrationDeadlineDateAfterNow() {
+    public ResponseEntity<List<Event>> findByRegistrationDeadlineDateAfterNow() {
         return service.findByRegistrationDeadlineDateAfterNow()
                 .map(events -> new ResponseEntity<>(events, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

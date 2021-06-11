@@ -1,6 +1,6 @@
 package co.edu.ufps.innova.advisory.persistence.repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +29,8 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Set<Advisory> findAll() {
-        return mapper.toAdvisories((Set<AdvisoryEntity>) repository.findAll());
+    public List<Advisory> findAll() {
+        return mapper.toAdvisories((List<AdvisoryEntity>) repository.findAll());
     }
 
     /**
@@ -53,7 +53,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByDateBetween(startDate, endDate).map(mapper::toAdvisories);
     }
 
@@ -61,7 +61,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findByConsultant(String consultantId) {
+    public Optional<List<Advisory>> findByConsultant(String consultantId) {
         return repository.findByConsultantId(consultantId).map(mapper::toAdvisories);
     }
 
@@ -69,7 +69,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findByConsultantAndBetweenDates(String consultantId,
+    public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId,
                                                                    LocalDateTime startDate,
                                                                    LocalDateTime endDate) {
         return repository.findByConsultantIdAndDateBetween(consultantId, startDate, endDate).map(mapper::toAdvisories);
@@ -79,7 +79,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findByClient(String clientId) {
+    public Optional<List<Advisory>> findByClient(String clientId) {
         return repository.findByClientId(clientId).map(mapper::toAdvisories);
     }
 
@@ -87,7 +87,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
+    public Optional<List<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
         return repository.findByConsultantIdAndClientId(consultantId, clientId).map(mapper::toAdvisories);
     }
 
@@ -95,7 +95,7 @@ public class AdvisoryRepository implements IAdvisoryRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
+    public Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
                                                                          String clientId,
                                                                          LocalDateTime startDate,
                                                                          LocalDateTime endDate) {
