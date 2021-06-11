@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import co.edu.ufps.innova.authentication.web.security.JWTUtil;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.AuthenticationManager;
 import co.edu.ufps.innova.authentication.domain.dto.AuthenticationRequest;
 import co.edu.ufps.innova.authentication.domain.dto.AuthenticationResponse;
-import org.springframework.security.authentication.AuthenticationManager;
-import co.edu.ufps.innova.authentication.domain.service.InnovaUserDetailsService;
 import org.springframework.security.authentication.BadCredentialsException;
+import co.edu.ufps.innova.authentication.domain.service.InnovaUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @RestController
