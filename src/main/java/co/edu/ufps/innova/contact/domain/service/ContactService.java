@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.user.domain.service.UserService;
@@ -26,18 +25,13 @@ public class ContactService {
         if (userService.findById(contact.getId()).isPresent()) userService.delete(contact.getId());
         contact.setRegistrationDate(LocalDate.now());
         String userPassword = passwordRepository.generatePassword();
-        Contact myContact = repository.save(contact, passwordRepository.encryptPassword(userPassword));
+        Contact newContact = repository.save(contact, passwordRepository.encryptPassword(userPassword));
         try {
-            Email email = new Email();
-            email.setTo(myContact.getEmail());
-            email.setSubject("Innova - Registro exitoso");
-            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
-                    "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
-            emailService.sendEmail(email);
+            emailService.sendNewUserEmail(newContact.getEmail(), userPassword);
         } catch (MailSendException e) {
             e.printStackTrace();
         }
-        return myContact;
+        return newContact;
     }
 
     public boolean update(String id, Contact contact) {

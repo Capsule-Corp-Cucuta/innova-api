@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import co.edu.ufps.innova.user.domain.dto.User;
 import org.springframework.web.bind.annotation.*;
-import co.edu.ufps.innova.user.domain.service.UserService;
+import co.edu.ufps.innova.user.domain.service.IUserService;
 import co.edu.ufps.innova.authentication.domain.dto.PasswordChange;
 
 @RestController
@@ -18,7 +18,7 @@ import co.edu.ufps.innova.authentication.domain.dto.PasswordChange;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+    private final IUserService service;
 
     @PostMapping
     @ApiOperation("Save a new User")

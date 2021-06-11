@@ -1,15 +1,19 @@
 package co.edu.ufps.innova.email.domain.service;
 
-import co.edu.ufps.innova.email.domain.dto.Email;
-
 public interface IEmailService {
 
-    /**
-     * Method for send a email
-     *
-     * @param emailBody to send
-     * @return true if the email was send
-     */
-    boolean sendEmail(Email emailBody);
+    boolean sendNewUserEmail(String userEmail, String newPassword);
+
+    boolean sendRecoverPasswordEmail(String userEmail, String newPassword);
+
+    boolean sendScheduledAdviceEmail(String clientName,
+                                 String clientEmail,
+                                 String consultantName,
+                                 String consultantLastName,
+                                 String consultantEmail,
+                                 String advisoryDate,
+                                 String advisoryHour);
+
+    boolean sendUpdatedAdviceEmail(String clientEmail, String consultantEmail, String advisoryDate);
 
 }

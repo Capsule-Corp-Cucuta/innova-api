@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.user.domain.dto.User;
-import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
 import co.edu.ufps.innova.user.domain.service.UserService;
@@ -38,19 +37,13 @@ public class AdvisoryService {
                         .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                                 .withLocale(new Locale("es", "CO")));
                 String advisoryHour = advisory.getDate().format(DateTimeFormatter.ofPattern("KK:mm a", Locale.US));
-                Email email = new Email();
-                email.setTo(client.getEmail());
-                email.setSubject("Innova - Asesoría agendada");
-                email.setContent(String.format("Hola %s, fuiste agendado(a) para una asesoría con %s %s para el día %s " +
-                                "a la(s) %s. Revisala desde la aplicación; en caso de cualquier inquietud puedes " +
-                                "contactarte con tu asesor en el siguiente correo:  %s.",
-                        client.getName(),
+                emailService.sendScheduledAdviceEmail(client.getName(),
+                        client.getEmail(),
                         consultant.getName(),
                         consultant.getLastname(),
+                        consultant.getEmail(),
                         advisoryDate,
-                        advisoryHour,
-                        consultant.getEmail()));
-                emailService.sendEmail(email);
+                        advisoryHour);
             } catch (MailSendException e) {
                 e.printStackTrace();
             }
@@ -70,15 +63,7 @@ public class AdvisoryService {
                     String advisoryDate = ZonedDateTime.of(item.getDate(), ZoneId.of("America/Bogota"))
                             .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                                     .withLocale(new Locale("es", "CO")));
-                    Email email = new Email();
-                    email.setTo(client.getEmail());
-                    email.setSubject("Innova - Asesoría modificada");
-                    email.setContent(String.format("La asesoría en la que estás agendado(a) para el día %s fue modificada, " +
-                                    "puedes validarla en la aplicación y en caso de cualquier inquietud puedes contactarte " +
-                                    "con tu asesor en el siguiente correo: %s.",
-                            advisoryDate,
-                            consultant.getEmail()));
-                    emailService.sendEmail(email);
+                    emailService.sendUpdatedAdviceEmail(client.getEmail(), consultant.getEmail(), advisoryDate);
                 } catch (MailSendException e) {
                     e.printStackTrace();
                 }

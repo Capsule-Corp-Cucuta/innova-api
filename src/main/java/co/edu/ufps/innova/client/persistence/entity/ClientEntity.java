@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.client.persistence.entity;
 
 import lombok.*;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import java.time.LocalDate;
 import co.edu.ufps.innova.client.domain.dto.*;
@@ -125,7 +125,7 @@ public class ClientEntity extends ContactEntity {
     private ConsultantEntity consultant;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<AdvisoryEntity> advisories;
+    private Set<AdvisoryEntity> advisories;
 
     public ClientEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
         super(id, name, lastname, email, type, requestAccompaniment);

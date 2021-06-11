@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import co.edu.ufps.innova.email.domain.dto.Email;
 import org.springframework.mail.MailSendException;
 import co.edu.ufps.innova.user.domain.service.UserService;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
@@ -24,20 +23,13 @@ public class ConsultantService {
     public Consultant save(Consultant consultant) {
         if (userService.findById(consultant.getId()).isPresent()) userService.delete(consultant.getId());
         String userPassword = passwordRepository.generatePassword();
-        Consultant myConsultant = repository.save(consultant, passwordRepository.encryptPassword(userPassword));
-
+        Consultant newConsultant = repository.save(consultant, passwordRepository.encryptPassword(userPassword));
         try {
-            Email email = new Email();
-            email.setTo(myConsultant.getEmail());
-            email.setSubject("Innova - Registro exitoso");
-            email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
-                    "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", userPassword));
-            emailService.sendEmail(email);
+            emailService.sendNewUserEmail(newConsultant.getEmail(), userPassword);
         } catch (MailSendException e) {
             e.printStackTrace();
         }
-
-        return myConsultant;
+        return newConsultant;
     }
 
     public boolean update(String id, Consultant consultant) {
