@@ -20,10 +20,10 @@ public class ConsultantEntity extends UserEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "consultant", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY)
     private Set<ClientEntity> clients;
 
-    @OneToMany(mappedBy = "consultant", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY)
     private Set<AdvisoryEntity> advisories;
 
     public ConsultantEntity(String id, String name, String lastname, String email, String code) {
@@ -36,12 +36,4 @@ public class ConsultantEntity extends UserEntity {
         this.clients.addAll(clients);
     }
 
-    public void setAdvisories(Set<AdvisoryEntity> advisories) {
-        if (this.advisories == null) {
-            this.advisories = advisories;
-        } else {
-            this.advisories.retainAll(advisories);
-            this.advisories.addAll(advisories);
-        }
-    }
 }

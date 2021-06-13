@@ -61,9 +61,9 @@ public class EmailService implements IEmailService {
                 clientName,
                 consultantName,
                 consultantLastName,
-                consultantEmail,
                 advisoryDate,
-                advisoryHour));
+                advisoryHour,
+                consultantEmail));
         return sendEmailTool(email);
     }
 

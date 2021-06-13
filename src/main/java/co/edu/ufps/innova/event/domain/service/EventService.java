@@ -6,7 +6,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.Event;

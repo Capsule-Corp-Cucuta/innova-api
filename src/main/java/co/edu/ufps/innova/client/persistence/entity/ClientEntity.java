@@ -124,7 +124,7 @@ public class ClientEntity extends ContactEntity {
     @JoinColumn(name = "consultant_id", insertable = false, updatable = false)
     private ConsultantEntity consultant;
 
-    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<AdvisoryEntity> advisories;
 
     public ClientEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
@@ -132,14 +132,6 @@ public class ClientEntity extends ContactEntity {
         this.consultantId = consultantId;
     }
 
-    public void setAdvisories(Set<AdvisoryEntity> advisories) {
-        if (this.advisories == null) {
-            this.advisories = advisories;
-        } else {
-            this.advisories.retainAll(advisories);
-            this.advisories.addAll(advisories);
-        }
-    }
 }
 
 

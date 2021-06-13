@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.event.persistence.entity;
 
 import lombok.*;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,8 +57,8 @@ public class EventEntity {
 
     private String link;
 
-    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Set<InscriptionEntity> inscriptions;
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    private List<InscriptionEntity> inscriptions;
 
     public EventEntity(String title, String theme, String description, EventType type, EventState state,
                        LocalDateTime startDate, LocalDateTime closeDate, LocalDate registrationDeadlineDate, String email) {
@@ -73,12 +73,4 @@ public class EventEntity {
         this.email = email;
     }
 
-    public void setInscriptions(Set<InscriptionEntity> inscriptions) {
-        if (this.inscriptions == null) {
-            this.inscriptions = inscriptions;
-        } else {
-            this.inscriptions.retainAll(inscriptions);
-            this.inscriptions.addAll(inscriptions);
-        }
-    }
 }

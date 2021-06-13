@@ -57,7 +57,7 @@ public class ContactEntity extends UserEntity {
     @Column(name = "company_website")
     private String companyWebsite;
 
-    @OneToMany(mappedBy = "contact", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     private Set<InscriptionEntity> inscriptions;
 
     public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {
@@ -67,12 +67,4 @@ public class ContactEntity extends UserEntity {
         this.registrationDate = LocalDate.now();
     }
 
-    public void setInscriptions(Set<InscriptionEntity> inscriptions) {
-        if (this.inscriptions == null) {
-            this.inscriptions = inscriptions;
-        } else {
-            this.inscriptions.retainAll(inscriptions);
-            this.inscriptions.addAll(inscriptions);
-        }
-    }
 }
