@@ -8,6 +8,8 @@ server:
 spring:
   aplication:
     name: innova-api
+  main:
+    banner-mode: off
   profiles:
     active: dev
   mail:
