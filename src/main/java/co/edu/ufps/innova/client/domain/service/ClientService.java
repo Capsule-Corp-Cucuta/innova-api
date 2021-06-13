@@ -26,10 +26,10 @@ public class ClientService {
     private final InscriptionService inscriptionService;
 
     public Client save(String contactId, String consultantId) {
-        inscriptionService.findByUserId(contactId).map(inscriptions -> {
+        List<Inscription> inscriptionsList = inscriptionService.findByUserId(contactId).map(inscriptions -> {
             inscriptionService.deleteAll(inscriptions);
             return inscriptions;
-        });
+        }).orElse(null);
 
         return contactService.findById(contactId).map(contact -> {
             if (consultantService.findById(consultantId).isPresent()) {
@@ -37,7 +37,11 @@ public class ClientService {
                 contactService.delete(contactId);
                 Client client = mapper.toClient(contact);
                 client.setConsultantId(consultantId);
-                return repository.save(client, userPassword);
+                Client newClient = repository.save(client, userPassword);
+
+                if (!inscriptionsList.isEmpty()) inscriptionService.saveAll(inscriptionsList);
+
+                return newClient;
             }
             return null;
         }).orElse(null);

@@ -31,7 +31,7 @@ public class InscriptionService {
 
     }
 
-    public void takeAttendance(List<Inscription> inscriptions) {
+    public void saveAll(List<Inscription> inscriptions) {
         repository.update(inscriptions);
     }
 

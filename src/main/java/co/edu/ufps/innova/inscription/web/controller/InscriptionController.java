@@ -37,7 +37,7 @@ public class InscriptionController {
     @ApiOperation("Take attendance")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<HttpStatus> takeAttendance(@RequestBody List<Inscription> inscriptions) {
-        service.takeAttendance(inscriptions);
+        service.saveAll(inscriptions);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
