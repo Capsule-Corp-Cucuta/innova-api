@@ -3,6 +3,7 @@ package co.edu.ufps.innova.inscription.domain.service;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.EventState;
@@ -48,8 +49,16 @@ public class InscriptionService {
                 .orElse(false);
     }
 
+    public void deleteAll(List<Inscription> inscriptions) {
+        repository.deleteAll(inscriptions);
+    }
+
     public Optional<List<Inscription>> findByEventId(long eventId) {
         return repository.findByEventId(eventId);
+    }
+
+    public Optional<List<Inscription>> findByUserId(String userId) {
+        return repository.findByUserId(userId);
     }
 
 }

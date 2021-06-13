@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.contact.persistence.entity;
 
 import lombok.*;
-import java.util.List;
+import java.util.Set;
 import java.time.LocalDate;
 import javax.persistence.*;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
@@ -58,7 +58,7 @@ public class ContactEntity extends UserEntity {
     private String companyWebsite;
 
     @OneToMany(mappedBy = "contact", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<InscriptionEntity> inscriptions;
+    private Set<InscriptionEntity> inscriptions;
 
     public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {
         super(id, name, lastname, email);
@@ -67,4 +67,12 @@ public class ContactEntity extends UserEntity {
         this.registrationDate = LocalDate.now();
     }
 
+    public void setInscriptions(Set<InscriptionEntity> inscriptions) {
+        if (this.inscriptions == null) {
+            this.inscriptions = inscriptions;
+        } else {
+            this.inscriptions.retainAll(inscriptions);
+            this.inscriptions.addAll(inscriptions);
+        }
+    }
 }

@@ -2,6 +2,9 @@ package co.edu.ufps.innova.client.domain.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import co.edu.ufps.innova.inscription.domain.dto.Inscription;
+import co.edu.ufps.innova.inscription.domain.service.InscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.client.domain.dto.Client;
@@ -20,16 +23,20 @@ public class ClientService {
     private final IClientRepository repository;
     private final ContactService contactService;
     private final ConsultantService consultantService;
+    private final InscriptionService inscriptionService;
 
     public Client save(String contactId, String consultantId) {
+        inscriptionService.findByUserId(contactId).map(inscriptions -> {
+            inscriptionService.deleteAll(inscriptions);
+            return inscriptions;
+        });
+
         return contactService.findById(contactId).map(contact -> {
             if (consultantService.findById(consultantId).isPresent()) {
                 String userPassword = userService.getPassword(contactId);
                 contactService.delete(contactId);
-
                 Client client = mapper.toClient(contact);
                 client.setConsultantId(consultantId);
-
                 return repository.save(client, userPassword);
             }
             return null;

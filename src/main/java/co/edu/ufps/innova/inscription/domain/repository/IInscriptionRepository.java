@@ -37,6 +37,8 @@ public interface IInscriptionRepository {
      */
     void delete(Inscription inscription);
 
+    void deleteAll(List<Inscription> inscriptions);
+
     /**
      * Method for find an Inscription by event id
      *
@@ -44,5 +46,7 @@ public interface IInscriptionRepository {
      * @return all Inscriptions with the given event id
      */
     Optional<List<Inscription>> findByEventId(long eventId);
+
+    Optional<List<Inscription>> findByUserId(String userId);
 
 }

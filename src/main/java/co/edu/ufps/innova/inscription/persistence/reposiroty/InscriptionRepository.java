@@ -2,6 +2,8 @@ package co.edu.ufps.innova.inscription.persistence.reposiroty;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
@@ -52,8 +54,24 @@ public class InscriptionRepository implements IInscriptionRepository {
      * {@inheritDoc}
      */
     @Override
+    public void deleteAll(List<Inscription> inscriptions) {
+        repository.deleteAll(mapper.toInscriptionEntities(inscriptions));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Inscription>> findByEventId(long eventId) {
         return repository.findByIdEventId(eventId).map(mapper::toInscriptions);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<List<Inscription>> findByUserId(String userId) {
+        return repository.findByIdUserId(userId).map(mapper::toInscriptions);
     }
 
 }
