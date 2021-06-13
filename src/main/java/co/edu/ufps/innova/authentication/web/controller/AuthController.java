@@ -2,6 +2,9 @@ package co.edu.ufps.innova.authentication.web.controller;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +31,12 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping
+    @ApiOperation("Login")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden")
+    })
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));

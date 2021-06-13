@@ -24,7 +24,7 @@ public class EmailService implements IEmailService {
         email.setSubject("Innova - Registro exitoso");
         email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
                 "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", newPassword));
-        return sendEmail(email);
+        return sendEmailTool(email);
     }
 
     /**
@@ -38,7 +38,7 @@ public class EmailService implements IEmailService {
         email.setContent(String.format("Con esta nueva contraseña podrá ingresar a la plataforma: %s " +
                         "recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.",
                 newPassword));
-        return sendEmail(email);
+        return sendEmailTool(email);
     }
 
     /**
@@ -46,12 +46,12 @@ public class EmailService implements IEmailService {
      */
     @Override
     public boolean sendScheduledAdviceEmail(String clientName,
-                                        String clientEmail,
-                                        String consultantName,
-                                        String consultantLastName,
-                                        String consultantEmail,
-                                        String advisoryDate,
-                                        String advisoryHour) {
+                                            String clientEmail,
+                                            String consultantName,
+                                            String consultantLastName,
+                                            String consultantEmail,
+                                            String advisoryDate,
+                                            String advisoryHour) {
         Email email = new Email();
         email.setTo(clientEmail);
         email.setSubject("Innova - Asesoría agendada");
@@ -64,7 +64,7 @@ public class EmailService implements IEmailService {
                 consultantEmail,
                 advisoryDate,
                 advisoryHour));
-        return sendEmail(email);
+        return sendEmailTool(email);
     }
 
     /**
@@ -80,21 +80,23 @@ public class EmailService implements IEmailService {
                         "con tu asesor en el siguiente correo: %s.",
                 advisoryDate,
                 consultantEmail));
-        return sendEmail(email);
+        return sendEmailTool(email);
     }
 
-    private boolean sendEmail(Email emailBody) {
-        return sendEmailTool(emailBody.getContent(), emailBody.getTo(), emailBody.getSubject());
-    }
-
-    private boolean sendEmailTool(String textMessage, String email, String subject) {
+    /**
+     * Method for send an Email
+     *
+     * @param emailBody to send
+     * @return true if the Email was sent
+     */
+    private boolean sendEmailTool(Email emailBody) {
         boolean send = false;
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         try {
-            helper.setTo(email);
-            helper.setText(textMessage, true);
-            helper.setSubject(subject);
+            helper.setTo(emailBody.getTo());
+            helper.setSubject(emailBody.getSubject());
+            helper.setText(emailBody.getContent(), true);
             sender.send(message);
             send = true;
         } catch (MessagingException e) {

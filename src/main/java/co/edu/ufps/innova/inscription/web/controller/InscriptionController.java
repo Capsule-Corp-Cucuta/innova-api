@@ -33,7 +33,7 @@ public class InscriptionController {
                 : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping
+    @PutMapping("/take-attendance")
     @ApiOperation("Take attendance")
     @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<HttpStatus> takeAttendance(@RequestBody List<Inscription> inscriptions) {

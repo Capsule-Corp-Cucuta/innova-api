@@ -1,6 +1,8 @@
 package co.edu.ufps.innova.client.web.controller;
 
 import java.util.List;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import io.swagger.annotations.ApiResponse;
@@ -20,11 +22,16 @@ public class ClientController {
 
     private final ClientService service;
 
-    @PostMapping("/{contactId}/consultant/{consultantId}")
+    @PostMapping
     @ApiOperation("Save a new Client")
     @ApiResponse(code = 201, message = "Created")
-    public ResponseEntity<Client> save(@PathVariable String contactId, @PathVariable String consultantId) {
-        return new ResponseEntity<>(service.save(contactId, consultantId), HttpStatus.CREATED);
+    public ResponseEntity<Client> save(@RequestBody String criteria) {
+        JsonObject jsonObject = JsonParser.parseString(criteria).getAsJsonObject();
+        return new ResponseEntity<>(service.save(
+                jsonObject.get("contactId").getAsString(),
+                jsonObject.get("consultantId").getAsString()),
+                HttpStatus.CREATED
+        );
     }
 
     @PutMapping("/{id}")
