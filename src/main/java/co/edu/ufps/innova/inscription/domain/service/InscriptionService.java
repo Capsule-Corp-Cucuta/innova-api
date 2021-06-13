@@ -21,7 +21,7 @@ public class InscriptionService {
         LocalDate now = LocalDate.now();
         return eventService.findById(inscription.getEventId()).map(event -> {
             if ((now.isBefore(event.getRegistrationDeadlineDate()) || now.isEqual(event.getRegistrationDeadlineDate())) &&
-                    (event.getState() == EventState.OPEN || event.getState() == EventState.POSTPONED)
+                    (event.getState() == EventState.ABIERTO || event.getState() == EventState.POSPUESTO)
             ) {
                 inscription.setInscriptionDate(now);
                 return repository.save(inscription);

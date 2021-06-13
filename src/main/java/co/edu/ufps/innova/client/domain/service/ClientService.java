@@ -2,17 +2,16 @@ package co.edu.ufps.innova.client.domain.service;
 
 import java.util.List;
 import java.util.Optional;
-
-import co.edu.ufps.innova.inscription.domain.dto.Inscription;
-import co.edu.ufps.innova.inscription.domain.service.InscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.user.domain.service.IUserService;
+import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 import co.edu.ufps.innova.contact.domain.service.ContactService;
 import co.edu.ufps.innova.client.domain.mapper.IClientDomainMapper;
 import co.edu.ufps.innova.client.domain.repository.IClientRepository;
 import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
+import co.edu.ufps.innova.inscription.domain.service.InscriptionService;
 
 @Service
 @RequiredArgsConstructor
@@ -26,20 +25,20 @@ public class ClientService {
     private final InscriptionService inscriptionService;
 
     public Client save(String contactId, String consultantId) {
-        List<Inscription> inscriptionsList = inscriptionService.findByUserId(contactId).map(inscriptions -> {
-            inscriptionService.deleteAll(inscriptions);
-            return inscriptions;
-        }).orElse(null);
-
         return contactService.findById(contactId).map(contact -> {
             if (consultantService.findById(consultantId).isPresent()) {
+                List<Inscription> userInscriptions = inscriptionService.findByUserId(contactId).map(inscriptions -> {
+                    inscriptionService.deleteAll(inscriptions);
+                    return inscriptions;
+                }).orElse(null);
+
                 String userPassword = userService.getPassword(contactId);
                 contactService.delete(contactId);
                 Client client = mapper.toClient(contact);
                 client.setConsultantId(consultantId);
                 Client newClient = repository.save(client, userPassword);
 
-                if (!inscriptionsList.isEmpty()) inscriptionService.saveAll(inscriptionsList);
+                if (!userInscriptions.isEmpty()) inscriptionService.saveAll(userInscriptions);
 
                 return newClient;
             }

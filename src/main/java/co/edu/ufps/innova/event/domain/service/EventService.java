@@ -28,7 +28,7 @@ public class EventService {
                 duration > 0 && duration <= 8;
         if (canCreate) {
             event.setEventDurationInHours(duration);
-            event.setState(EventState.OPEN);
+            event.setState(EventState.ABIERTO);
             return repository.save(event);
         } else {
             return null;
@@ -40,7 +40,7 @@ public class EventService {
         boolean canUpdate = duration > 0 && duration <= 8 &&
                 event.getStartDate().isAfter(LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MIN));
         return canUpdate && findById(id).map(item -> {
-            if (!item.getState().equals(EventState.COMPLETE)) {
+            if (!item.getState().equals(EventState.COMPLETADO)) {
                 event.setId(item.getId());
                 event.setEventDurationInHours(duration);
                 repository.save(event);

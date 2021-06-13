@@ -1,11 +1,11 @@
 package co.edu.ufps.innova.client.domain.dto;
 
 public enum DiscoveryChannel {
-    MINISTRY_REFERRAL,
-    BUSINESS_REFERRAL,
-    UNIVERSITY,
-    MASS_MEDIA,
-    WEBSITE,
-    SOCIAL_MEDIA,
-    OTHERS,
+    REFERIDO_DEL_MINISTERIO,
+    REFERIDO_DE_EMPRESA,
+    UNIVERSIADA,
+    MEDIOS_DE_COMUNICAION,
+    SITIO_WEB,
+    REDES_SOCIALES,
+    OTROS,
 }

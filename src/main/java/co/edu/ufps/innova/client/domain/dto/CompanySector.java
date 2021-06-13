@@ -2,8 +2,8 @@ package co.edu.ufps.innova.client.domain.dto;
 
 public enum CompanySector {
     INDUSTRIAL,
-    WHOLESALE,
-    RETAIL,
-    SERVICES,
+    VENTAS_AL_MAYOR,
+    VENTAS_AL_DETAL,
+    SERVICIOS,
     AGROINDUSTRIAL,
 }

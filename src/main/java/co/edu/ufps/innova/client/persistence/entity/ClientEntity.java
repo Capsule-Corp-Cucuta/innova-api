@@ -15,7 +15,7 @@ import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 @NoArgsConstructor
 @Table(name = "clients")
 @ToString(callSuper = true)
-@DiscriminatorValue("CLIENT")
+@DiscriminatorValue("CLIENTE")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class ClientEntity extends ContactEntity {

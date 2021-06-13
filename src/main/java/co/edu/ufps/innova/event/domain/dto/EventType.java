@@ -1,12 +1,12 @@
 package co.edu.ufps.innova.event.domain.dto;
 
 public enum EventType {
-    TALK,
-    BUSINESS_FAIR,
-    COURSE,
-    ONLINE_COURSE,
-    BUSINESS_CONFERENCE,
-    TELECONFERENCE,
-    SEMINAR,
+    CHARLA,
+    FERIA_DE_NEGOCIOS,
+    CURSO,
+    CURSO_EN_LINEA,
+    CONFERENCIA_DE_NEGOCIOS,
+    TELECONFERENCIA,
+    SEMINARIO,
     WEBINAR,
 }

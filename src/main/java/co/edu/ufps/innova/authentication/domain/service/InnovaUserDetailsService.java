@@ -27,17 +27,17 @@ public class InnovaUserDetailsService implements UserDetailsService {
             List<GrantedAuthority> authorities = new ArrayList<>();
             switch (repository.getUserType(user.get().getId())) {
                 case "CONSULTANT":
-                    authorities.add(new SimpleGrantedAuthority(UserType.CONSULTANT.name()));
+                    authorities.add(new SimpleGrantedAuthority(UserType.ASESOR.name()));
                     break;
                 case "CONTACT":
-                    authorities.add(new SimpleGrantedAuthority(UserType.CONTACT.name()));
+                    authorities.add(new SimpleGrantedAuthority(UserType.CONTACTO.name()));
                     break;
                 case "CLIENT":
-                    authorities.add(new SimpleGrantedAuthority(UserType.CLIENT.name()));
+                    authorities.add(new SimpleGrantedAuthority(UserType.CLIENTE.name()));
                     break;
                 case "ADMIN":
                 default:
-                    authorities.add(new SimpleGrantedAuthority(UserType.ADMIN.name()));
+                    authorities.add(new SimpleGrantedAuthority(UserType.ADMININSTRADOR.name()));
                     break;
             }
             return new User(

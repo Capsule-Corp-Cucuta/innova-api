@@ -28,7 +28,7 @@ public class AdvisoryService {
 
     public Advisory save(Advisory advisory) {
         if (LocalDateTime.now().isBefore(advisory.getDate())) {
-            advisory.setState(AdvisoryState.PENDING);
+            advisory.setState(AdvisoryState.PENDIENTE);
             Advisory myAdvisory = repository.save(advisory);
             try {
                 User client = userService.findById(myAdvisory.getClientId()).get();
@@ -54,7 +54,7 @@ public class AdvisoryService {
 
     public boolean update(long id, Advisory advisory) {
         return findById(id).map(item -> {
-            if (!item.getState().equals(AdvisoryState.COMPLETE)) {
+            if (!item.getState().equals(AdvisoryState.COMPLETADA)) {
                 advisory.setId(item.getId());
                 repository.save(advisory);
                 try {

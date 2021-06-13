@@ -13,7 +13,7 @@ import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 @NoArgsConstructor
 @Table(name = "contacts")
 @ToString(callSuper = true)
-@DiscriminatorValue("CONTACT")
+@DiscriminatorValue("CONTACTO")
 @EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")

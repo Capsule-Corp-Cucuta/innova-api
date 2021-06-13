@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
-@DiscriminatorValue("ADMIN")
+@DiscriminatorValue("ADMININSTRADOR")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "user_type")
 public class UserEntity {

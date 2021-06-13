@@ -12,7 +12,7 @@ import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Table(name = "consultants")
-@DiscriminatorValue("CONSULTANT")
+@DiscriminatorValue("ASESOR")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class ConsultantEntity extends UserEntity {
