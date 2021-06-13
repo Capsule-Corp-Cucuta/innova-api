@@ -20,10 +20,10 @@ public class ConsultantEntity extends UserEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "consultant", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ClientEntity> clients;
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "consultant", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdvisoryEntity> advisories;
 
     public ConsultantEntity(String id, String name, String lastname, String email, String code) {

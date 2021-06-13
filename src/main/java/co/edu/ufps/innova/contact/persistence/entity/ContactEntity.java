@@ -57,7 +57,7 @@ public class ContactEntity extends UserEntity {
     @Column(name = "company_website")
     private String companyWebsite;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contact", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InscriptionEntity> inscriptions;
 
     public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {

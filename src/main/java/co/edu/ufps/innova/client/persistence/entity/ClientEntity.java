@@ -124,7 +124,7 @@ public class ClientEntity extends ContactEntity {
     @JoinColumn(name = "consultant_id", insertable = false, updatable = false)
     private ConsultantEntity consultant;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdvisoryEntity> advisories;
 
     public ClientEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
