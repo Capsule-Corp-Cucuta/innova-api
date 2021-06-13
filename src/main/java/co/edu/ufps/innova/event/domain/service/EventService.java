@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.Event;
@@ -21,8 +22,10 @@ public class EventService {
     public Event save(Event event) {
         LocalDateTime registrationDeadLineDateTime = LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MAX);
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
-        boolean canCreate = LocalDateTime.now().isBefore(registrationDeadLineDateTime) &&
-                event.getStartDate().isAfter(registrationDeadLineDateTime) &&
+        boolean canCreate = (LocalDateTime.now().isBefore(registrationDeadLineDateTime) ||
+                LocalDateTime.now().isEqual(registrationDeadLineDateTime)) &&
+                (event.getStartDate().isAfter(registrationDeadLineDateTime) ||
+                        event.getStartDate().isEqual(registrationDeadLineDateTime)) &&
                 duration > 0 && duration <= 8;
         if (canCreate) {
             event.setEventDurationInHours(duration);
