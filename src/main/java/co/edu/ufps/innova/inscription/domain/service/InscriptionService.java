@@ -3,7 +3,6 @@ package co.edu.ufps.innova.inscription.domain.service;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.event.domain.dto.EventState;
@@ -21,7 +20,7 @@ public class InscriptionService {
     public Inscription save(Inscription inscription) {
         LocalDate now = LocalDate.now();
         return eventService.findById(inscription.getEventId()).map(event -> {
-            if (now.isBefore(event.getRegistrationDeadlineDate()) &&
+            if ((now.isBefore(event.getRegistrationDeadlineDate()) || now.isEqual(event.getRegistrationDeadlineDate())) &&
                     (event.getState() == EventState.OPEN || event.getState() == EventState.POSTPONED)
             ) {
                 inscription.setInscriptionDate(now);

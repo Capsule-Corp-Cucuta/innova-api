@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.contact.persistence.entity;
 
 import lombok.*;
-import java.util.Set;
+import java.util.List;
 import java.time.LocalDate;
 import javax.persistence.*;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
@@ -58,7 +58,7 @@ public class ContactEntity extends UserEntity {
     private String companyWebsite;
 
     @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
-    private Set<InscriptionEntity> inscriptions;
+    private List<InscriptionEntity> inscriptions;
 
     public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {
         super(id, name, lastname, email);

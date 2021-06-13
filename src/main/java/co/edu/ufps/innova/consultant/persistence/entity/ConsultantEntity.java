@@ -1,7 +1,7 @@
 package co.edu.ufps.innova.consultant.persistence.entity;
 
 import lombok.*;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
@@ -21,19 +21,14 @@ public class ConsultantEntity extends UserEntity {
     private String code;
 
     @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY)
-    private Set<ClientEntity> clients;
+    private List<ClientEntity> clients;
 
     @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY)
-    private Set<AdvisoryEntity> advisories;
+    private List<AdvisoryEntity> advisories;
 
     public ConsultantEntity(String id, String name, String lastname, String email, String code) {
         super(id, name, lastname, email);
         this.code = code;
-    }
-
-    public void setClients(Set<ClientEntity> clients) {
-        this.clients.retainAll(clients);
-        this.clients.addAll(clients);
     }
 
 }
