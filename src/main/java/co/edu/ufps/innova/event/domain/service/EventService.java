@@ -38,7 +38,7 @@ public class EventService {
     public boolean update(long id, Event event) {
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
         boolean canUpdate = duration > 0 && duration <= 8 &&
-                event.getStartDate().isAfter(LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MAX));
+                event.getStartDate().isAfter(LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MIN));
         return canUpdate && findById(id).map(item -> {
             if (!item.getState().equals(EventState.COMPLETE)) {
                 event.setId(item.getId());
