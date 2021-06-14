@@ -37,7 +37,7 @@ public class InnovaUserDetailsService implements UserDetailsService {
                     break;
                 case "ADMIN":
                 default:
-                    authorities.add(new SimpleGrantedAuthority(UserType.ADMININSTRADOR.name()));
+                    authorities.add(new SimpleGrantedAuthority(UserType.ADMINISTRADOR.name()));
                     break;
             }
             return new User(
