@@ -1,19 +1,21 @@
 package co.edu.ufps.innova.client.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import java.util.List;
 import javax.persistence.*;
 import java.time.LocalDate;
-import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.client.domain.dto.*;
+import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "clients")
-@DiscriminatorValue("CLIENT")
+@ToString(callSuper = true)
+@DiscriminatorValue("CLIENTE")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class ClientEntity extends ContactEntity {
@@ -118,12 +120,17 @@ public class ClientEntity extends ContactEntity {
     @Column(name = "consultant_id", nullable = false)
     private String consultantId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consultant_id", insertable = false, updatable = false)
     private ConsultantEntity consultant;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<AdvisoryEntity> advisories;
+
+    public ClientEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment, String consultantId) {
+        super(id, name, lastname, email, type, requestAccompaniment);
+        this.consultantId = consultantId;
+    }
 
 }
 

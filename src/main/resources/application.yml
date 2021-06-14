@@ -1,0 +1,28 @@
+info:
+  component: innova-api
+
+server:
+  servlet:
+    context-path: /innova/api
+
+spring:
+  aplication:
+    name: innova-api
+  main:
+    banner-mode: off
+  profiles:
+    active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      ssl.trust: smtp.gmail.com
+      starttls:
+        enable: true
+        required: true
+      timeout: 5000
+      writetimeout: 5000
+      connectiontimeout: 5000

@@ -1,12 +1,13 @@
 package co.edu.ufps.innova.inscription.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 @Data
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class InscriptionEntityPK implements Serializable {
 
     @Column(name = "event_id", nullable = false)

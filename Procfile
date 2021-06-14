@@ -1,0 +1,1 @@
+web: java -jar -Xmx2048m -Dspring.profiles.active=uat build/libs/innova-1.0.0.jar

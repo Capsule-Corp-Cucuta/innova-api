@@ -1,18 +1,19 @@
 package co.edu.ufps.innova.contact.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import java.util.List;
+import java.time.LocalDate;
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import lombok.EqualsAndHashCode;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
-import co.edu.ufps.innova.security.persistence.entity.UserEntity;
+import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "contacts")
-@DiscriminatorValue("CONTACT")
+@ToString(callSuper = true)
+@DiscriminatorValue("CONTACTO")
 @EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
@@ -25,10 +26,10 @@ public class ContactEntity extends UserEntity {
     private ContactType type;
 
     @Column(name = "request_accompaniment", nullable = false)
-    private boolean requestAccompaniment;
+    private Boolean requestAccompaniment;
 
     @Column(nullable = false)
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
     private String nit;
 
@@ -56,7 +57,14 @@ public class ContactEntity extends UserEntity {
     @Column(name = "company_website")
     private String companyWebsite;
 
-    @OneToMany(mappedBy = "contact")
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     private List<InscriptionEntity> inscriptions;
+
+    public ContactEntity(String id, String name, String lastname, String email, ContactType type, boolean requestAccompaniment) {
+        super(id, name, lastname, email);
+        this.type = type;
+        this.requestAccompaniment = requestAccompaniment;
+        this.registrationDate = LocalDate.now();
+    }
 
 }

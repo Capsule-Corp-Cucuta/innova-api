@@ -1,9 +1,9 @@
 package co.edu.ufps.innova.client.domain.dto;
 
 public enum EthnicGroup {
-    GYPSY,
-    INDIGENOUS,
-    AFRO_COLOMBIAN,
+    GITANO,
+    INDIGENA,
+    AFRO_COLOMBIANO,
     RAIZALES,
-    OTHER,
+    OTRO,
 }

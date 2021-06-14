@@ -3,7 +3,7 @@ package co.edu.ufps.innova.client.domain.mapper;
 import org.mapstruct.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.security.persistence.mapper.IUserMapper;
+import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
 import co.edu.ufps.innova.consultant.persistence.mapper.IConsultantMapper;
 
@@ -20,8 +20,8 @@ public interface IClientDomainMapper {
             @Mapping(target = "gender", ignore = true),
             @Mapping(target = "ethnicGroup", ignore = true),
             @Mapping(target = "educationalLevel", ignore = true),
-            @Mapping(target = "isDisplaced", ignore = true),
-            @Mapping(target = "isHandicapped", ignore = true),
+            @Mapping(target = "displaced", ignore = true),
+            @Mapping(target = "handicapped", ignore = true),
             @Mapping(target = "positionInCompany", ignore = true),
             @Mapping(target = "dateOfEntryToCompany", ignore = true),
             @Mapping(target = "companyLegalRepresentative", ignore = true),
@@ -41,7 +41,7 @@ public interface IClientDomainMapper {
             @Mapping(target = "principalCodeCiiu", ignore = true),
             @Mapping(target = "internationalActivity", ignore = true),
             @Mapping(target = "internationalActivityCountries", ignore = true),
-            @Mapping(target = "isEcommerce", ignore = true),
+            @Mapping(target = "ecommerce", ignore = true),
             @Mapping(target = "servicesProductsOffered", ignore = true),
             @Mapping(target = "discoveryChannel", ignore = true),
             @Mapping(target = "observations", ignore = true),

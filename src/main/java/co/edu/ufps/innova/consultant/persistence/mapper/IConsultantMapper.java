@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.InheritInverseConfiguration;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
-import co.edu.ufps.innova.security.persistence.mapper.IUserMapper;
+import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
 @Mapper(componentModel = "spring", uses = {IUserMapper.class})

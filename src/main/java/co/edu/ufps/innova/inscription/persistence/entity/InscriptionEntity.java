@@ -1,13 +1,14 @@
 package co.edu.ufps.innova.inscription.persistence.entity;
 
-import lombok.Data;
+import lombok.*;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "inscriptions")
 public class InscriptionEntity {
 
@@ -15,17 +16,22 @@ public class InscriptionEntity {
     private InscriptionEntityPK id;
 
     @Column(name = "inscription_date")
-    private LocalDateTime inscriptionDate;
+    private LocalDate inscriptionDate;
 
     private Boolean attended;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", insertable = false, updatable = false)
     private EventEntity event;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private ContactEntity contact;
+
+    public InscriptionEntity(Long eventId, String userId) {
+        this.id = new InscriptionEntityPK(eventId, userId);
+        this.inscriptionDate = LocalDate.now();
+    }
 
 }
 
