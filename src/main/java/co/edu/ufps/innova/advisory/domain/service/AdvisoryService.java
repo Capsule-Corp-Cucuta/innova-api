@@ -20,12 +20,16 @@ import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AdvisoryService {
+public class AdvisoryService implements IAdvisoryService {
 
     private final IUserService userService;
     private final IEmailService emailService;
     private final IAdvisoryRepository repository;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Advisory save(Advisory advisory) {
         if (LocalDateTime.now().isBefore(advisory.getDate())) {
             advisory.setState(AdvisoryState.PENDIENTE);
@@ -52,6 +56,10 @@ public class AdvisoryService {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean update(long id, Advisory advisory) {
         return findById(id).map(item -> {
             if (!item.getState().equals(AdvisoryState.COMPLETADA)) {
@@ -73,14 +81,26 @@ public class AdvisoryService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Advisory> findAll() {
         return repository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<Advisory> findById(long id) {
         return repository.findById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean delete(long id) {
         return findById(id).map(advisory -> {
             repository.delete(advisory);
@@ -88,32 +108,56 @@ public class AdvisoryService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findBetweenDates(startDate, endDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findByConsultant(String consultantId) {
         return repository.findByConsultant(consultantId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findByConsultantAndBetweenDates(String consultantId,
-                                                                   LocalDateTime startDate,
-                                                                   LocalDateTime endDate) {
+                                                                    LocalDateTime startDate,
+                                                                    LocalDateTime endDate) {
         return repository.findByConsultantAndBetweenDates(consultantId, startDate, endDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findByClient(String clientId) {
         return repository.findByClient(clientId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findByConsultantAndClient(String consultantId, String clientId) {
         return repository.findByConsultantAndClient(consultantId, clientId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Advisory>> findByConsultantAndClientBetweenDates(String consultantId,
-                                                                         String clientId,
-                                                                         LocalDateTime startDate,
-                                                                         LocalDateTime endDate) {
+                                                                          String clientId,
+                                                                          LocalDateTime startDate,
+                                                                          LocalDateTime endDate) {
         return repository.findByConsultantAndClientBetweenDates(consultantId, clientId, startDate, endDate);
     }
 

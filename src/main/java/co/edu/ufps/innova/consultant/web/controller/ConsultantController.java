@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.consultant.domain.dto.Consultant;
-import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
+import co.edu.ufps.innova.consultant.domain.service.IConsultantService;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
 @RequestMapping("/consultant")
 public class ConsultantController {
 
-    private final ConsultantService service;
+    private final IConsultantService service;
 
     @PostMapping
     @ApiOperation("Save a new Consultant")

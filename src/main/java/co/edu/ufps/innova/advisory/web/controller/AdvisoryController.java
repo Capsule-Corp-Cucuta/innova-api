@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
-import co.edu.ufps.innova.advisory.domain.service.AdvisoryService;
+import co.edu.ufps.innova.advisory.domain.service.IAdvisoryService;
 
 @RestController
 @Api(tags = "advisory")
@@ -23,7 +23,7 @@ import co.edu.ufps.innova.advisory.domain.service.AdvisoryService;
 @RequestMapping("/advisory")
 public class AdvisoryController {
 
-    private final AdvisoryService service;
+    private final IAdvisoryService service;
 
     @PostMapping
     @ApiOperation("Save a new Advisory")

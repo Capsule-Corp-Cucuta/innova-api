@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.event.domain.dto.Event;
-import co.edu.ufps.innova.event.domain.service.EventService;
+import co.edu.ufps.innova.event.domain.service.IEventService;
 
 @RestController
 @Api(tags = "event")
@@ -23,7 +23,7 @@ import co.edu.ufps.innova.event.domain.service.EventService;
 @RequestMapping("/event")
 public class EventController {
 
-    private final EventService service;
+    private final IEventService service;
 
     @PostMapping
     @ApiOperation("Save a new Event")

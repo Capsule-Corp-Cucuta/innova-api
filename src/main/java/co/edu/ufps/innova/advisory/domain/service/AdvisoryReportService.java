@@ -7,17 +7,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryReport;
-import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
+import co.edu.ufps.innova.consultant.domain.service.IConsultantService;
 import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AdvisoryReportService {
+public class AdvisoryReportService implements IAdvisoryReportService {
 
     private final IAdvisoryRepository repository;
-    private final AdvisoryService advisoryService;
-    private final ConsultantService consultantService;
+    private final IAdvisoryService advisoryService;
+    private final IConsultantService consultantService;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<AdvisoryReport> getGeneralReport() {
         List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
@@ -26,6 +30,10 @@ public class AdvisoryReportService {
         return advisoryReports;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<AdvisoryReport> getGeneralReportBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
@@ -38,6 +46,10 @@ public class AdvisoryReportService {
         return advisoryReports;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long countHoursByConsultant(String consultantId) {
         return advisoryService.findByConsultant(consultantId)
                 .map(advisories -> advisories.stream()
@@ -45,6 +57,10 @@ public class AdvisoryReportService {
                 ).orElse(0L);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long countHoursByConsultantBetweenDates(String consultantId, LocalDateTime startDate,
                                                    LocalDateTime endDate) {
         return advisoryService.findByConsultantAndBetweenDates(consultantId, startDate, endDate)
@@ -53,6 +69,10 @@ public class AdvisoryReportService {
                 ).orElse(0L);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<AdvisoryReport> getGeneralReportWithPreparationTime() {
         List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
@@ -65,6 +85,10 @@ public class AdvisoryReportService {
         return advisoryReports;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<AdvisoryReport> getGeneralReportWithPreparationTimeBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         List<AdvisoryReport> advisoryReports = new ArrayList<>();
         consultantService.findAll().stream()
@@ -79,6 +103,10 @@ public class AdvisoryReportService {
         return advisoryReports;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long countHoursByConsultantWithPreparationTime(String consultantId) {
         return advisoryService.findByConsultant(consultantId)
                 .map(advisories -> advisories.stream()
@@ -87,6 +115,10 @@ public class AdvisoryReportService {
                 .orElse(0L);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long countHoursByConsultantWithPreparationTimeBetweenDates(String consultantId, LocalDateTime startDate,
                                                                       LocalDateTime endDate) {
         return advisoryService.findByConsultantAndBetweenDates(consultantId, startDate, endDate)
@@ -96,6 +128,10 @@ public class AdvisoryReportService {
                 .orElse(0L);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long countAdvisoriesByConsultantBetweenDates(String consultantId, LocalDateTime startDate, LocalDateTime endDate) {
         return repository.countByConsultantBetweenDates(consultantId, startDate, endDate);
     }

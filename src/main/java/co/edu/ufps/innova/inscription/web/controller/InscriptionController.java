@@ -10,15 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
-import co.edu.ufps.innova.inscription.domain.service.InscriptionService;
+import co.edu.ufps.innova.inscription.domain.service.IInscriptionService;
 
 @RestController
-@Api("inscription")
 @RequiredArgsConstructor
+@Api(tags = "inscription")
 @RequestMapping("/inscription")
 public class InscriptionController {
 
-    private final InscriptionService service;
+    private final IInscriptionService service;
 
     @PostMapping
     @ApiOperation("Save a new Inscription")

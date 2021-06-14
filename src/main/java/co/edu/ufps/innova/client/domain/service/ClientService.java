@@ -7,21 +7,21 @@ import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.user.domain.service.IUserService;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
-import co.edu.ufps.innova.contact.domain.service.ContactService;
+import co.edu.ufps.innova.contact.domain.service.IContactService;
 import co.edu.ufps.innova.client.domain.mapper.IClientDomainMapper;
 import co.edu.ufps.innova.client.domain.repository.IClientRepository;
-import co.edu.ufps.innova.consultant.domain.service.ConsultantService;
+import co.edu.ufps.innova.consultant.domain.service.IConsultantService;
 import co.edu.ufps.innova.inscription.domain.service.InscriptionService;
 
 @Service
 @RequiredArgsConstructor
-public class ClientService {
+public class ClientService implements IClientService {
 
     private final IUserService userService;
     private final IClientDomainMapper mapper;
     private final IClientRepository repository;
-    private final ContactService contactService;
-    private final ConsultantService consultantService;
+    private final IContactService contactService;
+    private final IConsultantService consultantService;
     private final InscriptionService inscriptionService;
 
     public Client save(String contactId, String consultantId) {

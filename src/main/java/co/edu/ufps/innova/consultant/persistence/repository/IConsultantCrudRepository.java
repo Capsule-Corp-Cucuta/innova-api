@@ -10,6 +10,7 @@ public interface IConsultantCrudRepository extends CrudRepository<ConsultantEnti
     /**
      * Method for get a list of active Consultants
      *
+     * @param active state of the Consultant
      * @return all active Consultants
      */
     Optional<List<ConsultantEntity>> findByActive(boolean active);

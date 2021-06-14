@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import co.edu.ufps.innova.user.domain.dto.UserType;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
 import co.edu.ufps.innova.client.persistence.mapper.IClientMapper;
@@ -12,6 +13,8 @@ import co.edu.ufps.innova.client.domain.repository.IClientRepository;
 @Repository
 @RequiredArgsConstructor
 public class ClientRepository implements IClientRepository {
+
+    private final String USER_TYPE = UserType.CLIENTE.name();
 
     private final IClientMapper mapper;
     private final IClientCrudRepository repository;
@@ -24,7 +27,7 @@ public class ClientRepository implements IClientRepository {
         ClientEntity entity = mapper.toClientEntity(client);
         entity.setActive(true);
         entity.setPassword(password);
-        entity.setUserType("CLIENTE");
+        entity.setUserType(USER_TYPE);
         return mapper.toClient(repository.save(entity));
     }
 

@@ -2,8 +2,6 @@ package co.edu.ufps.innova.inscription.persistence.reposiroty;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;

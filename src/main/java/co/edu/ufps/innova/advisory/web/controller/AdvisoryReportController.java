@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import co.edu.ufps.innova.advisory.domain.dto.AdvisoryReport;
-import co.edu.ufps.innova.advisory.domain.service.AdvisoryReportService;
+import co.edu.ufps.innova.advisory.domain.service.IAdvisoryReportService;
 
 @RestController
 @Api(tags = "advisory-report")
@@ -26,7 +26,7 @@ import co.edu.ufps.innova.advisory.domain.service.AdvisoryReportService;
 @RequestMapping("/advisory-report")
 public class AdvisoryReportController {
 
-    private final AdvisoryReportService service;
+    private final IAdvisoryReportService service;
 
     @GetMapping
     @ApiOperation("Get a general report of hours of advisories by consultants")

@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
-import co.edu.ufps.innova.contact.domain.service.ContactService;
+import co.edu.ufps.innova.contact.domain.service.IContactService;
 
 @RestController
 @Api(tags = "contact")
@@ -18,7 +18,7 @@ import co.edu.ufps.innova.contact.domain.service.ContactService;
 @RequestMapping("/contact")
 public class ContactController {
 
-    private final ContactService service;
+    private final IContactService service;
 
     @PostMapping
     @ApiOperation("Save a new Contact")

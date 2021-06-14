@@ -33,20 +33,31 @@ public interface IInscriptionRepository {
     /**
      * Method for delete an Inscription
      *
-     * @param inscription
+     * @param inscription to delete
      */
     void delete(Inscription inscription);
 
+    /**
+     * Method for delete a list of Inscriptions
+     *
+     * @param inscriptions to delete
+     */
     void deleteAll(List<Inscription> inscriptions);
 
     /**
-     * Method for find an Inscription by event id
+     * Method for find all Inscriptions by event id
      *
      * @param eventId of event
      * @return all Inscriptions with the given event id
      */
     Optional<List<Inscription>> findByEventId(long eventId);
 
+    /**
+     * Method for find all Inscriptions by user id
+     *
+     * @param userId of User
+     * @return all Inscriptions with the given user id
+     */
     Optional<List<Inscription>> findByUserId(String userId);
 
 }

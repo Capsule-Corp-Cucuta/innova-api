@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import co.edu.ufps.innova.user.domain.dto.UserType;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
@@ -13,7 +14,7 @@ import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 @RequiredArgsConstructor
 public class ContactRepository implements IContactRepository {
 
-    private final String USER_TYPE = "CONTACTO";
+    private final String USER_TYPE = UserType.CONTACTO.name();
 
     private final IContactMapper mapper;
     private final IContactCrudRepository repository;

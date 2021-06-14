@@ -14,17 +14,19 @@ import co.edu.ufps.innova.event.domain.repository.IEventRepository;
 
 @Service
 @RequiredArgsConstructor
-public class EventService {
+public class EventService implements IEventService {
 
     private final IEventRepository repository;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Event save(Event event) {
-        LocalDateTime registrationDeadLineDateTime = LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MAX);
+        LocalDateTime registrationDeadLineDateTime = LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MIN);
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
-        boolean canCreate = (LocalDateTime.now().isBefore(registrationDeadLineDateTime) ||
-                LocalDateTime.now().isEqual(registrationDeadLineDateTime)) &&
-                (event.getStartDate().isAfter(registrationDeadLineDateTime) ||
-                        event.getStartDate().isEqual(registrationDeadLineDateTime)) &&
+        boolean canCreate = registrationDeadLineDateTime.isAfter(LocalDateTime.now()) &&
+                event.getStartDate().isAfter(registrationDeadLineDateTime) &&
                 duration > 0 && duration <= 8;
         if (canCreate) {
             event.setEventDurationInHours(duration);
@@ -35,6 +37,10 @@ public class EventService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean update(long id, Event event) {
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
         boolean canUpdate = duration > 0 && duration <= 8 &&
@@ -50,14 +56,26 @@ public class EventService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Event> findAll() {
         return repository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<Event> findById(long id) {
         return repository.findById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean delete(long id) {
         return findById(id).map(event -> {
             repository.delete(event);
@@ -65,10 +83,18 @@ public class EventService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Event>> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findBetweenDates(startDate, endDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Event>> findByRegistrationDeadlineDateAfterNow() {
         return repository.findByRegistrationDeadlineDateAfter(LocalDate.now());
     }

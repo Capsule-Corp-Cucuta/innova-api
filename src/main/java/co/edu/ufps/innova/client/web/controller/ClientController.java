@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
-import co.edu.ufps.innova.client.domain.service.ClientService;
+import co.edu.ufps.innova.client.domain.service.IClientService;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ import co.edu.ufps.innova.client.domain.service.ClientService;
 @RequestMapping("/client")
 public class ClientController {
 
-    private final ClientService service;
+    private final IClientService service;
 
     @PostMapping
     @ApiOperation("Save a new Client")

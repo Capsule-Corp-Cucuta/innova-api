@@ -14,13 +14,17 @@ import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
 @Service
 @RequiredArgsConstructor
-public class ContactService {
+public class ContactService implements IContactService {
 
     private final IUserService userService;
     private final IEmailService emailService;
     private final IContactRepository repository;
     private final IPasswordService passwordService;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Contact save(Contact contact) {
         if (userService.findById(contact.getId()).isPresent()) userService.delete(contact.getId());
         contact.setRegistrationDate(LocalDate.now());
@@ -34,6 +38,10 @@ public class ContactService {
         return newContact;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean update(String id, Contact contact) {
         return findById(id).map(item -> {
             contact.setId(id);
@@ -43,14 +51,26 @@ public class ContactService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Contact>> findAll() {
         return repository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<Contact> findById(String id) {
         return repository.findById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean delete(String id) {
         return findById(id).map(contact -> {
             repository.delete(contact);
@@ -58,10 +78,18 @@ public class ContactService {
         }).orElse(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<List<Contact>> findByRequestAccompaniment() {
         return repository.findByRequestAccompaniment();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean requestAccompaniment(String id) {
         return findById(id).map(item -> {
             item.setRequestAccompaniment(true);

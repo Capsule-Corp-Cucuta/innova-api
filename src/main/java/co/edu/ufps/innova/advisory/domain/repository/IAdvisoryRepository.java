@@ -25,7 +25,8 @@ public interface IAdvisoryRepository {
     /**
      * Method for find an Advisory by id
      *
-     * @return Advisory with the given id
+     * @param id of the Advisory
+     * @return the Advisory with the given id
      */
     Optional<Advisory> findById(long id);
 

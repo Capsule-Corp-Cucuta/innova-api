@@ -50,6 +50,7 @@ public interface IEventRepository {
     /**
      * Method for list all Events with registration dead line date after a date
      *
+     * @param date could be now
      * @return all Events with registration dead line date after a date
      */
     Optional<List<Event>> findByRegistrationDeadlineDateAfter(LocalDate date);
