@@ -13,7 +13,8 @@ import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 @RequiredArgsConstructor
 public class ContactRepository implements IContactRepository {
 
-    private final String USER_TYPE = "CONTACT";
+    private final String USER_TYPE = "CONTACTO";
+
     private final IContactMapper mapper;
     private final IContactCrudRepository repository;
 
@@ -25,7 +26,7 @@ public class ContactRepository implements IContactRepository {
         ContactEntity entity = mapper.toContactEntity(contact);
         entity.setPassword(password);
         entity.setActive(true);
-        entity.setUserType("CONTACTO");
+        entity.setUserType(USER_TYPE);
         return mapper.toContact(repository.save(entity));
     }
 
