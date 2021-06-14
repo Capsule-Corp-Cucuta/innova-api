@@ -4,5 +4,5 @@ public enum UserType {
     ADMINISTRADOR,
     ASESOR,
     CONTACTO,
-    CLIENTE
+    CLIENTE,
 }

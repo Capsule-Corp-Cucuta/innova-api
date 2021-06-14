@@ -24,7 +24,7 @@ public class ClientRepository implements IClientRepository {
         ClientEntity entity = mapper.toClientEntity(client);
         entity.setActive(true);
         entity.setPassword(password);
-        entity.setUserType("CLIENT");
+        entity.setUserType("CLIENTE");
         return mapper.toClient(repository.save(entity));
     }
 

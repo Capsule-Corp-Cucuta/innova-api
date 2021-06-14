@@ -25,7 +25,7 @@ public class ContactRepository implements IContactRepository {
         ContactEntity entity = mapper.toContactEntity(contact);
         entity.setPassword(password);
         entity.setActive(true);
-        entity.setUserType("CONTACT");
+        entity.setUserType("CONTACTO");
         return mapper.toContact(repository.save(entity));
     }
 
