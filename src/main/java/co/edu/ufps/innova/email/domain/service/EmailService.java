@@ -5,9 +5,10 @@ import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,6 +20,7 @@ public class EmailService implements IEmailService {
     @Value("${website.path}")
     private String WEBSITE;
     private final JavaMailSender sender;
+    private final ResourceLoader resourceLoader;
 
 
     /**
@@ -113,13 +115,13 @@ public class EmailService implements IEmailService {
         return send;
     }
 
-    private static String getTemplate(String templateName){
+    private String getTemplate(String templateName){
         String template = "";
         try {
-            String line = null;
+            String line;
             String classpath = String.format("classpath:assets/%s", templateName);
-            File file = ResourceUtils.getFile(classpath);
-            InputStream in = new FileInputStream(file);
+            Resource resource = resourceLoader.getResource(classpath);
+            InputStream in = resource.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             while ((line = bufferedReader.readLine()) != null) {
