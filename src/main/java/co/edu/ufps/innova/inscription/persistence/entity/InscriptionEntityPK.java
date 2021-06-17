@@ -4,6 +4,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Data
 @Embeddable
 @NoArgsConstructor

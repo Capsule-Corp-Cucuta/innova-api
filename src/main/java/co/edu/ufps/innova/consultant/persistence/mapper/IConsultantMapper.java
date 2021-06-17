@@ -9,6 +9,11 @@ import co.edu.ufps.innova.consultant.domain.dto.Consultant;
 import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Mapper(componentModel = "spring", uses = {IUserMapper.class})
 public interface IConsultantMapper {
 

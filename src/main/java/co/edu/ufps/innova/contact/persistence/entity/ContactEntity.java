@@ -8,6 +8,11 @@ import co.edu.ufps.innova.contact.domain.dto.ContactType;
 import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Data
 @Entity
 @NoArgsConstructor

@@ -9,6 +9,11 @@ import co.edu.ufps.innova.inscription.persistence.mapper.IInscriptionMapper;
 import co.edu.ufps.innova.inscription.persistence.entity.InscriptionEntityPK;
 import co.edu.ufps.innova.inscription.domain.repository.IInscriptionRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Repository
 @RequiredArgsConstructor
 public class InscriptionRepository implements IInscriptionRepository {

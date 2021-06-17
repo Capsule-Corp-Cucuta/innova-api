@@ -12,6 +12,11 @@ import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.contact.domain.repository.IContactRepository;
 import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class ContactService implements IContactService {

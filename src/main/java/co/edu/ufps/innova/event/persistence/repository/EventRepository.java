@@ -11,6 +11,11 @@ import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 import co.edu.ufps.innova.event.persistence.mapper.IEventMapper;
 import co.edu.ufps.innova.event.domain.repository.IEventRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Repository
 @RequiredArgsConstructor
 public class EventRepository implements IEventRepository {

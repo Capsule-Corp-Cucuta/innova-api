@@ -12,6 +12,11 @@ import co.edu.ufps.innova.contact.persistence.mapper.IContactMapper;
 import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 import co.edu.ufps.innova.consultant.persistence.mapper.IConsultantMapper;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Mapper(componentModel = "spring", uses = {IUserMapper.class, IConsultantMapper.class, IContactMapper.class, IClientMapper.class})
 public interface IAdvisoryMapper {
 

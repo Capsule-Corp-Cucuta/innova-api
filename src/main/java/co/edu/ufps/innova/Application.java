@@ -7,6 +7,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @SpringBootApplication
 public class Application {
 

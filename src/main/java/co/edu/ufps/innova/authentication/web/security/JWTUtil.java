@@ -7,6 +7,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Component
 public class JWTUtil {
 

@@ -12,6 +12,11 @@ import co.edu.ufps.innova.event.domain.dto.Event;
 import co.edu.ufps.innova.event.domain.dto.EventState;
 import co.edu.ufps.innova.event.domain.repository.IEventRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class EventService implements IEventService {
@@ -27,7 +32,7 @@ public class EventService implements IEventService {
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
         boolean canCreate = registrationDeadLineDateTime.isAfter(LocalDateTime.now()) &&
                 event.getStartDate().isAfter(registrationDeadLineDateTime) &&
-                duration > 0 && duration <= 8;
+                duration > 0 && duration <= 12;
         if (canCreate) {
             event.setEventDurationInHours(duration);
             event.setState(EventState.ABIERTO);
@@ -43,7 +48,7 @@ public class EventService implements IEventService {
     @Override
     public boolean update(long id, Event event) {
         byte duration = (byte) Duration.between(event.getStartDate(), event.getCloseDate()).toHours();
-        boolean canUpdate = duration > 0 && duration <= 8 &&
+        boolean canUpdate = duration > 0 && duration <= 12 &&
                 event.getStartDate().isAfter(LocalDateTime.of(event.getRegistrationDeadlineDate(), LocalTime.MIN));
         return canUpdate && findById(id).map(item -> {
             if (!item.getState().equals(EventState.COMPLETADO)) {

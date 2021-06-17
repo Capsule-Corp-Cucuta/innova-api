@@ -10,6 +10,11 @@ import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 import co.edu.ufps.innova.advisory.persistence.mapper.IAdvisoryMapper;
 import co.edu.ufps.innova.advisory.domain.repository.IAdvisoryRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Repository
 @RequiredArgsConstructor
 public class AdvisoryRepository implements IAdvisoryRepository {

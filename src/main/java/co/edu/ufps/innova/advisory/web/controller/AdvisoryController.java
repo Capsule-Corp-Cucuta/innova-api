@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.advisory.domain.dto.Advisory;
 import co.edu.ufps.innova.advisory.domain.service.IAdvisoryService;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @RestController
 @Api(tags = "advisory")
 @RequiredArgsConstructor

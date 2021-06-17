@@ -14,6 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class InnovaUserDetailsService implements UserDetailsService {

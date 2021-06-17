@@ -6,6 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import co.edu.ufps.innova.event.domain.dto.Event;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 public interface IEventRepository {
 
     /**

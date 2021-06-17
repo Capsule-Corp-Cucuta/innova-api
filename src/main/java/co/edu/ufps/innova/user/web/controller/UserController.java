@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.user.domain.service.IUserService;
 import co.edu.ufps.innova.authentication.domain.dto.PasswordChange;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @RestController
 @Api(tags = "user")
 @RequestMapping("/user")

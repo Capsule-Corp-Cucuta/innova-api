@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 public interface IEventCrudRepository extends CrudRepository<EventEntity, Long> {
 
     /**

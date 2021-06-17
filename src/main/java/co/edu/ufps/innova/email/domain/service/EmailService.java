@@ -1,29 +1,44 @@
 package co.edu.ufps.innova.email.domain.service;
 
+import java.io.*;
 import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import co.edu.ufps.innova.email.domain.dto.Email;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class EmailService implements IEmailService {
 
+    @Value("${website.path}")
+    private String WEBSITE;
     private final JavaMailSender sender;
+    private final ResourceLoader resourceLoader;
+
 
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean sendNewUserEmail(String userEmail, String newPassword) {
+        String content = getTemplate("signup.html")
+                .replace("[password]", newPassword).replace("[website]", WEBSITE);
         Email email = new Email();
         email.setTo(userEmail);
         email.setSubject("Innova - Registro exitoso");
-        email.setContent(String.format("Con esta contraseña podrá ingresar a la plataforma: %s recomendamos " +
-                "cambie esta contraseña desde la plataforma apenas ingrese a la misma.", newPassword));
+        email.setContent(content);
         return sendEmailTool(email);
     }
 
@@ -32,12 +47,12 @@ public class EmailService implements IEmailService {
      */
     @Override
     public boolean sendRecoverPasswordEmail(String userEmail, String newPassword) {
+        String content = getTemplate("recovery-password.html")
+                .replace("[password]", newPassword).replace("[website]", WEBSITE);
         Email email = new Email();
         email.setTo(userEmail);
         email.setSubject("Innova - Cambio de contraseña");
-        email.setContent(String.format("Con esta nueva contraseña podrá ingresar a la plataforma: %s " +
-                        "recomendamos cambie esta contraseña desde la plataforma apenas ingrese a la misma.",
-                newPassword));
+        email.setContent(content);
         return sendEmailTool(email);
     }
 
@@ -52,18 +67,18 @@ public class EmailService implements IEmailService {
                                             String consultantEmail,
                                             String advisoryDate,
                                             String advisoryHour) {
+        String content = getTemplate("new-advisory.html")
+                .replace("[client-name]", clientName)
+                .replace("[consultant-name]", consultantName)
+                .replace("[consultant-lastname]", consultantLastName)
+                .replace("[consultant-email]", consultantEmail)
+                .replace("[date]", advisoryDate)
+                .replace("[hour]", advisoryHour)
+                .replace("[website]", WEBSITE);
         Email email = new Email();
         email.setTo(clientEmail);
         email.setSubject("Innova - Asesoría agendada");
-        email.setContent(String.format("Hola %s, fuiste agendado(a) para una asesoría con %s %s para el día %s " +
-                        "a la(s) %s. Revisala desde la aplicación; en caso de cualquier inquietud puedes " +
-                        "contactarte con tu asesor en el siguiente correo:  %s.",
-                clientName,
-                consultantName,
-                consultantLastName,
-                advisoryDate,
-                advisoryHour,
-                consultantEmail));
+        email.setContent(content);
         return sendEmailTool(email);
     }
 
@@ -72,14 +87,38 @@ public class EmailService implements IEmailService {
      */
     @Override
     public boolean sendUpdatedAdviceEmail(String clientEmail, String consultantEmail, String advisoryDate) {
+        String content = getTemplate("advisory-updated.html")
+                .replace("[consultant-email]", consultantEmail)
+                .replace("[date]", advisoryDate)
+                .replace("[website]", WEBSITE);
         Email email = new Email();
         email.setTo(clientEmail);
         email.setSubject("Innova - Asesoría modificada");
-        email.setContent(String.format("La asesoría en la que estás agendado(a) para el día %s fue modificada, " +
-                        "puedes validarla en la aplicación y en caso de cualquier inquietud puedes contactarte " +
-                        "con tu asesor en el siguiente correo: %s.",
-                advisoryDate,
-                consultantEmail));
+        email.setContent(content);
+        return sendEmailTool(email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean sendScheduledEventEmail(String clientName,
+                                    String clientEmail,
+                                    String eventTitle,
+                                    String eventDate,
+                                    String eventHour,
+                                    String eventEmail) {
+        String content = getTemplate("registered-to-event.html")
+                .replace("[client-name]", clientName)
+                .replace("[event-title]", eventTitle)
+                .replace("[date]", eventDate)
+                .replace("[hour]", eventHour)
+                .replace("[event-email]", eventEmail)
+                .replace("[website]", WEBSITE);
+        Email email = new Email();
+        email.setTo(clientEmail);
+        email.setSubject("Innova - Registro a evento exitoso");
+        email.setContent(content);
         return sendEmailTool(email);
     }
 
@@ -103,6 +142,24 @@ public class EmailService implements IEmailService {
             e.printStackTrace();
         }
         return send;
+    }
+
+    private String getTemplate(String templateName){
+        String template = "";
+        try {
+            String line;
+            String classpath = String.format("classpath:assets/%s", templateName);
+            Resource resource = resourceLoader.getResource(classpath);
+            InputStream in = resource.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            while ((line = bufferedReader.readLine()) != null) {
+                template += line;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return template;
     }
 
 }
