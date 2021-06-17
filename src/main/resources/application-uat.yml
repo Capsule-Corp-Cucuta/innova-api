@@ -16,7 +16,7 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 website:
   path: ${WEBSITE_PATH}
