@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import co.edu.ufps.innova.inscription.domain.dto.Inscription;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 public interface IInscriptionService {
 
     /**

@@ -9,6 +9,11 @@ import co.edu.ufps.innova.user.persistence.entity.UserEntity;
 import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.user.domain.repository.IUserRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Repository
 @RequiredArgsConstructor
 public class UserRepository implements IUserRepository {

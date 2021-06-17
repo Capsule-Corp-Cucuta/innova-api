@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

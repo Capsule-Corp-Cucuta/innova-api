@@ -13,6 +13,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class EmailService implements IEmailService {
@@ -89,6 +94,30 @@ public class EmailService implements IEmailService {
         Email email = new Email();
         email.setTo(clientEmail);
         email.setSubject("Innova - Asesoría modificada");
+        email.setContent(content);
+        return sendEmailTool(email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean sendScheduledEventEmail(String clientName,
+                                    String clientEmail,
+                                    String eventTitle,
+                                    String eventDate,
+                                    String eventHour,
+                                    String eventEmail) {
+        String content = getTemplate("registered-to-event.html")
+                .replace("[client-name]", clientName)
+                .replace("[event-title]", eventTitle)
+                .replace("[date]", eventDate)
+                .replace("[hour]", eventHour)
+                .replace("[event-email]", eventEmail)
+                .replace("[website]", WEBSITE);
+        Email email = new Email();
+        email.setTo(clientEmail);
+        email.setSubject("Innova - Registro a evento exitoso");
         email.setContent(content);
         return sendEmailTool(email);
     }

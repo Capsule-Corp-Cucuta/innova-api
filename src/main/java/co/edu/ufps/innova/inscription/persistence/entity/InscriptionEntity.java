@@ -6,6 +6,11 @@ import java.time.LocalDate;
 import co.edu.ufps.innova.event.persistence.entity.EventEntity;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Data
 @Entity
 @NoArgsConstructor

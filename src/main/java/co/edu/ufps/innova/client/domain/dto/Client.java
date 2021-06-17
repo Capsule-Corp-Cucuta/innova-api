@@ -6,6 +6,11 @@ import java.io.Serializable;
 import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.contact.domain.dto.ContactType;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)

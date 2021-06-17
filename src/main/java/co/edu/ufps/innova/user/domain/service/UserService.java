@@ -10,6 +10,11 @@ import co.edu.ufps.innova.email.domain.service.IEmailService;
 import co.edu.ufps.innova.user.domain.repository.IUserRepository;
 import co.edu.ufps.innova.authentication.domain.service.IPasswordService;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {

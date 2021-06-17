@@ -9,6 +9,11 @@ import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 import co.edu.ufps.innova.consultant.persistence.mapper.IConsultantMapper;
 import co.edu.ufps.innova.consultant.domain.repository.IConsultantRepository;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Repository
 @RequiredArgsConstructor
 public class ConsultantRepository implements IConsultantRepository {

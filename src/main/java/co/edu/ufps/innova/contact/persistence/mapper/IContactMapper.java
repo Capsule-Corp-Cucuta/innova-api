@@ -6,6 +6,11 @@ import co.edu.ufps.innova.contact.domain.dto.Contact;
 import co.edu.ufps.innova.user.persistence.mapper.IUserMapper;
 import co.edu.ufps.innova.contact.persistence.entity.ContactEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Mapper(componentModel = "spring", uses = {IUserMapper.class})
 public interface IContactMapper {
 

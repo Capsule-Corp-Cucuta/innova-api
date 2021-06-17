@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 import org.springframework.data.repository.CrudRepository;
 import co.edu.ufps.innova.advisory.persistence.entity.AdvisoryEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 public interface IAdvisoryCrudRepository extends CrudRepository<AdvisoryEntity, Long> {
 
     /**

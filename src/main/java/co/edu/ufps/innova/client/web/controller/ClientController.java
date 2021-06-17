@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import co.edu.ufps.innova.client.domain.dto.Client;
 import co.edu.ufps.innova.client.domain.service.IClientService;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "client")

@@ -9,6 +9,11 @@ import co.edu.ufps.innova.advisory.domain.dto.AdvisoryState;
 import co.edu.ufps.innova.client.persistence.entity.ClientEntity;
 import co.edu.ufps.innova.consultant.persistence.entity.ConsultantEntity;
 
+/**
+ * @author <a href="mailto:sergioandresrr@ufps.edu.co">Sergio Rodríguez</a>
+ * @version 1.0.0
+ * @since 2021
+ */
 @Data
 @Entity
 @NoArgsConstructor
